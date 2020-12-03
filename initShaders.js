@@ -1,16 +1,5 @@
-//////////////////////////////////////////////////////////////////////////////
-//
-//  initShaders.js 
-//
-//	Getting, compiling and linking the vertex and the fragment shaders
-//
-//  J. Madeira - October 2015
-//
-//////////////////////////////////////////////////////////////////////////////
-
 
 // Getting and compiling a shader
-
 function getShader(gl, id) {
 	var shaderScript = document.getElementById(id);
 	if (!shaderScript) {
@@ -46,10 +35,7 @@ function getShader(gl, id) {
 	return shader;
 }
 
-//----------------------------------------------------------------------------
-
 // Initializing the shader program
-
 function initShaders( gl ) {
 	var fragmentShader = getShader(gl, "shader-fs");
 	var vertexShader = getShader(gl, "shader-vs");
@@ -65,15 +51,11 @@ function initShaders( gl ) {
 
 	gl.useProgram(shaderProgram);
 
-	// Coordinates 
-	
-	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vPosition");
 	gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
 
-	// Colors 
-	
-	shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
-	gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+	shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "vNormal");
+	gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
 	
 	return shaderProgram;
 }

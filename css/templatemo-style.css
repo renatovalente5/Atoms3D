@@ -7,7 +7,7 @@ https://templatemo.com/tm-525-the-town
 */
 
 html {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 body {
@@ -29,12 +29,71 @@ a:focus {
   outline: none;
 }
 
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 20px 40px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .btn {
   padding: 8px 32px;
 }
 
 .btn:hover {
-  background-color: #ced4da;
+  background-color: #266c9b;
 }
 
 .tm-section-pad-top {
@@ -50,10 +109,17 @@ a:focus {
 }
 
 .tm-btn-primary {
-  color: white;
   background-color: #3496d8;
-  padding: 1px 5px;
-  border-radius: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 3px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .tm-btn-primary:hover,
@@ -63,10 +129,17 @@ a:focus {
 }
 
 .tm-btn-primary2 {
-  color: white;
   background-color: #3496d8;
+  border: none;
+  border-radius: 20px;
+  color: white;
   padding: 10px 30px;
-  border-radius: 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .tm-btn-primary2:hover,
