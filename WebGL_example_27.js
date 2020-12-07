@@ -152,7 +152,7 @@ function drawScene_2() {
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
 	mvMatrix = translationMatrix( 0, 0, globalTz_2 );
-	
+		
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
 	{
@@ -196,7 +196,7 @@ function animate_2() {
 		}
 		
 		if( globalTranslationZZ_ON_2 ) {
-			globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * elapsed / 1000.0;
+			globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
 	    }
 
 		// Local rotations	

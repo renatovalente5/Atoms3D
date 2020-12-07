@@ -162,15 +162,16 @@ var sceneModels = [];
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[0].rotZZOn = false;
 sceneModels[0].rotYYOn = false;
-sceneModels[0].tx = -0.75; sceneModels[0].ty = 0;
+sceneModels[0].tx = -0.75; sceneModels[0].ty = -0.03;
 sceneModels[0].sx = 0.20; sceneModels[0].sy = 0.20; sceneModels[0].sz = 0.20;
 
 // Model 1 --- Left simpleCube
 sceneModels.push( new simpleCubeModel() );
 sceneModels[1].rotZZOn = false;
 sceneModels[1].rotYYOn = false;
-sceneModels[1].tx = -0.40; sceneModels[1].ty = 0;
-sceneModels[1].sx = 0.16; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
+sceneModels[1].rotAngleZZ = 37.5;
+sceneModels[1].tx = -0.40; sceneModels[1].ty = 0.23;
+sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
 
 // Model 2 --- Middle sphere
 sceneModels.push( new sphereModel( 6 ) );
@@ -183,12 +184,13 @@ sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
 sceneModels.push( new simpleCubeModel() );
 sceneModels[3].rotZZOn = false;
 sceneModels[3].rotYYOn = false;
-sceneModels[3].tx = 0.40; sceneModels[3].ty = 0;
-sceneModels[3].sx = 0.16; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
+sceneModels[3].rotAngleZZ = -37.5;
+sceneModels[3].tx = 0.40; sceneModels[3].ty = 0.23;
+sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
 
 // Model 4 --- Right sphere
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[4].rotZZOn = false;
 sceneModels[4].rotYYOn = false;
-sceneModels[4].tx = 0.75; sceneModels[4].ty = 0;
+sceneModels[4].tx = 0.75; sceneModels[4].ty = -0.03;
 sceneModels[4].sx = 0.20; sceneModels[4].sy = 0.20; sceneModels[4].sz = 0.20;

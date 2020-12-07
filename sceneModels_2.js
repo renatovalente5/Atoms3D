@@ -158,20 +158,44 @@ function sphereModel_2( subdivisionDepth = 5 ) {
 
 var sceneModels_2 = [];
 
-// Model 0 --- ELETROES
+// NUCLEO H1
 sceneModels_2.push( new sphereModel_2( 6 ) );
 sceneModels_2[0].traZZOn_2 = true;
-sceneModels_2[0].tx_2 = 0.20; sceneModels_2[0].ty_2 = 0.75; sceneModels_2[0].tz_2 = 0.75;
-sceneModels_2[0].sx_2 = 0.03; sceneModels_2[0].sy_2 = 0.03; sceneModels_2[0].sz_2 = 0.03;
+sceneModels_2[0].tx_2 = -0.50; sceneModels_2[0].ty_2 = 0.70;
+sceneModels_2[0].sx_2 = 0.06; sceneModels_2[0].sy_2 = 0.06; sceneModels_2[0].sz_2 = 0.06;
 
-// Model 1 --- ELETROES
+// NUCLEO H2
 sceneModels_2.push( new sphereModel_2( 6 ) );
 sceneModels_2[1].traZZOn_2 = true;
-sceneModels_2[1].tx_2 = 0; sceneModels_2[1].ty_2 = 0.75; sceneModels_2[1].tz_2 = 0.75;
-sceneModels_2[1].sx_2 = 0.03; sceneModels_2[1].sy_2 = 0.03; sceneModels_2[1].sz_2 = 0.03;
+sceneModels_2[1].tx_2 = 0.50; sceneModels_2[1].ty_2 = 0.70;
+sceneModels_2[1].sx_2 = 0.06; sceneModels_2[1].sy_2 = 0.06; sceneModels_2[1].sz_2 = 0.06;
 
-// Model 2 --- ELETROES
+// NUCLEO O
 sceneModels_2.push( new sphereModel_2( 6 ) );
 sceneModels_2[2].traZZOn_2 = true;
-sceneModels_2[2].tx_2 = -0.20; sceneModels_2[2].ty_2 = 0.75; sceneModels_2[2].tz_2 = 0.75;
-sceneModels_2[2].sx_2 = 0.03; sceneModels_2[2].sy_2 = 0.03; sceneModels_2[2].sz_2 = 0.03;
+sceneModels_2[2].tx_2 = 0; sceneModels_2[2].ty_2 = -0.30;
+sceneModels_2[2].sx_2 = 0.1; sceneModels_2[2].sy_2 = 0.1; sceneModels_2[2].sz_2 = 0.1;
+
+// ELETRAO NUCLEO H1
+sceneModels_2.push( new sphereModel_2( 6 ) );
+sceneModels_2[3].traZZOn_2 = true;
+sceneModels_2[3].tx_2 = 0.20; sceneModels_2[3].ty_2 = 0.85;
+sceneModels_2[3].sx_2 = 0.03; sceneModels_2[3].sy_2 = 0.03; sceneModels_2[3].sz_2 = 0.03;
+
+// ELETRAO NUCLEO H2
+sceneModels_2.push( new sphereModel_2( 6 ) );
+sceneModels_2[4].traZZOn_2 = true;
+sceneModels_2[4].tx_2 = -0.20; sceneModels_2[4].ty_2 = 0.85; 
+sceneModels_2[4].sx_2 = 0.03; sceneModels_2[4].sy_2 = 0.03; sceneModels_2[4].sz_2 = 0.03;
+
+// ELETRAO 1 DENTRO NUCLEO O 
+sceneModels_2.push( new sphereModel_2( 6 ) );
+sceneModels_2[5].traZZOn_2 = true;
+sceneModels_2[5].tx_2 = 0; sceneModels_2[5].ty_2 = 0.02;
+sceneModels_2[5].sx_2 = 0.03; sceneModels_2[5].sy_2 = 0.03; sceneModels_2[5].sz_2 = 0.03;
+
+// ELETRAO 2 DENTRO NUCLEO O 
+sceneModels_2.push( new sphereModel_2( 6 ) );
+sceneModels_2[6].traZZOn_2 = true;
+sceneModels_2[6].tx_2 = 0; sceneModels_2[6].ty_2 = -0.65;
+sceneModels_2[6].sx_2 = 0.03; sceneModels_2[6].sy_2 = 0.03; sceneModels_2[6].sz_2 = 0.03;
