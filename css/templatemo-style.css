@@ -122,11 +122,18 @@ a:focus {
   cursor: pointer;
 }
 
-.tm-btn-primary:hover,
+.tm-btn-primary:disabled,
+.tm-btn-primary[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+/* .tm-btn-primary:hover,
 .tm-btn-primary:focus {
   color: white;
-  background-color: #73c1f6;
-}
+  background-color: #dbecf8;
+} */
 
 .tm-btn-primary2 {
   background-color: #3496d8;

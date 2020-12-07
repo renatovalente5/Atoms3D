@@ -408,8 +408,8 @@ function initWebGL( canvas ) {
 	} catch (e) {
 	}
 	if (!gl) {
-		alert("Could not initialise WebGL, sorry! :-(");
-	}        
+		alert("Could not initialise WebGL 1, sorry! :-(");
+	}       
 }
 
 function runWebGL() {	

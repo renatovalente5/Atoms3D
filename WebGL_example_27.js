@@ -1,175 +1,157 @@
 
 //----------------------------- Global Variables -----------------------------
 
-var gl = null; // WebGL context
-var shaderProgram = null;
-var triangleVertexPositionBuffer = null;	
-var triangleVertexNormalBuffer = null;	
+var gl_2 = null; // WebGL context
+var shaderProgram_2 = null;
+var triangleVertexPositionBuffer_2 = null;	
+var triangleVertexNormalBuffer_2 = null;	
 
 // The GLOBAL transformation parameters
-var globalAngleYY = 0.0;
-var globalAngleZZ = 0.0;
-var globalTz = 0.0;
+var globalAngleYY_2 = 0.0;
+var globalAngleZZ_2 = 0.0;
+var globalTz_2 = 0.0;
 
 // GLOBAL Animation controls
-var globalRotationYY_ON = 0;
-var globalRotationYY_DIR = 1;
-var globalRotationYY_SPEED = 0;
+var globalRotationYY_ON_2 = 0;
+var globalRotationYY_DIR_2 = 1;
+var globalRotationYY_SPEED_2 = 0;
 
-var globalTranslationZZ_ON = 1;
-var globalTranslationZZ_DIR = 1;
-var globalTranslationZZ_SPEED = 1;
+var globalTranslationZZ_ON_2 = 1;
+var globalTranslationZZ_DIR_2 = 1;
+var globalTranslationZZ_SPEED_2 = 1;
 
 // To allow choosing the way of drawing the model triangles
-var primitiveType = null;
+var primitiveType_2 = null;
  
 // To allow choosing the projection type
-var projectionType = 0;
+var projectionType_2 = 0;
 
 // The viewer position
-var pos_Viewer = [ 0.0, 0.0, 0.0, 1.0 ];
+var pos_Viewer_2 = [ 0.0, 0.0, 0.0, 1.0 ];
 
-
-/*//---------------------------- Frames per second -----------------------------
-var elapsedTime = 0;
-var frameCount = 0;
-var lastfpsTime = new Date().getTime();;
-
-function countFrames() {	
-   var now = new Date().getTime();
-   frameCount++; 
-   elapsedTime += (now - lastfpsTime);
-   lastfpsTime = now;
-   if(elapsedTime >= 1000) {	   
-       fps = frameCount;       
-       frameCount = 0;      
-       elapsedTime -= 1000;	   
-	   document.getElementById('fps').innerHTML = 'fps:' + fps;
-   }
-}*/
 
 //------------------------------ The WebGL code ------------------------------
 
 // Handling the Vertex Coordinates and the Vertex Normal Vectors
-function initBuffers( model ) {		
+function initBuffers_2( model ) {		
 	// Vertex Coordinates		
-	triangleVertexPositionBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(model.vertices), gl.STATIC_DRAW);
-	triangleVertexPositionBuffer.itemSize = 3;
-	triangleVertexPositionBuffer.numItems =  model.vertices.length / 3;			
+	triangleVertexPositionBuffer_2 = gl_2.createBuffer();
+	gl_2.bindBuffer(gl_2.ARRAY_BUFFER, triangleVertexPositionBuffer_2);
+	gl_2.bufferData(gl_2.ARRAY_BUFFER, new Float32Array(model.vertices_2), gl_2.STATIC_DRAW);
+	triangleVertexPositionBuffer_2.itemSize = 3;
+	triangleVertexPositionBuffer_2.numItems =  model.vertices_2.length / 3;			
 
 	// Associating to the vertex shader	
-	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 
-			triangleVertexPositionBuffer.itemSize, 
-			gl.FLOAT, false, 0, 0);
+	gl_2.vertexAttribPointer(shaderProgram_2.vertexPositionAttribute, 
+			triangleVertexPositionBuffer_2.itemSize, 
+			gl_2.FLOAT, false, 0, 0);
 	
 	// Vertex Normal Vectors		
-	triangleVertexNormalBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexNormalBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array( model.normals), gl.STATIC_DRAW);
-	triangleVertexNormalBuffer.itemSize = 3;
-	triangleVertexNormalBuffer.numItems = model.normals.length / 3;			
+	triangleVertexNormalBuffer_2 = gl_2.createBuffer();
+	gl_2.bindBuffer(gl_2.ARRAY_BUFFER, triangleVertexNormalBuffer_2);
+	gl_2.bufferData(gl_2.ARRAY_BUFFER, new Float32Array( model.normals_2), gl_2.STATIC_DRAW);
+	triangleVertexNormalBuffer_2.itemSize = 3;
+	triangleVertexNormalBuffer_2.numItems = model.normals_2.length / 3;			
 
 	// Associating to the vertex shader	
-	gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, 
-			triangleVertexNormalBuffer.itemSize, 
-			gl.FLOAT, false, 0, 0);	
+	gl_2.vertexAttribPointer(shaderProgram_2.vertexNormalAttribute, 
+			triangleVertexNormalBuffer_2.itemSize, 
+			gl_2.FLOAT, false, 0, 0);	
 }
 
 //  Drawing the model
-function drawModel( model,
+function drawModel_2( model,
 					mvMatrix,
 					primitiveType ) {
 
 	// The the global model transformation is an input    
-	mvMatrix = mult( mvMatrix, translationMatrix( model.tx, model.ty, model.tz ) );						 
-	mvMatrix = mult( mvMatrix, rotationZZMatrix( model.rotAngleZZ ) );	
-	mvMatrix = mult( mvMatrix, rotationYYMatrix( model.rotAngleYY ) );	
-	mvMatrix = mult( mvMatrix, rotationXXMatrix( model.rotAngleXX ) );
-	mvMatrix = mult( mvMatrix, scalingMatrix( model.sx, model.sy, model.sz ) );
+	mvMatrix = mult( mvMatrix, translationMatrix( model.tx_2, model.ty_2, model.tz_2 ) );						 
+	mvMatrix = mult( mvMatrix, rotationZZMatrix( model.rotAngleZZ_2 ) );	
+	mvMatrix = mult( mvMatrix, rotationYYMatrix( model.rotAngleYY_2 ) );	
+	mvMatrix = mult( mvMatrix, rotationXXMatrix( model.rotAngleXX_2 ) );
+	mvMatrix = mult( mvMatrix, scalingMatrix( model.sx_2, model.sy_2, model.sz_2 ) );
 						 
 	// Passing the Model View Matrix to apply the current transformation
-	var mvUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");	
-	gl.uniformMatrix4fv(mvUniform, false, new Float32Array(flatten(mvMatrix)));
+	var mvUniform = gl_2.getUniformLocation(shaderProgram_2, "uMVMatrix");	
+	gl_2.uniformMatrix4fv(mvUniform, false, new Float32Array(flatten(mvMatrix)));
     
 	// Associating the data to the vertex shader	
-	initBuffers(model);
+	initBuffers_2(model);
 	
 	// Material properties	
-	gl.uniform3fv( gl.getUniformLocation(shaderProgram, "k_ambient"), 
-		flatten(model.kAmbi) );    
-    gl.uniform3fv( gl.getUniformLocation(shaderProgram, "k_diffuse"),
-        flatten(model.kDiff) );   
-    gl.uniform3fv( gl.getUniformLocation(shaderProgram, "k_specular"),
-        flatten(model.kSpec) );
-	gl.uniform1f( gl.getUniformLocation(shaderProgram, "shininess"), 
-		model.nPhong );
+	gl_2.uniform3fv( gl_2.getUniformLocation(shaderProgram_2, "k_ambient"), 
+		flatten(model.kAmbi_2) );    
+    gl_2.uniform3fv( gl_2.getUniformLocation(shaderProgram_2, "k_diffuse"),
+        flatten(model.kDiff_2) );   
+    gl_2.uniform3fv( gl_2.getUniformLocation(shaderProgram_2, "k_specular"),
+        flatten(model.kSpec_2) );
+	gl_2.uniform1f( gl_2.getUniformLocation(shaderProgram_2, "shininess"), 
+		model.nPhong_2 );
 
     // Light Sources	
 	var numLights = lightSources.length;	
-	gl.uniform1i( gl.getUniformLocation(shaderProgram, "numLights"), 
+	gl_2.uniform1i( gl_2.getUniformLocation(shaderProgram_2, "numLights"), 
 		numLights );
 
 	//Light Sources	
 	for(var i = 0; i < lightSources.length; i++ )
 	{
-		gl.uniform1i( gl.getUniformLocation(shaderProgram, "allLights[" + String(i) + "].isOn"),
+		gl_2.uniform1i( gl_2.getUniformLocation(shaderProgram_2, "allLights[" + String(i) + "].isOn"),
 			lightSources[i].isOn );   
-		gl.uniform4fv( gl.getUniformLocation(shaderProgram, "allLights[" + String(i) + "].position"),
+		gl_2.uniform4fv( gl_2.getUniformLocation(shaderProgram_2, "allLights[" + String(i) + "].position"),
 			flatten(lightSources[i].getPosition()) );   
-		gl.uniform3fv( gl.getUniformLocation(shaderProgram, "allLights[" + String(i) + "].intensities"),
+		gl_2.uniform3fv( gl_2.getUniformLocation(shaderProgram_2, "allLights[" + String(i) + "].intensities"),
 			flatten(lightSources[i].getIntensity()) );
     }
         
 	// Drawing - primitiveType allows drawing as filled triangles / wireframe / vertices	
-	if( primitiveType == gl.LINE_LOOP ) {				
+	if( primitiveType == gl_2.LINE_LOOP ) {				
 		var i;		
-		for( i = 0; i < triangleVertexPositionBuffer.numItems / 3; i++ ) {		
-			gl.drawArrays( primitiveType, 3 * i, 3 ); 
+		for( i = 0; i < triangleVertexPositionBuffer_2.numItems / 3; i++ ) {		
+			gl_2.drawArrays( primitiveType, 3 * i, 3 ); 
 		}
 	}	
 	else {				
-		gl.drawArrays(primitiveType, 0, triangleVertexPositionBuffer.numItems); 		
+		gl_2.drawArrays(primitiveType, 0, triangleVertexPositionBuffer_2.numItems); 		
 	}	
 }
 
 //  Drawing the 3D scene
-function drawScene() {	
+function drawScene_2() {
 	var pMatrix;	
 	var mvMatrix = mat4();
 	
 	// Clearing the frame-buffer and the depth-buffer	
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	gl_2.clear(gl_2.COLOR_BUFFER_BIT | gl_2.DEPTH_BUFFER_BIT);
 	
 	// Computing the Projection Matrix	
-	if( projectionType == 0 ) {
+	if( projectionType_2 == 0 ) {
 		pMatrix = ortho( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );	
-		globalTz = 0.0;
+		globalTz_2 = 0.0;
 		
 		// The viewer is on the ZZ axis at an indefinite distance
-		pos_Viewer[0] = pos_Viewer[1] = pos_Viewer[3] = 0.0;
-		pos_Viewer[2] = 1.0;  
+		pos_Viewer_2[0] = pos_Viewer_2[1] = pos_Viewer_2[3] = 0.0;
+		pos_Viewer_2[2] = 1.0;  
 	}
 	else {			
 		pMatrix = perspective( 45, 1, 0.05, 15 );
-		globalTz = -2.5;
+		globalTz_2 = -2.5;
 
 		// The viewer is on (0,0,0)		
-		pos_Viewer[0] = pos_Viewer[1] = pos_Viewer[2] = 0.0;		
-		pos_Viewer[3] = 1.0;  
+		pos_Viewer_2[0] = pos_Viewer_2[1] = pos_Viewer_2[2] = 0.0;		
+		pos_Viewer_2[3] = 1.0;  
 	}
 	
 	// Passing the Projection Matrix to apply the current projection	
-	var pUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");	
-	gl.uniformMatrix4fv(pUniform, false, new Float32Array(flatten(pMatrix)));
+	var pUniform = gl_2.getUniformLocation(shaderProgram_2, "uPMatrix");	
+	gl_2.uniformMatrix4fv(pUniform, false, new Float32Array(flatten(pMatrix)));
 	
 	// Passing the viewer position to the vertex shader
-	gl.uniform4fv( gl.getUniformLocation(shaderProgram, "viewerPosition"),
-        flatten(pos_Viewer) );
+	gl_2.uniform4fv( gl_2.getUniformLocation(shaderProgram_2, "viewerPosition"),
+        flatten(pos_Viewer_2) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	mvMatrix = translationMatrix( 0, 0, globalTz );
+	mvMatrix = translationMatrix( 0, 0, globalTz_2 );
 	
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
@@ -187,53 +169,50 @@ function drawScene() {
 		}
 		
 		// Passing the Light Souree Matrix to apply
-		var lsmUniform = gl.getUniformLocation(shaderProgram, "allLights["+ String(i) + "].lightSourceMatrix");
-		gl.uniformMatrix4fv(lsmUniform, false, new Float32Array(flatten(lightSourceMatrix)));
+		var lsmUniform = gl_2.getUniformLocation(shaderProgram_2, "allLights["+ String(i) + "].lightSourceMatrix");
+		gl_2.uniformMatrix4fv(lsmUniform, false, new Float32Array(flatten(lightSourceMatrix)));
 	}
-			
+	
 	// Instantianting all scene models	
-	for(var i = 0; i < sceneModels.length; i++ )
+	for(var i = 0; i < sceneModels_2.length; i++ )
 	{ 
-		drawModel( sceneModels[i],
+		drawModel_2( sceneModels_2[i],
 			   mvMatrix,
-	           primitiveType );
+	           primitiveType_2 );
 	}
-	           
-	// Counting the frames
-	//countFrames();
 }
 
 //--------------------------------- Animation --------------------------------
-var lastTime = 0;
+var lastTime_2 = 0;
 
-function animate() {	
+function animate_2() {	
 	var timeNow = new Date().getTime();
-	if( lastTime != 0 ) {		
-		var elapsed = timeNow - lastTime;		
+	if( lastTime_2 != 0 ) {		
+		var elapsed = timeNow - lastTime_2;		
 		
 		// Global rotation		
-		if( globalRotationYY_ON ) {
-			globalAngleYY += globalRotationYY_DIR * globalRotationYY_SPEED * (90 * elapsed) / 1000.0;
+		if( globalRotationYY_ON_2 ) {
+			globalAngleYY_2 += globalRotationYY_DIR_2 * globalRotationYY_SPEED_2 * (90 * elapsed) / 1000.0;
 		}
 		
-		if( globalTranslationZZ_ON ) {
-			globalAngleZZ += globalTranslationZZ_DIR * globalTranslationZZ_SPEED * elapsed / 1000.0;
+		if( globalTranslationZZ_ON_2 ) {
+			globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * elapsed / 1000.0;
 	    }
 
 		// Local rotations	
-		for(var i = 0; i < sceneModels.length; i++ )
+		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
-			if( sceneModels[i].rotXXOn ) {
-				sceneModels[i].rotAngleXX += sceneModels[i].rotXXDir * sceneModels[i].rotXXSpeed * (90 * elapsed) / 1000.0;
+			if( sceneModels_2[i].rotXXOn_2 ) {
+				sceneModels_2[i].rotAngleXX_2 += sceneModels_2[i].rotXXDir_2 * sceneModels_2[i].rotXXSpeed_2 * (90 * elapsed) / 1000.0;
 			}
-			if( sceneModels[i].rotYYOn ) {
-				sceneModels[i].rotAngleYY += sceneModels[i].rotYYDir * sceneModels[i].rotYYSpeed * (90 * elapsed) / 1000.0;
+			if( sceneModels_2[i].rotYYOn_2 ) {
+				sceneModels_2[i].rotAngleYY_2 += sceneModels_2[i].rotYYDir_2 * sceneModels_2[i].rotYYSpeed_2 * (90 * elapsed) / 1000.0;
 			}
-			if( sceneModels[i].rotZZOn ) {
-				sceneModels[i].rotAngleZZ += sceneModels[i].rotZZDir * sceneModels[i].rotZZSpeed * (90 * elapsed) / 1000.0;
+			if( sceneModels_2[i].rotZZOn_2 ) {
+				sceneModels_2[i].rotAngleZZ_2 += sceneModels_2[i].rotZZDir_2 * sceneModels_2[i].rotZZSpeed_2 * (90 * elapsed) / 1000.0;
 			}
-			if( sceneModels[i].traZZOn ) {
-				sceneModels[i].traAngleZZ += sceneModels[i].traZZDir * sceneModels[i].traZZSpeed * (90 * elapsed) / 1000.0;
+			if( sceneModels_2[i].traZZOn_2 ) {
+				sceneModels_2[i].traAngleZZ_2 += sceneModels_2[i].traZZDir_2 * sceneModels_2[i].traZZSpeed_2 * (90 * elapsed) / 1000.0;
 			}
 		}
 		
@@ -255,190 +234,111 @@ function animate() {
 			}
 		}
 	}
-	lastTime = timeNow;
+	lastTime_2 = timeNow;
 }
 
 // Timer
-function tick() {	
-	requestAnimFrame(tick);	
-	drawScene();
-	animate();
+function tick_2() {	
+	requestAnimFrame(tick_2);	
+	drawScene_2();
+	animate_2();
 }
 
 //----------------------------- User Interaction -----------------------------
 
-function outputInfos(){
+function outputInfos_2(){
     
 }
 
-function setEventListeners(){
+function setEventListeners_2(){
 	
     // Dropdown list	
-	var projection = document.getElementById("projection-selection");	
+	var projection = document.getElementById("projection-selection_2");	
 	projection.addEventListener("click", function(){		
 		var p = projection.selectedIndex;				
 		switch(p){			
-			case 0 : projectionType = 0;
+			case 0 : projectionType_2 = 0;
 				break;			
-			case 1 : projectionType = 1;
+			case 1 : projectionType_2 = 1;
 				break;
 		}  	
 	});      
 
 	// Dropdown list	
-	var list = document.getElementById("rendering-mode-selection");	
+	var list = document.getElementById("rendering-mode-selection_2");	
 	list.addEventListener("click", function(){						
 		var mode = list.selectedIndex;				
 		switch(mode){
-			case 0 : primitiveType = gl.TRIANGLES;
+			case 0 : primitiveType_2 = gl_2.TRIANGLES;
 				break;			
-			case 1 : primitiveType = gl.LINE_LOOP;
+			case 1 : primitiveType_2 = gl_2.LINE_LOOP;
 				break;			
-			case 2 : primitiveType = gl.POINTS;
+			case 2 : primitiveType_2 = gl_2.POINTS;
 				break;
 		}
 	});      
 
 	// Button events
-	document.getElementById("XX-on-off-button").onclick = function(){	
-		for(var i = 0; i < sceneModels.length; i++ )
+	document.getElementById("XX-on-off-button_2").onclick = function(){	
+		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
-			if( sceneModels[i].rotXXOn ) {
-				sceneModels[i].rotXXOn = false;
+			if( sceneModels_2[i].rotXXOn_2 ) {
+				sceneModels_2[i].rotXXOn_2 = false;
 			}
 			else {
-				sceneModels[i].rotXXOn = true;
+				sceneModels_2[i].rotXXOn_2 = true;
 			}	
 		}
 	};
 
-	document.getElementById("XX-direction-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
+	document.getElementById("XX-direction-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
-			if( sceneModels[i].rotXXDir == 1 ) {
-				sceneModels[i].rotXXDir = -1;
+			if( sceneModels_2[i].rotXXDir_2 == 1 ) {
+				sceneModels_2[i].rotXXDir_2 = -1;
 			}
 			else {
-				sceneModels[i].rotXXDir = 1;
+				sceneModels_2[i].rotXXDir_2 = 1;
 			}	
 		}
 	};      
 
-	document.getElementById("XX-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
+	document.getElementById("XX-slower-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
-			sceneModels[i].rotXXSpeed *= 0.75; 
+			sceneModels_2[i].rotXXSpeed_2 *= 0.75; 
 		}
 	};      
 
-	document.getElementById("XX-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
+	document.getElementById("XX-faster-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
-			sceneModels[i].rotXXSpeed *= 1.25; 
+			sceneModels_2[i].rotXXSpeed_2 *= 1.25; 
 		}
-	};      
-/*
-	document.getElementById("YY-on-off-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotYYOn ) {
-
-				sceneModels[i].rotYYOn = false;
-			}
-			else {
-				sceneModels[i].rotYYOn = true;
-			}	
-		}
-	};
-
-	document.getElementById("YY-direction-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotYYDir == 1 ) {
-
-				sceneModels[i].rotYYDir = -1;
-			}
-			else {
-				sceneModels[i].rotYYDir = 1;
-			}	
-		}
-	};      
-
-	document.getElementById("YY-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotYYSpeed *= 0.75; 
-		}
-	};      
-
-	document.getElementById("YY-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotYYSpeed *= 1.25; 
-		}
-	};      
-
-	document.getElementById("ZZ-on-off-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotZZOn ) {
-				sceneModels[i].rotZZOn = false;
-			}
-			else {
-				sceneModels[i].rotZZOn = true;
-			}	
-		}
-	};
-
-	document.getElementById("ZZ-direction-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotZZDir == 1 ) {
-				sceneModels[i].rotZZDir = -1;
-			}
-			else {
-				sceneModels[i].rotZZDir = 1;
-			}	
-		}
-	};      
-
-	document.getElementById("ZZ-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotZZSpeed *= 0.75; 
-		}
-	};      
-
-	document.getElementById("ZZ-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotZZSpeed *= 1.25; 
-		}
-	};      */
+	};  
 }
 
 //--------------------------- WebGL Initialization ---------------------------
 
-function initWebGL( canvas ) {
+function initWebGL_2( canvas ) {
 	try {
-		gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");		
-		primitiveType = gl.TRIANGLES;	
-		gl.enable( gl.CULL_FACE );	
-		gl.cullFace( gl.BACK );
-		gl.enable( gl.DEPTH_TEST ); 
+		gl_2 = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");		
+		primitiveType_2 = gl_2.TRIANGLES;	
+		gl_2.enable( gl_2.CULL_FACE );	
+		gl_2.cullFace( gl_2.BACK );
+		gl_2.enable( gl_2.DEPTH_TEST ); 
 	} catch (e) {
 	}
-	if (!gl) {
-		alert("Could not initialise WebGL, sorry! :-(");
-	}        
+	if (!gl_2) {
+		alert("Could not initialise WebGL 2, sorry! :-(");
+	}
 }
 
-function runWebGL() {	
-	var canvas = document.getElementById("my-canvas");	
-	initWebGL( canvas );
-	
-	shaderProgram = initShaders( gl );	
-	setEventListeners();	
-	tick(); 
-	outputInfos();
+function runWebGL_2() {	
+	var canvas = document.getElementById("my-canvas-2");	
+	initWebGL_2( canvas );
+	shaderProgram_2 = initShaders( gl_2 );	
+	setEventListeners_2();	
+	tick_2(); 
+	outputInfos_2();
 }

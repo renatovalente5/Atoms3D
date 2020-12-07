@@ -176,7 +176,7 @@ sceneModels[1].sx = 0.16; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[2].rotZZOn = false;
 sceneModels[2].rotYYOn = false;
-sceneModels[2].tx = 0; sceneModels[2].ty = 0.5;
+sceneModels[2].tx = 0; sceneModels[2].ty = 0;
 sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
 
 // Model 3 --- Middle simpleCube

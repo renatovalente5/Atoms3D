@@ -12,27 +12,7 @@
     <link rel="stylesheet" href="magnific-popup/magnific-popup.css">
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/templatemo-style.css" />
-    
-    <!--<script id="shader-vs" type="x-shader/x-vertex">
-        attribute vec3 aVertexPosition;
-        attribute vec3 aVertexColor;
-        uniform mat4 uMVMatrix;
-        uniform mat4 uPMatrix;
-        varying vec4 vertexColor;
-        void main(void) {
-          gl_PointSize = 5.0;
-          gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-          vertexColor = vec4(aVertexColor, 1.0);
-        }
-    </script>
-    
-    <script id="shader-fs" type="x-shader/x-fragment">
-      precision mediump float;
-      varying vec4 vertexColor;
-      void main(void) {
-        gl_FragColor = vertexColor;
-      }
-    </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.3/jquery.min.js"></script>
 
     <script id="shader-vs" type="x-shader/x-vertex">	
       attribute vec3 vPosition;
@@ -74,22 +54,19 @@
           vec4 ambient = vec4( k_ambient * allLights[i].ambientIntensities, 1.0 );	   
           fColor += ambient;
   
-        vec3 L;
-        
+        vec3 L;    
         if(allLights[i].position.w == 0.0)        
             L = normalize( (allLights[i].lightSourceMatrix * allLights[i].position).xyz );      
         else       
             L = normalize( (allLights[i].lightSourceMatrix * allLights[i].position).xyz - pos );
           
         vec3 E;
-
         if(viewerPosition.w == 1.0)         		
           E = -normalize( pos );       
         else       		
           E = vec3(0,0,1);
            
-        vec3 H = normalize( L + E );
-     
+        vec3 H = normalize( L + E );  
         vec4 N = normalize( uMVMatrix * vec4(vNormal, 0.0));
   
         float dotProductLN = L[0] * N[0] + L[1] * N[1] + L[2] * N[2]; 		
@@ -115,6 +92,20 @@
         gl_FragColor = fColor;
       }
     </script>
+
+    <script>
+      $(document).ready(function() {
+        $("#button1").click(function() {
+            $('#button2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#button2").click(function() {
+            $('#button1').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+    </script>
   
   <!-- The JS files -->
 	<!-- Some useful functions for browser compatibility -->
@@ -126,146 +117,90 @@
 	<!-- Creating the light sources -->
 	<script type="text/javascript" src="lightSources.js"></script>
 	<!-- Creating the scene models -->
-	<script type="text/javascript" src="sceneModels.js"></script>
+  <script type="text/javascript" src="sceneModels.js"></script>
+  <script type="text/javascript" src="sceneModels_2.js"></script>
 	<!-- WebGL code -->
 	<script type="text/javascript" src="initShaders.js"></script>
   <script type="text/javascript" src="WebGL_example_26.js"></script>
   <script type="text/javascript" src="WebGL_example_27.js"></script>
 </head>
 
-  <body onload="runWebGL();">    
-     
-      <div class="text-center tm-hero-text-container" style="background-color: black;">
-        <div class="container">
-          <p style="text-align: center; color:white; padding-top: 30px; padding-bottom: 10px; font-size: 30px;"><b>VISUALIZATION OF MOLECULES AND ATOMS</b></p>
+  <body>        
+    <div class="text-center tm-hero-text-container" style="background-color: black;">
+      <div class="container">
+        <p style="text-align: center; color:white; padding-top: 30px; padding-bottom: 5px; font-size: 30px;"><b>VISUALIZATION OF MOLECULES AND ATOMS</b></p>
+        <p style="padding-bottom: 15px;">
+          <button id="button1" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;" disabled> Water</button>
+          <button id="button2" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;">Carbon Dioxide</button>
+        </p>
+        
+        <div class="row">     
 
-          <div class="row">
-            
-            <div class="col-lg-6">
-              <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="550" height="540"></canvas>
-              <p style="text-align: center; color:white;"><b>WATER MOLECULE</b></p>
-              
-              <div style="text-align: left; padding-top: 20px;"> 
-                <p style="text-align: left; color:white;"><b>ROTATION</b></p>
-                <p style="padding-left: 20px;">Model XX rotation: 
-                  <button id="XX-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
-                  <button id="XX-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                  <button id="XX-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
-                  <button id="XX-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
-                </p>     
-                <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
-                <p style="padding-left: 20px;">Projection type:
-                  <select id="projection-selection" class="custom-select" style="width:200px; height: 40px;">
-                    <option value="0">Orthogonal Projection</option>
-                    <option value="1">Perspective Projection</option>
-                  </select>
-                </p>
-                <p style="padding-left: 20px;">Rendering mode:
-                  <select id="rendering-mode-selection" class="custom-select" style="width:193px; height: 40px;">
-                    <option value="0">Filled Triangles</option>
-                    <option value="1">Wireframe</option>
-                    <option value="2">Vertices</option>
-                  </select>
-                </p>
-              </div>
-            </div>
-            
-            <div class="col-lg-6">
-              <canvas id="my-canvas2" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="550" height="540"></canvas>
-              <p style="text-align: center; color:white;"><b>WATER ATOM</b></p>
-            </div>
-            
-          </div>
-          <p style="font-size: 10px; text-align: center; padding-bottom: 10px"> Renato Valente (89077) • Rita Amante (89264) </p>
-
-        </div>
-      </div>
-
-
-    <!--<section id="hero" class="text-white tm-font-big tm-parallax">      
-      <div class="text-center tm-hero-text-container">
-        <div class="container">
-          <p style="text-align: center; color:white; padding-top: 30px; padding-bottom: 20px; font-size: 30px;"><b>VISUALIZATION OF MOLECULES AND ATOMS</b></p>
-          <div class="row">
-            
-            <div class="col-lg-6">
-              <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="550" height="540"></canvas>
-            </div>
-            
-            <div class="col-lg-6">
-              <div style="text-align: left"> 
-
-                <p style="text-align: left; color:white;"><b>ROTATION</b></p>
-                <p style="padding-left: 20px;">Model XX rotation: 
-                  <button id="XX-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
-                  <button id="XX-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                  <button id="XX-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
-                  <button id="XX-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
-                </p>     
-                <p style="padding-left: 20px;">Model YY rotation: 
-                  <button id="YY-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
-                  <button id="YY-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                  <button id="YY-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
-                  <button id="YY-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
-                </p>
-                <p style="padding-left: 20px;">Model ZZ rotation: 
-                  <button id="ZZ-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
-                  <button id="ZZ-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                  <button id="ZZ-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
-                  <button id="ZZ-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
-                </p>
-
-                <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
-                <p style="padding-left: 20px;">Choose the <b>projection type</b>:
-                  <select id="projection-selection" class="custom-select" style="width:300px; height: 40px;">
-                    <option value="0">Orthogonal Projection</option>
-                    <option value="1">Perspective Projection</option>
-                  </select>
-                </p>
-                <p style="padding-left: 20px;">Choose the <b>rendering mode</b>:
-                  <select id="rendering-mode-selection" class="custom-select" style="width:293px; height: 40px;">
-                    <option value="0">Filled Triangles</option>
-                    <option value="1">Wireframe</option>
-                    <option value="2">Vertices</option>
-                  </select>
-                </p>
-                              
-                <p style="text-align: left; color:white;"><b>TRANSFORMATION</b></p>
-                <p style="padding-left: 20px;">
-                  <button id="move-left-button" class="tm-intro-text tm-btn-primary">Left</button>
-                  <button id="move-right-button" class="tm-intro-text tm-btn-primary">Right</button>
-                  <button id="move-up-button" class="tm-intro-text tm-btn-primary">Up</button>
-                  <button id="move-down-button" class="tm-intro-text tm-btn-primary">Down</button>
-                  <button id="scale-up-button" class="tm-intro-text tm-btn-primary">Up</button>
-                  <button id="scale-down-button" class="tm-intro-text tm-btn-primary">Down</button>
-                </p>
-                <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
-                <p style="padding-left: 20px;">Choose the <b>projection type</b>:
-                  <select id="projection-selection" class="custom-select" style="width:300px; height: 40px;">
-                    <option value="0">Orthogonal Projection</option>
-                    <option value="1">Perspective Projection</option>
-                  </select>
-                </p>
-                <p style="padding-left: 20px;">Choose the <b>rendering mode</b>:
-                  <select id="rendering-mode-selection" class="custom-select" style="width:293px; height: 40px;">
-                    <option value="0">Filled Triangles</option>
-                    <option value="1">Wireframe</option>
-                    <option value="2">Vertices</option>
-                  </select>
-                </p>
-                <p style="padding-left: 20px;">Choose the <b>molecule</b>:
-                  <input type="file" id="text-file" name="file">
-                </p>
-                <p>
-                  <button id="reset-button" class="tm-intro-text tm-btn-primary2">Reset</button>
-                </p>
-              </div>
+          <div class="col-lg-6">
+            <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
+            <p style="text-align: center; color:white;"><b>MOLECULE</b></p>              
+            <div style="text-align: left; padding-top: 20px;"> 
+              <p style="text-align: left; color:white;"><b>ROTATION</b></p>
+              <p style="padding-left: 20px;">Model XX rotation: 
+                <button id="XX-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
+                <button id="XX-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
+                <button id="XX-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
+                <button id="XX-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
+              </p>     
+              <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
+              <p style="padding-left: 20px;">Projection type:
+                <select id="projection-selection" class="custom-select" style="width:200px; height: 40px;">
+                  <option value="0">Orthogonal Projection</option>
+                  <option value="1">Perspective Projection</option>
+                </select>
+              </p>
+              <p style="padding-left: 20px;">Rendering mode:
+                <select id="rendering-mode-selection" class="custom-select" style="width:193px; height: 40px;">
+                  <option value="0">Filled Triangles</option>
+                  <option value="1">Wireframe</option>
+                  <option value="2">Vertices</option>
+                </select>
+              </p>
             </div>
           </div>
-          <p style="font-size: 10px; text-align: center;"> Renato Valente (89077) • Rita Amante (89264) </p>
+          <script>
+            runWebGL();
+          </script>
+
+          <div class="col-lg-6">
+            <canvas id="my-canvas-2" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
+            <p style="text-align: center; color:white;"><b>ATOM</b></p>
+            <div style="text-align: left; padding-top: 20px;"> 
+              <p style="text-align: left; color:white;"><b>ROTATION</b></p>
+              <p style="padding-left: 20px;">Model XX rotation: 
+                <button id="XX-on-off-button_2" class="tm-intro-text tm-btn-primary">On / Off</button>
+                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary">Change Direction</button>
+                <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary">Slower</button>
+                <button id="XX-faster-button_2" class="tm-intro-text tm-btn-primary">Faster</button>
+              </p>     
+              <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
+              <p style="padding-left: 20px;">Projection type:
+                <select id="projection-selection_2" class="custom-select" style="width:200px; height: 40px;">
+                  <option value="0">Orthogonal Projection</option>
+                  <option value="1">Perspective Projection</option>
+                </select>
+              </p>
+              <p style="padding-left: 20px;">Rendering mode:
+                <select id="rendering-mode-selection_2" class="custom-select" style="width:193px; height: 40px;">
+                  <option value="0">Filled Triangles</option>
+                  <option value="1">Wireframe</option>
+                  <option value="2">Vertices</option>
+                </select>
+              </p>
+            </div>
+          </div>        
+          <script>
+            runWebGL_2();
+          </script>      
         </div>
+        <p style="font-size: 10px; text-align: center; padding-bottom: 10px"> Renato Valente (89077) • Rita Amante (89264) </p>
       </div>
-    </section>-->
+    </div>
     
     <script src="js/jquery-1.9.1.min.js"></script>     
     <script src="slick/slick.min.js"></script>
