@@ -44,7 +44,7 @@ function emptyModelFeatures() {
 	
 	// Material features	
 	this.kAmbi = [ 0.2, 0.2, 0.2 ];	
-	this.kDiff = [ 0.7, 0.7, 0.7 ];
+	this.kDiff = [ 1.0, 0.0, 0.0 ];
 	this.kSpec = [ 0.7, 0.7, 0.7 ];
 	this.nPhong = 100;
 }
@@ -147,6 +147,7 @@ function tetrahedronModel( subdivisionDepth = 0 ) {
 
 function sphereModel( subdivisionDepth = 5 ) {	
 	var sphere = new simpleCubeModel();	
+	sphere.kDiff = [ 0.0, 0.0, 1.0 ];
 	midPointRefinement( sphere.vertices, subdivisionDepth );	
 	moveToSphericalSurface( sphere.vertices )	
 	computeVertexNormals( sphere.vertices, sphere.normals );	
@@ -162,6 +163,7 @@ var sceneModels = [];
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[0].rotZZOn = false;
 sceneModels[0].rotYYOn = false;
+sceneModels[0].kDiff = [ 1.0, 1.0, 1.0 ];
 sceneModels[0].tx = -0.75; sceneModels[0].ty = -0.03;
 sceneModels[0].sx = 0.20; sceneModels[0].sy = 0.20; sceneModels[0].sz = 0.20;
 
@@ -170,6 +172,7 @@ sceneModels.push( new simpleCubeModel() );
 sceneModels[1].rotZZOn = false;
 sceneModels[1].rotYYOn = false;
 sceneModels[1].rotAngleZZ = 37.5;
+sceneModels[1].kDiff = [ 0.8, 0.8, 0.8 ];
 sceneModels[1].tx = -0.40; sceneModels[1].ty = 0.23;
 sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
 
@@ -177,6 +180,7 @@ sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[2].rotZZOn = false;
 sceneModels[2].rotYYOn = false;
+sceneModels[2].kDiff = [ 1.0, 0.0, 0.0 ];
 sceneModels[2].tx = 0; sceneModels[2].ty = 0.5;
 sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
 
@@ -185,6 +189,7 @@ sceneModels.push( new simpleCubeModel() );
 sceneModels[3].rotZZOn = false;
 sceneModels[3].rotYYOn = false;
 sceneModels[3].rotAngleZZ = -37.5;
+sceneModels[3].kDiff = [ 1.0, 1.0, 1.0 ];
 sceneModels[3].tx = 0.40; sceneModels[3].ty = 0.23;
 sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
 
@@ -192,5 +197,6 @@ sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
 sceneModels.push( new sphereModel( 6 ) );
 sceneModels[4].rotZZOn = false;
 sceneModels[4].rotYYOn = false;
+sceneModels[4].kDiff = [ 1.0, 1.0, 1.0 ];
 sceneModels[4].tx = 0.75; sceneModels[4].ty = -0.03;
 sceneModels[4].sx = 0.20; sceneModels[4].sy = 0.20; sceneModels[4].sz = 0.20;

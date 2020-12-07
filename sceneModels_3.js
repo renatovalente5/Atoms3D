@@ -44,7 +44,7 @@ function emptyModelFeatures() {
 	
 	// Material features	
 	this.kAmbi = [ 0.2, 0.2, 0.2 ];	
-	this.kDiff = [ 0.7, 0.7, 0.7 ];
+	this.kDiff = [ 0.0, 0.0, 1.0 ];
 	this.kSpec = [ 0.7, 0.7, 0.7 ];
 	this.nPhong = 100;
 }

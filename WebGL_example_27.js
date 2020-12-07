@@ -126,7 +126,7 @@ function drawScene_2() {
 	
 	// Computing the Projection Matrix	
 	if( projectionType_2 == 0 ) {
-		pMatrix = ortho( -1.0, 1.0, -1.0, 1.0, -1.0, 1.0 );	
+		pMatrix = ortho( -1.5, 1.5, -1.5, 1.5, -1.5, 1.5 );	
 		globalTz_2 = 0.0;
 		
 		// The viewer is on the ZZ axis at an indefinite distance
@@ -134,7 +134,7 @@ function drawScene_2() {
 		pos_Viewer_2[2] = 1.0;  
 	}
 	else {			
-		pMatrix = perspective( 45, 1, 0.05, 15 );
+		pMatrix = perspective( 65, 1, 0.05, 15 );
 		globalTz_2 = -2.5;
 
 		// The viewer is on (0,0,0)		
@@ -151,8 +151,10 @@ function drawScene_2() {
         flatten(pos_Viewer_2) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	mvMatrix = translationMatrix( 0, 0, globalTz_2 );
-		
+	// mvMatrix = mult( translationMatrix( 0, 0, globalTz_2 ),
+	// 					rotationZZMatrix( globalAngleZZ_2 ) );
+
+
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
 	{
@@ -175,10 +177,27 @@ function drawScene_2() {
 	
 	// Instantianting all scene models	
 	for(var i = 0; i < sceneModels_2.length; i++ )
-	{ 
-		drawModel_2( sceneModels_2[i],
-			   mvMatrix,
-	           primitiveType_2 );
+	{
+		if(i==0 || i==1 || i==4){
+			drawModel_2( sceneModels_2[i],
+				translationMatrix( 0, 0, globalTz_2 ),
+				primitiveType_2 );
+		}else if(i==3){
+			drawModel_2( sceneModels_2[i],
+				mult(translationMatrix( -0.45, 0.85, globalTz_2),
+							rotationZZMatrix( globalAngleZZ_2 )),
+				primitiveType_2 );
+		}else if(i==2){
+			drawModel_2( sceneModels_2[i],
+				mult( translationMatrix( 0.45, 0.85, globalTz_2 ),
+							rotationZZMatrix( globalAngleZZ_2 ) ),
+				primitiveType_2 );
+		}else{
+			drawModel_2( sceneModels_2[i],
+				mult( translationMatrix( 0, 0, globalTz_2 ),
+						rotationZZMatrix( globalAngleZZ_2 ) ),
+				primitiveType_2 );
+		}
 	}
 }
 
@@ -210,9 +229,6 @@ function animate_2() {
 			}
 			if( sceneModels_2[i].rotZZOn_2 ) {
 				sceneModels_2[i].rotAngleZZ_2 += sceneModels_2[i].rotZZDir_2 * sceneModels_2[i].rotZZSpeed_2 * (90 * elapsed) / 1000.0;
-			}
-			if( sceneModels_2[i].traZZOn_2 ) {
-				sceneModels_2[i].traAngleZZ_2 += sceneModels_2[i].traZZDir_2 * sceneModels_2[i].traZZSpeed_2 * (90 * elapsed) / 1000.0;
 			}
 		}
 		
