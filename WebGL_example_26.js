@@ -13,11 +13,11 @@ var globalAngleZZ = 0.0;
 var globalTz = 0.0;
 
 // GLOBAL Animation controls
-var globalRotationXX_ON = 0;
+var globalRotationXX_ON = 1;
 var globalRotationXX_DIR = 1;
 var globalRotationXX_SPEED = 1;
 
-var globalRotationYY_ON = 0;
+var globalRotationYY_ON = 1;
 var globalRotationYY_DIR = 1;
 var globalRotationYY_SPEED = 1;
 
@@ -295,12 +295,18 @@ function setEventListeners(){
 		}
 		if(globalAngleXX != 0){
 			globalRotationXX_ON = true;
+			document.getElementById("XX-start-button").disabled = true;
+			document.getElementById("XX-stop-button").disabled = false;
 		}
 		if(globalAngleYY != 0){
 			globalRotationYY_ON = true;
+			document.getElementById("YY-start-button").disabled = true;
+			document.getElementById("YY-stop-button").disabled = false;
 		}
 		if(globalAngleZZ != 0){
 			globalRotationZZ_ON = true;
+			document.getElementById("ZZ-start-button").disabled = true;
+			document.getElementById("ZZ-stop-button").disabled = false;
 		}
 	}; 
 
@@ -312,6 +318,12 @@ function setEventListeners(){
 		globalRotationXX_ON = false;
 		globalRotationYY_ON = false;
 		globalRotationZZ_ON = false;
+		document.getElementById("XX-start-button").disabled = false;
+		document.getElementById("XX-stop-button").disabled = true;
+		document.getElementById("YY-start-button").disabled = false;
+		document.getElementById("YY-stop-button").disabled = true;
+		document.getElementById("ZZ-start-button").disabled = false;
+		document.getElementById("ZZ-stop-button").disabled = true;
 	};
 
 	// movement
