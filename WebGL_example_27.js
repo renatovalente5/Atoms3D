@@ -7,14 +7,23 @@ var triangleVertexPositionBuffer_2 = null;
 var triangleVertexNormalBuffer_2 = null;	
 
 // The GLOBAL transformation parameters
+var globalAngleXX_2 = 0.0;
 var globalAngleYY_2 = 0.0;
 var globalAngleZZ_2 = 0.0;
 var globalTz_2 = 0.0;
 
 // GLOBAL Animation controls
+var globalRotationXX_ON_2 = 0;
+var globalRotationXX_DIR_2 = 1;
+var globalRotationXX_SPEED_2 = 1;
+
 var globalRotationYY_ON_2 = 0;
 var globalRotationYY_DIR_2 = 1;
-var globalRotationYY_SPEED_2 = 0;
+var globalRotationYY_SPEED_2 = 1;
+
+var globalRotationZZ_ON_2 = 0;
+var globalRotationZZ_DIR_2 = 1;
+var globalRotationZZ_SPEED_2 = 1;
 
 var globalTranslationZZ_ON_2 = 1;
 var globalTranslationZZ_DIR_2 = 1;
@@ -151,8 +160,10 @@ function drawScene_2() {
         flatten(pos_Viewer_2) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	// mvMatrix = mult( translationMatrix( 0, 0, globalTz_2 ),
-	// 					rotationZZMatrix( globalAngleZZ_2 ) );
+	//mvMatrix = translationMatrix( 0, 0, globalTz );
+	// mvMatrix = mult(translationMatrix( 0, 0, globalTz),
+	// mult(mult(rotationXXMatrix( globalAngleXX ), rotationYYMatrix( globalAngleYY )),
+	// 		  rotationZZMatrix( globalAngleZZ)));
 
 
 	// Updating the position of the light sources, if required
@@ -185,17 +196,20 @@ function drawScene_2() {
 		}else if(i==3){
 			drawModel_2( sceneModels_2[i],
 				mult(translationMatrix( -0.45, 0.85, globalTz_2),
-							rotationZZMatrix( globalAngleZZ_2 )),
+				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+			  	rotationZZMatrix( globalAngleZZ_2))),
 				primitiveType_2 );
 		}else if(i==2){
 			drawModel_2( sceneModels_2[i],
-				mult( translationMatrix( 0.45, 0.85, globalTz_2 ),
-							rotationZZMatrix( globalAngleZZ_2 ) ),
+				mult(translationMatrix( 0.45, 0.85, globalTz_2),
+				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+			  	rotationZZMatrix( globalAngleZZ_2))),
 				primitiveType_2 );
 		}else{
 			drawModel_2( sceneModels_2[i],
-				mult( translationMatrix( 0, 0, globalTz_2 ),
-						rotationZZMatrix( globalAngleZZ_2 ) ),
+				mult(translationMatrix( 0, 0, globalTz_2),
+				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+			  	rotationZZMatrix( globalAngleZZ_2))),
 				primitiveType_2 );
 		}
 	}
@@ -210,10 +224,16 @@ function animate_2() {
 		var elapsed = timeNow - lastTime_2;		
 		
 		// Global rotation		
+		if( globalRotationXX_ON_2 ) {
+			globalAngleXX_2 += globalRotationXX_DIR_2 * globalRotationXX_SPEED_2 * (90 * elapsed) / 1000.0;
+		}
 		if( globalRotationYY_ON_2 ) {
 			globalAngleYY_2 += globalRotationYY_DIR_2 * globalRotationYY_SPEED_2 * (90 * elapsed) / 1000.0;
 		}
-		
+		if( globalRotationZZ_ON_2 ) {
+			globalAngleZZ_2 += globalRotationZZ_DIR_2 * globalRotationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
+		}
+
 		if( globalTranslationZZ_ON_2 ) {
 			globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
 	    }
@@ -268,152 +288,182 @@ function outputInfos_2(){
 
 function setEventListeners_2(){
 
-		// start/stop Molecule
-		document.getElementById("start-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-			{
-				if( sceneModels_2[i].rotXXOn_2 ) {
-					sceneModels_2[i].rotXXOn_2 = false;
-				}
-				else {
-					sceneModels_2[i].rotXXOn_2 = true;
-				}	
-			}
-		}; 
+		// // choose Molecule
+	// document.getElementById("water-button").onclick = function(){
+
+	// };
 	
-		document.getElementById("stop-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-			{
-				if( sceneModels_2[i].rotXXOn_2 ) {
-					sceneModels_2[i].rotXXOn_2 = false;
-				}
-				else {
-					sceneModels_2[i].rotXXOn_2 = true;
-				}	
-			}
-		};
+	// document.getElementById("dioxide-button").onclick = function(){
+
+	// }; 
 	
-		// movement
-		document.getElementById("XX-start-button_2").onclick = function(){
+	// start/stop Molecule
+	document.getElementById("start-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].rotXXOn_2 = true;
+		}
+		if(globalAngleXX_2 != 0){
+			globalRotationXX_ON_2 = true;
+			document.getElementById("XX-start-button_2").disabled = true;
+			document.getElementById("XX-stop-button_2").disabled = false;
+		}
+		if(globalAngleYY_2 != 0){
+			globalRotationYY_ON_2 = true;
+			document.getElementById("YY-start-button_2").disabled = true;
+			document.getElementById("YY-stop-button_2").disabled = false;
+		}
+		if(globalAngleZZ_2 != 0){
+			globalRotationZZ_ON_2 = true;
+			document.getElementById("ZZ-start-button_2").disabled = true;
+			document.getElementById("ZZ-stop-button_2").disabled = false;
+		}
+	}; 
+
+	document.getElementById("stop-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].rotXXOn_2 = false;
+		}
+		globalRotationXX_ON_2 = false;
+		globalRotationYY_ON_2 = false;
+		globalRotationZZ_ON_2 = false;
+		globalTranslationZZ_ON_2 = false;
+		document.getElementById("XX-start-button_2").disabled = false;
+		document.getElementById("XX-stop-button_2").disabled = true;
+		document.getElementById("YY-start-button_2").disabled = false;
+		document.getElementById("YY-stop-button_2").disabled = true;
+		document.getElementById("ZZ-start-button_2").disabled = false;
+		document.getElementById("ZZ-stop-button_2").disabled = true;
+	};
+
+	// movement
+	document.getElementById("XX-start-button_2").onclick = function(){
+		globalRotationXX_ON_2 = true;
+		// tick();
+	};	
 	
-		};	
+	document.getElementById("XX-stop-button_2").onclick = function(){
+		globalRotationXX_ON_2 = false;
+	};	
+	
+	document.getElementById("YY-start-button_2").onclick = function(){
+		globalRotationYY_ON_2 = true;
+	};
+
+	document.getElementById("YY-stop-button_2").onclick = function(){
+		globalRotationYY_ON_2 = false;
+	};
+	
+	document.getElementById("ZZ-start-button_2").onclick = function(){
+		globalRotationZZ_ON_2 = true;
+	};
+
+	document.getElementById("ZZ-stop-button_2").onclick = function(){
+		globalRotationZZ_ON_2 = false;
+	};	
+
+	// direction
+	document.getElementById("XX-direction-button_2").onclick = function(){
+		if(globalTranslationZZ_DIR_2 == 1){
+			globalTranslationZZ_DIR_2 = -1;
+		}else{
+			globalTranslationZZ_DIR_2 = 1;
+		}
 		
-		document.getElementById("XX-stop-button_2").onclick = function(){
+	};
 	
-		};	
+	document.getElementById("XX_direction_on_off_2").onclick = function(){
+		if(globalTranslationZZ_ON_2 == 1){
+			globalTranslationZZ_ON_2 = 0;
+		}else{
+			globalTranslationZZ_ON_2 = 1;
+		}
+	};   
+
+	// shift
+	document.getElementById("move-left-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].tx_2 -= 0.25;
+		}
+	};
+
+	document.getElementById("move-right-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].tx_2 += 0.25;
+		}		
+
+	};      
+
+	document.getElementById("move-up-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].ty_2 += 0.25;
+		}
+
+	};      
+
+	document.getElementById("move-down-button_2").onclick = function(){
+		for(var i = 0; i < sceneModels_2.length; i++ )
+	    {
+			sceneModels_2[i].ty_2 -= 0.25;
+		}
+ 
+	};
+
+	// speed 
+	document.getElementById("XX-slower-button_2").onclick = function(){
 		
-		document.getElementById("YY-start-button_2").onclick = function(){
-	
-		};
-	
-		document.getElementById("YY-stop-button_2").onclick = function(){
-	
-		};
+		globalRotationXX_SPEED_2 *= 0.75; 
+		globalRotationYY_SPEED_2 *= 0.75;
+		globalRotationZZ_SPEED_2 *= 0.75;
+	};      
+
+	document.getElementById("XX-faster-button_2").onclick = function(){
 		
-		document.getElementById("ZZ-start-button_2").onclick = function(){
-	
-		};
-	
-		document.getElementById("ZZ-stop-button_2").onclick = function(){
-	
-		};	
-	
-		// direction
-		document.getElementById("XX-direction-button_2").onclick = function(){
+		globalRotationXX_SPEED_2 *= 1.25;
+		globalRotationYY_SPEED_2 *= 1.25; 
+		globalRotationZZ_SPEED_2 *= 1.25;
+	};      
+
+	// zoom 
+	var countScale_2 = 0;
+	document.getElementById("scale-up-button_2").onclick = function(){ 
+		if (countScale_2 != 3){
 			for(var i = 0; i < sceneModels_2.length; i++ )
 			{
-				if( sceneModels_2[i].rotXXDir_2 == 1 ) {
-					sceneModels_2[i].rotXXDir_2 = -1;
+				if (i == 1 || i == 3){
+					sceneModels_2[i].sx *= 1.0;
+				} else {
+					sceneModels_2[i].sx *= 1.1;
+				} 
+				sceneModels_2[i].sy *= 1.1;
+				sceneModels_2[i].sz *= 1.1;	
+			}
+			countScale_2++;
+		} 
+		drawScene(); 
+	};
+
+	document.getElementById("scale-down-button_2").onclick = function(){
+		if (countScale_2 != -3){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				if (i == 1 || i == 3){
+					if (sceneModels_2[i].sx <= 0.48)
+						sceneModels_2[i].sx *= 1.1;
+				} else {
+					sceneModels_2[i].sx *= 0.9;
 				}
-				else {
-					sceneModels_2[i].rotXXDir_2 = 1;
-				}	
+				sceneModels_2[i].sy *= 0.9;
+				sceneModels_2[i].sz *= 0.9;	
 			}
-		};
-		
-		document.getElementById("YY-direction-button_2").onclick = function(){
-	
-		};   
-	
-		document.getElementById("ZZ-direction-button_2").onclick = function(){
-	
-		};   
-	
-		// shift
-		document.getElementById("move-left-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels.length; i++ )
-			{
-				sceneModels_2[i].tx_2 -= 0.25;
-			}
-			drawScene();  
-		};
-	
-		document.getElementById("move-right-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-			{
-				sceneModels_2[i].tx_2 += 0.25;
-			}		
-			drawScene();  
-		};      
-	
-		document.getElementById("move-up-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-			{
-				sceneModels_2[i].ty_2 += 0.25;
-			}
-			drawScene();  
-		};      
-	
-		document.getElementById("move-down-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-			{
-				sceneModels_2[i].ty_2 -= 0.25;
-			}
-			drawScene();  
-		};
-	
-		// speed 
-		document.getElementById("XX-slower-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-	    	{
-				sceneModels_2[i].rotXXSpeed_2 *= 0.75; 
-			}
-		};      
-	
-		document.getElementById("XX-faster-button_2").onclick = function(){
-			for(var i = 0; i < sceneModels_2.length; i++ )
-	    	{
-				sceneModels_2[i].rotXXSpeed_2 *= 1.25; 
-			}
-		};      
-	
-		// zoom 
-		var countScale = 0;
-		document.getElementById("scale-up-button_2").onclick = function(){ 
-			if (countScale != 5){
-				for(var i = 0; i < sceneModels_2.length; i++ )
-				{
-					sceneModels_2[i].sx_2 *= 1.1;
-					sceneModels_2[i].sy_2 *= 1.1;
-					sceneModels_2[i].sz_2 *= 1.1;	
-				}
-				countScale++;
-			} 
-			drawScene(); 
-		};
-	
-		document.getElementById("scale-down-button_2").onclick = function(){
-			if (countScale != -5){
-				for(var i = 0; i < sceneModels_2.length; i++ )
-				{
-					sceneModels_2[i].sx_2 *= 0.9;
-					sceneModels_2[i].sy_2 *= 0.9;
-					sceneModels_2[i].sz_2 *= 0.9;	
-				}
-				countScale--;
-			} 
-			drawScene(); 
-		};
+			countScale_2--;
+		} 
+		drawScene(); 
+	};
 	
 		// projection 	
 		var projection = document.getElementById("projection-selection_2");	
