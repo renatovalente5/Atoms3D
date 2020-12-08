@@ -7,16 +7,25 @@ var triangleVertexPositionBuffer = null;
 var triangleVertexNormalBuffer = null;	
 
 // The GLOBAL transformation parameters
+var globalAngleXX = 0.0;
 var globalAngleYY = 0.0;
 var globalAngleZZ = 0.0;
 var globalTz = 0.0;
 
 // GLOBAL Animation controls
+var globalRotationXX_ON = 0;
+var globalRotationXX_DIR = 1;
+var globalRotationXX_SPEED = 1;
+
 var globalRotationYY_ON = 0;
 var globalRotationYY_DIR = 1;
-var globalRotationYY_SPEED = 0;
+var globalRotationYY_SPEED = 1;
 
-var globalTranslationZZ_ON = 1;
+var globalRotationZZ_ON = 0;
+var globalRotationZZ_DIR = 1;
+var globalRotationZZ_SPEED = 1;
+
+var globalTranslationZZ_ON = 0;
 var globalTranslationZZ_DIR = 1;
 var globalTranslationZZ_SPEED = 1;
 
@@ -151,8 +160,11 @@ function drawScene() {
         flatten(pos_Viewer) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	mvMatrix = translationMatrix( 0, 0, globalTz );
-	
+	//mvMatrix = translationMatrix( 0, 0, globalTz );
+	mvMatrix = mult(translationMatrix( 0, 0, globalTz),
+	mult(mult(rotationXXMatrix( globalAngleXX ), rotationYYMatrix( globalAngleYY )),
+			  rotationZZMatrix( globalAngleZZ)));
+
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
 	{
@@ -191,13 +203,15 @@ function animate() {
 		var elapsed = timeNow - lastTime;		
 		
 		// Global rotation		
+		if( globalRotationXX_ON ) {
+			globalAngleXX += globalRotationXX_DIR * globalRotationXX_SPEED * (90 * elapsed) / 1000.0;
+		}
 		if( globalRotationYY_ON ) {
 			globalAngleYY += globalRotationYY_DIR * globalRotationYY_SPEED * (90 * elapsed) / 1000.0;
 		}
-		
-		if( globalTranslationZZ_ON ) {
-			globalAngleZZ += globalTranslationZZ_DIR * globalTranslationZZ_SPEED * (90 * elapsed) / 1000.0;
-	    }
+		if( globalRotationZZ_ON ) {
+			globalAngleZZ += globalRotationZZ_DIR * globalRotationZZ_SPEED * (90 * elapsed) / 1000.0;
+		}
 
 		// Local rotations	
 		for(var i = 0; i < sceneModels.length; i++ )
@@ -277,50 +291,53 @@ function setEventListeners(){
 	document.getElementById("start-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
-			if( sceneModels[i].rotXXOn ) {
-				sceneModels[i].rotXXOn = false;
-			}
-			else {
-				sceneModels[i].rotXXOn = true;
-			}	
+			sceneModels[i].rotXXOn = true;
+		}
+		if(globalAngleXX != 0){
+			globalRotationXX_ON = true;
+		}
+		if(globalAngleYY != 0){
+			globalRotationYY_ON = true;
+		}
+		if(globalAngleZZ != 0){
+			globalRotationZZ_ON = true;
 		}
 	}; 
 
 	document.getElementById("stop-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
-			if( sceneModels[i].rotXXOn ) {
-				sceneModels[i].rotXXOn = false;
-			}
-			else {
-				sceneModels[i].rotXXOn = true;
-			}	
+			sceneModels[i].rotXXOn = false;
 		}
+		globalRotationXX_ON = false;
+		globalRotationYY_ON = false;
+		globalRotationZZ_ON = false;
 	};
 
 	// movement
 	document.getElementById("XX-start-button").onclick = function(){
-
+		globalRotationXX_ON = true;
+		// tick();
 	};	
 	
 	document.getElementById("XX-stop-button").onclick = function(){
-
+		globalRotationXX_ON = false;
 	};	
 	
 	document.getElementById("YY-start-button").onclick = function(){
-
+		globalRotationYY_ON = true;
 	};
 
 	document.getElementById("YY-stop-button").onclick = function(){
-
+		globalRotationYY_ON = false;
 	};
 	
 	document.getElementById("ZZ-start-button").onclick = function(){
-
+		globalRotationZZ_ON = true;
 	};
 
 	document.getElementById("ZZ-stop-button").onclick = function(){
-
+		globalRotationZZ_ON = false;
 	};	
 
 	// direction
@@ -336,12 +353,16 @@ function setEventListeners(){
 		}
 	};
 	
-	document.getElementById("YY-direction-button").onclick = function(){
-
-	};   
-
-	document.getElementById("ZZ-direction-button").onclick = function(){
-
+	document.getElementById("XX_direction_on_off").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			if( sceneModels[i].rotXXOn ) {
+				sceneModels[i].rotXXOn = false;
+			}
+			else {
+				sceneModels[i].rotXXOn = true;
+			}	
+		}
 	};   
 
 	// shift
@@ -350,7 +371,6 @@ function setEventListeners(){
 	    {
 			sceneModels[i].tx -= 0.25;
 		}
-		drawScene();  
 	};
 
 	document.getElementById("move-right-button").onclick = function(){
@@ -358,7 +378,7 @@ function setEventListeners(){
 	    {
 			sceneModels[i].tx += 0.25;
 		}		
-		drawScene();  
+
 	};      
 
 	document.getElementById("move-up-button").onclick = function(){
@@ -366,7 +386,7 @@ function setEventListeners(){
 	    {
 			sceneModels[i].ty += 0.25;
 		}
-		drawScene();  
+
 	};      
 
 	document.getElementById("move-down-button").onclick = function(){
@@ -374,22 +394,22 @@ function setEventListeners(){
 	    {
 			sceneModels[i].ty -= 0.25;
 		}
-		drawScene();  
+ 
 	};
 
 	// speed 
 	document.getElementById("XX-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotXXSpeed *= 0.75; 
-		}
+		
+		globalRotationXX_SPEED *= 0.75; 
+		globalRotationYY_SPEED *= 0.75;
+		globalRotationZZ_SPEED *= 0.75;
 	};      
 
 	document.getElementById("XX-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotXXSpeed *= 1.25; 
-		}
+		
+		globalRotationXX_SPEED *= 1.25;
+		globalRotationYY_SPEED *= 1.25; 
+		globalRotationZZ_SPEED *= 1.25;
 	};      
 
 	// zoom 
@@ -453,7 +473,75 @@ function setEventListeners(){
 			case 2 : primitiveType = gl.POINTS;
 				break;
 		}
-	});   
+	});  
+
+	document.getElementById("reset-button").onclick = function(){
+		
+		globalRotationXX_ON = false;
+		globalRotationYY_ON = false;
+		globalRotationZZ_ON = false;
+		globalAngleXX = 0;
+		globalAngleYY = 0;
+		globalAngleZZ = 0;
+
+		// left sphere
+		sceneModels[0].tx = -0.75; sceneModels[0].ty = -0.03;
+		sceneModels[0].sx = 0.20; sceneModels[0].sy = 0.20; sceneModels[0].sz = 0.20;
+		sceneModels[0].rotXXOn = false;	
+		sceneModels[0].rotYYOn = false;
+		sceneModels[0].rotZZOn = false;
+		sceneModels[0].rotXXSpeed = 1.0;
+		sceneModels[0].rotYYSpeed = 1.0;
+		sceneModels[0].rotZZSpeed = 1.0;
+
+		// left link
+		sceneModels[1].tx = -0.40; sceneModels[1].ty = 0.23;
+		sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
+		sceneModels[1].rotXXOn = false;	
+		sceneModels[1].rotYYOn = false;
+		sceneModels[1].rotZZOn = false;
+		sceneModels[1].rotXXSpeed = 1.0;
+		sceneModels[1].rotYYSpeed = 1.0;
+		sceneModels[1].rotZZSpeed = 1.0;
+
+		// middle sphere
+		sceneModels[2].tx = 0; sceneModels[2].ty = 0.5;
+		sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
+		sceneModels[2].rotXXOn = false;	
+		sceneModels[2].rotYYOn = false;
+		sceneModels[2].rotZZOn = false;
+		sceneModels[2].rotXXSpeed = 1.0;
+		sceneModels[2].rotYYSpeed = 1.0;
+		sceneModels[2].rotZZSpeed = 1.0;
+
+		// right link
+		sceneModels[3].tx = 0.40; sceneModels[3].ty = 0.23;
+		sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
+		sceneModels[3].rotXXOn = false;	
+		sceneModels[3].rotYYOn = false;
+		sceneModels[3].rotZZOn = false;
+		sceneModels[3].rotXXSpeed = 1.0;
+		sceneModels[3].rotYYSpeed = 1.0;
+		sceneModels[3].rotZZSpeed = 1.0;
+
+		// right sphere
+		sceneModels[4].tx = 0.75; sceneModels[4].ty = -0.03;
+		sceneModels[4].sx = 0.20; sceneModels[4].sy = 0.20; sceneModels[4].sz = 0.20;
+		sceneModels[4].rotXXOn = false;	
+		sceneModels[4].rotYYOn = false;
+		sceneModels[4].rotZZOn = false;
+		sceneModels[4].rotXXSpeed = 1.0;
+		sceneModels[4].rotYYSpeed = 1.0;
+		sceneModels[4].rotZZSpeed = 1.0;
+
+		document.getElementById("stop-button").disabled = true;
+		document.getElementById("start-button").disabled = false;
+		drawScene();  
+		// sceneModels[i].rotXXOn = true;
+		// sceneModels[i].rotYYOn = true;
+		// sceneModels[i].rotZZOn = true;
+	};
+
 }
 
 //--------------------------- WebGL Initialization ---------------------------
