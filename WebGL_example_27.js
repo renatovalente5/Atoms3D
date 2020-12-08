@@ -38,6 +38,8 @@ var projectionType_2 = 0;
 // The viewer position
 var pos_Viewer_2 = [ 0.0, 0.0, 0.0, 1.0 ];
 
+var randomDir = 0;
+
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -185,32 +187,68 @@ function drawScene_2() {
 		var lsmUniform = gl_2.getUniformLocation(shaderProgram_2, "allLights["+ String(i) + "].lightSourceMatrix");
 		gl_2.uniformMatrix4fv(lsmUniform, false, new Float32Array(flatten(lightSourceMatrix)));
 	}
-	
-	// Instantianting all scene models	
-	for(var i = 0; i < sceneModels_2.length; i++ )
-	{
-		if(i==0 || i==1 || i==4){
-			drawModel_2( sceneModels_2[i],
-				translationMatrix( 0, 0, globalTz_2 ),
-				primitiveType_2 );
-		}else if(i==3){
-			drawModel_2( sceneModels_2[i],
-				mult(translationMatrix( -0.45, 0.85, globalTz_2),
-				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
-			  	rotationZZMatrix( globalAngleZZ_2))),
-				primitiveType_2 );
-		}else if(i==2){
-			drawModel_2( sceneModels_2[i],
-				mult(translationMatrix( 0.45, 0.85, globalTz_2),
-				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
-			  	rotationZZMatrix( globalAngleZZ_2))),
-				primitiveType_2 );
-		}else{
-			drawModel_2( sceneModels_2[i],
-				mult(translationMatrix( 0, 0, globalTz_2),
-				mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
-			  	rotationZZMatrix( globalAngleZZ_2))),
-				primitiveType_2 );
+	if(randomDir==1){
+
+		// Instantianting all scene models	
+		for(var i = 0; i < sceneModels_2.length; i++ )
+		{
+			if(i==0 || i==1 || i==4){
+				drawModel_2( sceneModels_2[i],
+					translationMatrix( 0, 0, globalTz_2 ),
+					primitiveType_2 );
+			}else if(i==3){
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( -0.45, 0.85, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+					rotationZZMatrix( globalAngleZZ_2 * (-1) ))),
+					primitiveType_2 );
+			}else if(i==2){
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( 0.45, 0.85, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 * (-1) ), rotationYYMatrix( globalAngleYY_2 * (-1) )),
+					rotationZZMatrix( globalAngleZZ_2))),
+					primitiveType_2 );
+			}else if(i==5 || i==10 || i==12){
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( 0, 0, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 * (-1) ), rotationYYMatrix( globalAngleYY_2 * (-1))),
+					rotationZZMatrix( globalAngleZZ_2 ))),
+					primitiveType_2 );
+			}else{
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( 0, 0, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+						rotationZZMatrix( globalAngleZZ_2 * (-1) ))),
+					primitiveType_2 );
+			}
+		}
+	}else{
+		// Instantianting all scene models	
+		for(var i = 0; i < sceneModels_2.length; i++ )
+		{
+			if(i==0 || i==1 || i==4){
+				drawModel_2( sceneModels_2[i],
+					translationMatrix( 0, 0, globalTz_2 ),
+					primitiveType_2 );
+			}else if(i==3){
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( -0.45, 0.85, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+					rotationZZMatrix( globalAngleZZ_2 ))),
+					primitiveType_2 );
+			}else if(i==2){
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( 0.45, 0.85, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+					rotationZZMatrix( globalAngleZZ_2 ))),
+					primitiveType_2 );
+			}else{
+				drawModel_2( sceneModels_2[i],
+					mult(translationMatrix( 0, 0, globalTz_2),
+					mult(mult(rotationXXMatrix( globalAngleXX_2 ), rotationYYMatrix( globalAngleYY_2 )),
+						rotationZZMatrix( globalAngleZZ_2 ))),
+					primitiveType_2 );
+			}
 		}
 	}
 }
@@ -373,6 +411,15 @@ function setEventListeners_2(){
 		
 	};
 	
+	document.getElementById("XX-randomDir-button_2").onclick = function(){
+		if(randomDir == 0){
+			randomDir = 1;
+		}else{
+			randomDir = 0;
+		}
+		
+	};
+	
 	document.getElementById("XX_direction_on_off_2").onclick = function(){
 		if(globalTranslationZZ_ON_2 == 1){
 			globalTranslationZZ_ON_2 = 0;
@@ -381,37 +428,6 @@ function setEventListeners_2(){
 		}
 	};   
 
-	// shift
-	document.getElementById("move-left-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].tx_2 -= 0.25;
-		}
-	};
-
-	document.getElementById("move-right-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].tx_2 += 0.25;
-		}		
-
-	};      
-
-	document.getElementById("move-up-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].ty_2 += 0.25;
-		}
-
-	};      
-
-	document.getElementById("move-down-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].ty_2 -= 0.25;
-		}
- 
-	};
 
 	// speed 
 	document.getElementById("XX-slower-button_2").onclick = function(){
