@@ -196,7 +196,7 @@ function animate() {
 		}
 		
 		if( globalTranslationZZ_ON ) {
-			globalAngleZZ += globalTranslationZZ_DIR * globalTranslationZZ_SPEED * elapsed / 1000.0;
+			globalAngleZZ += globalTranslationZZ_DIR * globalTranslationZZ_SPEED * (90 * elapsed) / 1000.0;
 	    }
 
 		// Local rotations	
@@ -210,9 +210,6 @@ function animate() {
 			}
 			if( sceneModels[i].rotZZOn ) {
 				sceneModels[i].rotAngleZZ += sceneModels[i].rotZZDir * sceneModels[i].rotZZSpeed * (90 * elapsed) / 1000.0;
-			}
-			if( sceneModels[i].traZZOn ) {
-				sceneModels[i].traAngleZZ += sceneModels[i].traZZDir * sceneModels[i].traZZSpeed * (90 * elapsed) / 1000.0;
 			}
 		}
 		
@@ -252,34 +249,44 @@ function outputInfos(){
 
 function setEventListeners(){
 	
-    // Dropdown list	
-	var projection = document.getElementById("projection-selection");	
-	projection.addEventListener("click", function(){		
-		var p = projection.selectedIndex;				
-		switch(p){			
-			case 0 : projectionType = 0;
-				break;			
-			case 1 : projectionType = 1;
-				break;
-		}  	
-	});      
+	// var sceneModels = sceneModels_1;
+	// var tx, ty, tz, rotAngleXX, rotAngleYY, rotAngleZZ, traAngleZZ, sx, sy, sz;
+	// var rotXXOn, rotYYOn, rotZZOn, rotXXSpeed, rotYYSpeed, rotZZSpeed, rotXXDir, rotYYDir, rotZZDir;
+	// var traZZOn, traZZSpeed, traZZDir;
+	// var kAmbi, kDiff, kSpec, nPhong;
 
-	// Dropdown list	
-	var list = document.getElementById("rendering-mode-selection");	
-	list.addEventListener("click", function(){						
-		var mode = list.selectedIndex;				
-		switch(mode){
-			case 0 : primitiveType = gl.TRIANGLES;
-				break;			
-			case 1 : primitiveType = gl.LINE_LOOP;
-				break;			
-			case 2 : primitiveType = gl.POINTS;
-				break;
+	// tx = tx_1; ty = ty_1; tz = tz_1;
+	// rotAngleXX = rotAngleXX_1; rotAngleYY = rotAngleYY_1; rotAngleZZ = rotAngleZZ_1; traAngleZZ = traAngleZZ_1;
+	// sx = sx_1; sy = sy_1; sz = sz_1;
+	// rotXXOn = rotXXOn_1; rotYYOn = rotYYOn_1; rotZZOn = rotZZOn_1;
+	// rotXXSpeed = rotXXSpeed_1; rotYYSpeed = rotYYSpeed_1; rotZZSpeed = rotZZSpeed_1;
+	// rotXXDir = rotXXDir_1; rotYYDir = rotYYDir_1; rotZZDir = rotZZDir_1;
+	// traZZOn = traZZOn_1; traZZSpeed = traZZSpeed_1; traZZDir = traZZDir_1;
+	// kAmbi = kAmbi_1; kDiff = kDiff_1; kSpec = kSpec_1; nPhong = nPhong_1;
+
+	// choose Molecule
+	document.getElementById("water-button").onclick = function(){
+
+	};
+	
+	document.getElementById("dioxide-button").onclick = function(){
+
+	}; 
+	
+	// start/stop Molecule
+	document.getElementById("start-button").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			if( sceneModels[i].rotXXOn ) {
+				sceneModels[i].rotXXOn = false;
+			}
+			else {
+				sceneModels[i].rotXXOn = true;
+			}	
 		}
-	});      
+	}; 
 
-	// Button events
-	document.getElementById("XX-on-off-button").onclick = function(){	
+	document.getElementById("stop-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
 			if( sceneModels[i].rotXXOn ) {
@@ -291,6 +298,32 @@ function setEventListeners(){
 		}
 	};
 
+	// movement
+	document.getElementById("XX-start-button").onclick = function(){
+
+	};	
+	
+	document.getElementById("XX-stop-button").onclick = function(){
+
+	};	
+	
+	document.getElementById("YY-start-button").onclick = function(){
+
+	};
+
+	document.getElementById("YY-stop-button").onclick = function(){
+
+	};
+	
+	document.getElementById("ZZ-start-button").onclick = function(){
+
+	};
+
+	document.getElementById("ZZ-stop-button").onclick = function(){
+
+	};	
+
+	// direction
 	document.getElementById("XX-direction-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
@@ -301,8 +334,50 @@ function setEventListeners(){
 				sceneModels[i].rotXXDir = 1;
 			}	
 		}
+	};
+	
+	document.getElementById("YY-direction-button").onclick = function(){
+
+	};   
+
+	document.getElementById("ZZ-direction-button").onclick = function(){
+
+	};   
+
+	// shift
+	document.getElementById("move-left-button").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].tx -= 0.25;
+		}
+		drawScene();  
+	};
+
+	document.getElementById("move-right-button").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].tx += 0.25;
+		}		
+		drawScene();  
 	};      
 
+	document.getElementById("move-up-button").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].ty += 0.25;
+		}
+		drawScene();  
+	};      
+
+	document.getElementById("move-down-button").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].ty -= 0.25;
+		}
+		drawScene();  
+	};
+
+	// speed 
 	document.getElementById("XX-slower-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
@@ -316,84 +391,69 @@ function setEventListeners(){
 			sceneModels[i].rotXXSpeed *= 1.25; 
 		}
 	};      
-/*
-	document.getElementById("YY-on-off-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotYYOn ) {
 
-				sceneModels[i].rotYYOn = false;
+	// zoom 
+	var countScale = 0;
+	document.getElementById("scale-up-button").onclick = function(){ 
+		if (countScale != 3){
+			for(var i = 0; i < sceneModels.length; i++ )
+			{
+				if (i == 1 || i == 3){
+					sceneModels[i].sx *= 1.0;
+				} else {
+					sceneModels[i].sx *= 1.1;
+				} 
+				sceneModels[i].sy *= 1.1;
+				sceneModels[i].sz *= 1.1;	
 			}
-			else {
-				sceneModels[i].rotYYOn = true;
-			}	
-		}
+			countScale++;
+		} 
+		drawScene(); 
 	};
 
-	document.getElementById("YY-direction-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotYYDir == 1 ) {
-
-				sceneModels[i].rotYYDir = -1;
+	document.getElementById("scale-down-button").onclick = function(){
+		if (countScale != -3){
+			for(var i = 0; i < sceneModels.length; i++ )
+			{
+				if (i == 1 || i == 3){
+					if (sceneModels[i].sx <= 0.48)
+						sceneModels[i].sx *= 1.1;
+				} else {
+					sceneModels[i].sx *= 0.9;
+				}
+				sceneModels[i].sy *= 0.9;
+				sceneModels[i].sz *= 0.9;	
 			}
-			else {
-				sceneModels[i].rotYYDir = 1;
-			}	
-		}
-	};      
-
-	document.getElementById("YY-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotYYSpeed *= 0.75; 
-		}
-	};      
-
-	document.getElementById("YY-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotYYSpeed *= 1.25; 
-		}
-	};      
-
-	document.getElementById("ZZ-on-off-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotZZOn ) {
-				sceneModels[i].rotZZOn = false;
-			}
-			else {
-				sceneModels[i].rotZZOn = true;
-			}	
-		}
+			countScale--;
+		} 
+		drawScene(); 
 	};
 
-	document.getElementById("ZZ-direction-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			if( sceneModels[i].rotZZDir == 1 ) {
-				sceneModels[i].rotZZDir = -1;
-			}
-			else {
-				sceneModels[i].rotZZDir = 1;
-			}	
-		}
-	};      
+	// projection 	
+	var projection = document.getElementById("projection-selection");	
+	projection.addEventListener("click", function(){		
+		var p = projection.selectedIndex;				
+		switch(p){			
+			case 0 : projectionType = 0;
+				break;			
+			case 1 : projectionType = 1;
+				break;
+		}  	
+	});      
 
-	document.getElementById("ZZ-slower-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotZZSpeed *= 0.75; 
+	// rendering	
+	var list = document.getElementById("rendering-mode-selection");	
+	list.addEventListener("click", function(){						
+		var mode = list.selectedIndex;				
+		switch(mode){
+			case 0 : primitiveType = gl.TRIANGLES;
+				break;			
+			case 1 : primitiveType = gl.LINE_LOOP;
+				break;			
+			case 2 : primitiveType = gl.POINTS;
+				break;
 		}
-	};      
-
-	document.getElementById("ZZ-faster-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotZZSpeed *= 1.25; 
-		}
-	};      */
+	});   
 }
 
 //--------------------------- WebGL Initialization ---------------------------

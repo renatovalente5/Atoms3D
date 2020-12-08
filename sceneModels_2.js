@@ -49,24 +49,6 @@ function emptyModelFeatures_2() {
 	this.nPhong_2 = 100;
 }
 
-function singleTriangleModel_2( ) {	
-	var triangle = new emptyModelFeatures_2();
-	triangle.vertices_2 = [
-		// FRONTAL TRIANGLE		 
-		-0.5, -0.5,  0.5,		 
-		 0.5, -0.5,  0.5,		 
-		 0.5,  0.5,  0.5,
-	];
-
-	triangle.normals_2 = [
-		// FRONTAL TRIANGLE		 
-		 0.0,  0.0,  1.0,		 
-		 0.0,  0.0,  1.0,		 
-		 0.0,  0.0,  1.0,
-	];
-	return triangle;
-}
-
 function simpleCubeModel_2( ) {
 	var cube = new emptyModelFeatures_2();	
 	cube.vertices_2 = [
@@ -116,33 +98,6 @@ function cubeModel_2( subdivisionDepth = 0 ) {
 	midPointRefinement( cube.vertices_2, subdivisionDepth );	
 	computeVertexNormals( cube.vertices_2, cube.normals_2 );	
 	return cube;
-}
-
-function simpleTetrahedronModel_2( ) {	
-	var tetra = new emptyModelFeatures_2();	
-	tetra.vertices_2 = [
-		-1.000000,  0.000000, -0.707000, 
-         0.000000,  1.000000,  0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         0.000000,  1.000000,  0.707000, 
-         0.000000, -1.000000,  0.707000, 
-        -1.000000,  0.000000, -0.707000, 
-         0.000000, -1.000000,  0.707000, 
-         0.000000,  1.000000,  0.707000, 
-        -1.000000,  0.000000, -0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         0.000000, -1.000000,  0.707000,
-	];
-	computeVertexNormals( tetra.vertices_2, tetra.normals_2 );
-	return tetra;
-}
-
-function tetrahedronModel_2( subdivisionDepth = 0 ) {	
-	var tetra = new simpleTetrahedronModel_2();	
-	midPointRefinement( tetra.vertices_2, subdivisionDepth );	
-	computeVertexNormals( tetra.vertices_2, tetra.normals_2 );	
-	return tetra;
 }
 
 function sphereModel_2( subdivisionDepth = 5 ) {	

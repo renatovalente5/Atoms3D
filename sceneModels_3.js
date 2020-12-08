@@ -1,75 +1,57 @@
 
 //------------------------------- Constructors -------------------------------
 
-function emptyModelFeatures() {
+function emptyModelFeatures_3() {
 
 	// EMPTY MODEL
-	this.vertices = [];
-	this.normals = [];
+	this.vertices_3 = [];
+	this.normals_3 = [];
 
 	// Displacement vector	
-	this.tx = 0.0;	
-	this.ty = 0.0;	
-	this.tz = 0.0;	
+	this.tx_3 = 0.0;	
+	this.ty_3 = 0.0;	
+	this.tz_3 = 0.0;	
 	
 	// Rotation angles		
-	this.rotAngleXX = 0.0;	
-	this.rotAngleYY = 0.0;	
-	this.rotAngleZZ = 0.0;	
+	this.rotAngleXX_3 = 0.0;	
+	this.rotAngleYY_3 = 0.0;	
+	this.rotAngleZZ_3 = 0.0;	
 	
-	this.traAngleZZ = 0.0;	
+	this.traAngleZZ_3 = 0.0;	
 
 	// Scaling factors	
-	this.sx = 1.0;	
-	this.sy = 1.0;	
-	this.sz = 1.0;		
+	this.sx_3 = 1.0;	
+	this.sy_3 = 1.0;	
+	this.sz_3 = 1.0;		
 	
 	// Animation controls
-	this.rotXXOn = true;	
-	this.rotYYOn = true;	
-	this.rotZZOn = true;	
+	this.rotXXOn_3 = true;	
+	this.rotYYOn_3 = true;	
+	this.rotZZOn_3 = true;	
 
-	this.rotXXSpeed = 1.0;	
-	this.rotYYSpeed = 1.0;	
-	this.rotZZSpeed = 1.0;
+	this.rotXXSpeed_3 = 1.0;	
+	this.rotYYSpeed_3 = 1.0;	
+	this.rotZZSpeed_3 = 1.0;
 	
-	this.rotXXDir = 1;
-	this.rotYYDir = 1;
-	this.rotZZDir = 1;
+	this.rotXXDir_3 = 1;
+	this.rotYYDir_3 = 1;
+	this.rotZZDir_3 = 1;
 
 	// Animation controls	
-	this.traZZOn = false;	
-	this.traZZSpeed = 1.0;
-	this.traZZDir = 1;
+	this.traZZOn_3 = false;	
+	this.traZZSpeed_3 = 1.0;
+	this.traZZDir_3 = 1;
 	
 	// Material features	
-	this.kAmbi = [ 0.2, 0.2, 0.2 ];	
-	this.kDiff = [ 0.0, 0.0, 1.0 ];
+	this.kAmbi_3 = [ 0.2, 0.2, 0.2 ];	
+	this.kDiff = [ 1.0, 0.0, 0.0 ];
 	this.kSpec = [ 0.7, 0.7, 0.7 ];
-	this.nPhong = 100;
+	this.nPhong_3 = 100;
 }
 
-function singleTriangleModel( ) {	
-	var triangle = new emptyModelFeatures();
-	triangle.vertices = [
-		// FRONTAL TRIANGLE		 
-		-0.5, -0.5,  0.5,		 
-		 0.5, -0.5,  0.5,		 
-		 0.5,  0.5,  0.5,
-	];
-
-	triangle.normals = [
-		// FRONTAL TRIANGLE		 
-		 0.0,  0.0,  1.0,		 
-		 0.0,  0.0,  1.0,		 
-		 0.0,  0.0,  1.0,
-	];
-	return triangle;
-}
-
-function simpleCubeModel( ) {
-	var cube = new emptyModelFeatures();	
-	cube.vertices = [
+function simpleCubeModel_3( ) {
+	var cube = new emptyModelFeatures_3();	
+	cube.vertices_3 = [
 		-1.000000, -1.000000,  1.000000, 
 		 1.000000,  1.000000,  1.000000, 
 		-1.000000,  1.000000,  1.000000, 
@@ -107,88 +89,68 @@ function simpleCubeModel( ) {
 		 1.000000, -1.000000, -1.000000, 
 		 1.000000, -1.000000,  1.000000, 	 
 	];
-	computeVertexNormals( cube.vertices, cube.normals );
+	computeVertexNormals( cube.vertices_3, cube.normals_3 );
 	return cube;
 }
 
-function cubeModel( subdivisionDepth = 0 ) {	
-	var cube = new simpleCubeModel();	
-	midPointRefinement( cube.vertices, subdivisionDepth );	
-	computeVertexNormals( cube.vertices, cube.normals );	
+function cubeModel_3( subdivisionDepth = 0 ) {	
+	var cube = new simpleCubeModel_3();	
+	midPointRefinement( cube.vertices_3, subdivisionDepth );	
+	computeVertexNormals( cube.vertices_3, cube.normals_3 );	
 	return cube;
 }
 
-function simpleTetrahedronModel( ) {	
-	var tetra = new emptyModelFeatures();	
-	tetra.vertices = [
-		-1.000000,  0.000000, -0.707000, 
-         0.000000,  1.000000,  0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         0.000000,  1.000000,  0.707000, 
-         0.000000, -1.000000,  0.707000, 
-        -1.000000,  0.000000, -0.707000, 
-         0.000000, -1.000000,  0.707000, 
-         0.000000,  1.000000,  0.707000, 
-        -1.000000,  0.000000, -0.707000, 
-         1.000000,  0.000000, -0.707000, 
-         0.000000, -1.000000,  0.707000,
-	];
-	computeVertexNormals( tetra.vertices, tetra.normals );
-	return tetra;
-}
-
-function tetrahedronModel( subdivisionDepth = 0 ) {	
-	var tetra = new simpleTetrahedronModel();	
-	midPointRefinement( tetra.vertices, subdivisionDepth );	
-	computeVertexNormals( tetra.vertices, tetra.normals );	
-	return tetra;
-}
-
-function sphereModel( subdivisionDepth = 5 ) {	
-	var sphere = new simpleCubeModel();	
-	midPointRefinement( sphere.vertices, subdivisionDepth );	
-	moveToSphericalSurface( sphere.vertices )	
-	computeVertexNormals( sphere.vertices, sphere.normals );	
+function sphereModel_3( subdivisionDepth = 5 ) {	
+	var sphere = new simpleCubeModel_3();	
+	midPointRefinement( sphere.vertices_3, subdivisionDepth );	
+	moveToSphericalSurface( sphere.vertices_3 )	
+	computeVertexNormals( sphere.vertices_3, sphere.normals_3 );	
 	return sphere;
 }
 
 
 //------------------------- Instantiating scene models -----------------------
 
-var sceneModels = [];
+var sceneModels_3 = [];
 
 // Model 0 --- Left sphere
-sceneModels.push( new sphereModel( 6 ) );
-sceneModels[0].rotZZOn = false;
-sceneModels[0].rotYYOn = false;
-sceneModels[0].tx = -0.75; sceneModels[0].ty = 0;
-sceneModels[0].sx = 0.20; sceneModels[0].sy = 0.20; sceneModels[0].sz = 0.20;
+sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3[0].rotZZOn = false;
+sceneModels_3[0].rotYYOn = false;
+sceneModels_3[0].kDiff = [ 1.0, 1.0, 1.0 ];
+sceneModels_3[0].tx_3 = -0.75; sceneModels_3[0].ty_3 = 0;
+sceneModels_3[0].sx_3 = 0.20; sceneModels_3[0].sy_3 = 0.20; sceneModels_3[0].sz_3 = 0.20;
 
 // Model 1 --- Left simpleCube
-sceneModels.push( new simpleCubeModel() );
-sceneModels[1].rotZZOn = false;
-sceneModels[1].rotYYOn = false;
-sceneModels[1].tx = -0.40; sceneModels[1].ty = 0;
-sceneModels[1].sx = 0.16; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
+sceneModels_3.push( new simpleCubeModel_3() );
+sceneModels_3[1].rotZZOn = false;
+sceneModels_3[1].rotYYOn = false;
+sceneModels_3[1].rotAngleZZ = 37.5;
+sceneModels_3[1].kDiff = [ 0.8, 0.8, 0.8 ];
+sceneModels_3[1].tx_3 = -0.40; sceneModels_3[1].ty_3 = 0;
+sceneModels_3[1].sx_3 = 0.16; sceneModels_3[1].sy_3 = 0.05; sceneModels_3[1].sz_3 = 0.05;
 
 // Model 2 --- Middle sphere
-sceneModels.push( new sphereModel( 6 ) );
-sceneModels[2].rotZZOn = false;
-sceneModels[2].rotYYOn = false;
-sceneModels[2].tx = 0; sceneModels[2].ty = 0;
-sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
+sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3[2].rotZZOn = false;
+sceneModels_3[2].rotYYOn = false;
+sceneModels_3[2].kDiff = [ 1.0, 0.0, 0.0 ];
+sceneModels_3[2].tx_3 = 0; sceneModels_3[2].ty_3 = 0;
+sceneModels_3[2].sx_3 = 0.25; sceneModels_3[2].sy_3 = 0.25; sceneModels_3[2].sz_3 = 0.25;
 
 // Model 3 --- Middle simpleCube
-sceneModels.push( new simpleCubeModel() );
-sceneModels[3].rotZZOn = false;
-sceneModels[3].rotYYOn = false;
-sceneModels[3].tx = 0.40; sceneModels[3].ty = 0;
-sceneModels[3].sx = 0.16; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
+sceneModels_3.push( new simpleCubeModel_3() );
+sceneModels_3[3].rotZZOn = false;
+sceneModels_3[3].rotYYOn = false;
+sceneModels_3[3].rotAngleZZ = -37.5;
+sceneModels_3[3].kDiff = [ 1.0, 1.0, 1.0 ];
+sceneModels_3[3].tx_3 = 0.40; sceneModels_3[3].ty_3 = 0;
+sceneModels_3[3].sx_3 = 0.16; sceneModels_3[3].sy_3 = 0.05; sceneModels_3[3].sz_3 = 0.05;
 
 // Model 4 --- Right sphere
-sceneModels.push( new sphereModel( 6 ) );
-sceneModels[4].rotZZOn = false;
-sceneModels[4].rotYYOn = false;
-sceneModels[4].tx = 0.75; sceneModels[4].ty = 0;
-sceneModels[4].sx = 0.20; sceneModels[4].sy = 0.20; sceneModels[4].sz = 0.20;
+sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3[4].rotZZOn = false;
+sceneModels_3[4].rotYYOn = false;
+sceneModels_3[4].kDiff = [ 1.0, 1.0, 1.0 ];
+sceneModels_3[4].tx_3 = 0.75; sceneModels_3[4].ty_3 = 0;
+sceneModels_3[4].sx_3 = 0.20; sceneModels_3[4].sy_3 = 0.20; sceneModels_3[4].sz_3 = 0.20;

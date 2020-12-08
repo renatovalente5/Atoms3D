@@ -94,14 +94,119 @@
     </script>
 
     <script>
+      // Chosse molecule
       $(document).ready(function() {
-        $("#button1").click(function() {
-            $('#button2').removeAttr('disabled');
+        $("#water-button").click(function() {
+            $('#dioxide-button').removeAttr('disabled');
             $(this).attr('disabled', 'disabled');
         });
 
-        $("#button2").click(function() {
-            $('#button1').removeAttr('disabled');
+        $("#dioxide-button").click(function() {
+            $('#water-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // start/stop molecule
+      $(document).ready(function() {
+        $("#start-button").click(function() {
+            $('#stop-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#stop-button").click(function() {
+            $('#start-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement XX
+      $(document).ready(function() {
+        $("#XX-start-button").click(function() {
+            $('#XX-stop-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX-stop-button").click(function() {
+            $('#XX-start-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement YY
+      $(document).ready(function() {
+        $("#YY-start-button").click(function() {
+            $('#YY-stop-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#YY-stop-button").click(function() {
+            $('#YY-start-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement ZZ
+      $(document).ready(function() {
+        $("#ZZ-start-button").click(function() {
+            $('#ZZ-stop-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#ZZ-stop-button").click(function() {
+            $('#ZZ-start-button').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // start/stop molecule
+      $(document).ready(function() {
+        $("#start-button_2").click(function() {
+            $('#stop-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#stop-button_2").click(function() {
+            $('#start-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement XX
+      $(document).ready(function() {
+        $("#XX-start-button_2").click(function() {
+            $('#XX-stop-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX-stop-button_2").click(function() {
+            $('#XX-start-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement YY
+      $(document).ready(function() {
+        $("#YY-start-button_2").click(function() {
+            $('#YY-stop-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#YY-stop-button_2").click(function() {
+            $('#YY-start-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // movement ZZ
+      $(document).ready(function() {
+        $("#ZZ-start-button_2").click(function() {
+            $('#ZZ-stop-button_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#ZZ-stop-button_2").click(function() {
+            $('#ZZ-start-button_2').removeAttr('disabled');
             $(this).attr('disabled', 'disabled');
         });
       });
@@ -117,8 +222,9 @@
 	<!-- Creating the light sources -->
 	<script type="text/javascript" src="lightSources.js"></script>
 	<!-- Creating the scene models -->
-  <script type="text/javascript" src="sceneModels.js"></script>
+  <script type="text/javascript" src="sceneModels_1.js"></script>
   <script type="text/javascript" src="sceneModels_2.js"></script>
+  <script type="text/javascript" src="sceneModels_3.js"></script>
 	<!-- WebGL code -->
 	<script type="text/javascript" src="initShaders.js"></script>
   <script type="text/javascript" src="WebGL_example_26.js"></script>
@@ -129,37 +235,103 @@
     <div class="text-center tm-hero-text-container" style="background-color: black;">
       <div class="container">
         <p style="text-align: center; color:white; padding-top: 30px; padding-bottom: 5px; font-size: 30px;"><b>VISUALIZATION OF MOLECULES AND ATOMS</b></p>
-        <p style="padding-bottom: 15px;">
-          <button id="button1" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;" disabled> Water</button>
-          <button id="button2" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;">Carbon Dioxide</button>
-        </p>
         
-        <div class="row">     
+        <!-- CHOOSE MOLECULE -->
+        <p style="padding-bottom: 15px;">
+          <button id="water-button" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;" disabled> Water</button>
+          <button id="dioxide-button" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;">Carbon Dioxide</button>
+        </p>
 
+        <div class="row">     
+          <!-- MOLECULE -->
           <div class="col-lg-6">
             <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
             <p style="text-align: center; color:white;"><b>MOLECULE</b></p>              
             <div style="text-align: left; padding-top: 20px;"> 
-              <p style="text-align: left; color:white;"><b>ROTATION</b></p>
-              <p style="padding-left: 20px;">Model XX rotation: 
-                <button id="XX-on-off-button" class="tm-intro-text tm-btn-primary">On / Off</button>
-                <button id="XX-direction-button" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                <button id="XX-slower-button" class="tm-intro-text tm-btn-primary">Slower</button>
-                <button id="XX-faster-button" class="tm-intro-text tm-btn-primary">Faster</button>
-              </p>     
-              <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
-              <p style="padding-left: 20px;">Projection type:
-                <select id="projection-selection" class="custom-select" style="width:200px; height: 40px;">
-                  <option value="0">Orthogonal Projection</option>
-                  <option value="1">Perspective Projection</option>
-                </select>
+              
+              <!-- START / STOP -->
+              <p style="padding-bottom: 15px; text-align: center;">
+                <button id="start-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
+                <button id="stop-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
               </p>
-              <p style="padding-left: 20px;">Rendering mode:
+   
+              <!-- MOVEMENT -->
+              <p style="padding-left: 55px;">
+                <b>Movement: </b>
+                <b style="padding-left: 15px;">XX</b> 
+                <button id="XX-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="XX-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+                <b style="padding-left: 25px;">YY</b> 
+                <button id="YY-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="YY-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+                <b style="padding-left: 25px;"> ZZ </b> 
+                <button id="ZZ-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="ZZ-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+              </p>
+
+              <!-- DIRECTION -->
+              <p style="padding-left: 55px;">
+                <b>Direction: </b> 
+                <b style="padding-left: 26px;">XX</b> 
+                <button id="XX-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 73px;">YY</b> 
+                <button id="YY-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 73px;"> ZZ </b> 
+                <button id="ZZ-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+              </p>
+
+              <!-- SPEED -->
+              <p style="padding-left: 55px;">
+                <b>Speed: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="XX-faster-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
+                  <button id="XX-slower-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
+                </b>
+              </p>
+
+              <!-- SHIFT -->
+              <p style="padding-left: 55px;">
+                <b>Shift: </b> 
+                <b style="padding-left: 80px;">
+                  <button id="move-up-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↑</b></button>
+                  <button id="move-left-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>←</b></button>
+                  <button id="move-right-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>→</b></button>
+                  <button id="move-down-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
+                </b>
+              </p>
+
+              <!-- ZOOM -->
+              <p style="padding-left: 55px;">     
+                <b>Zoom: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="scale-up-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
+                  <button id="scale-down-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
+                </b>     
+              </p>
+              
+              <!-- PROJECTION -->
+              <p style="padding-left: 55px;">
+                <b>Projection type: </b>
+                <b style="padding-left: 9px;">
+                  <select id="projection-selection" class="custom-select" style="width:200px; height: 40px;">
+                    <option value="0">Orthogonal Projection</option>
+                    <option value="1">Perspective Projection</option>
+                  </select>
+                </b>
+              </p>
+
+              <!-- RENDERING -->
+              <p style="padding-left: 55px;"><b>Rendering mode: </b>
                 <select id="rendering-mode-selection" class="custom-select" style="width:193px; height: 40px;">
                   <option value="0">Filled Triangles</option>
                   <option value="1">Wireframe</option>
                   <option value="2">Vertices</option>
                 </select>
+              </p>
+
+              <!-- RESET -->
+              <p style="padding-bottom: 15px; text-align: center;">
+                <button id="reset-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
               </p>
             </div>
           </div>
@@ -167,30 +339,95 @@
             runWebGL();
           </script>
 
+          <!-- ATOM -->
           <div class="col-lg-6">
             <canvas id="my-canvas-2" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
             <p style="text-align: center; color:white;"><b>ATOM</b></p>
             <div style="text-align: left; padding-top: 20px;"> 
-              <p style="text-align: left; color:white;"><b>ROTATION</b></p>
-              <p style="padding-left: 20px;">Model XX rotation: 
-                <button id="XX-on-off-button_2" class="tm-intro-text tm-btn-primary">On / Off</button>
-                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary">Change Direction</button>
-                <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary">Slower</button>
-                <button id="XX-faster-button_2" class="tm-intro-text tm-btn-primary">Faster</button>
-              </p>     
-              <p style="text-align: left; color:white; padding-top: 20px"><b>PROJECTION</b></p>
-              <p style="padding-left: 20px;">Projection type:
-                <select id="projection-selection_2" class="custom-select" style="width:200px; height: 40px;">
-                  <option value="0">Orthogonal Projection</option>
-                  <option value="1">Perspective Projection</option>
-                </select>
+
+               <!-- START / STOP -->
+               <p style="padding-bottom: 15px; text-align: center;">
+                <button id="start-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
+                <button id="stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
               </p>
-              <p style="padding-left: 20px;">Rendering mode:
+   
+              <!-- MOVEMENT -->
+              <p style="padding-left: 55px;">
+                <b>Movement: </b>
+                <b style="padding-left: 15px;">XX</b> 
+                <button id="XX-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="XX-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+                <b style="padding-left: 25px;">YY</b> 
+                <button id="YY-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="YY-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+                <b style="padding-left: 25px;"> ZZ </b> 
+                <button id="ZZ-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="ZZ-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
+              </p>
+
+              <!-- DIRECTION -->
+              <p style="padding-left: 55px;">
+                <b>Direction: </b> 
+                <b style="padding-left: 26px;">XX</b> 
+                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 73px;">YY</b> 
+                <button id="YY-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 73px;"> ZZ </b> 
+                <button id="ZZ-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+              </p>
+
+              <!-- SPEED -->
+              <p style="padding-left: 55px;">
+                <b>Speed: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="XX-faster-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
+                  <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
+                </b>
+              </p>
+
+              <!-- SHIFT -->
+              <p style="padding-left: 55px;">
+                <b>Shift: </b> 
+                <b style="padding-left: 80px;">
+                  <button id="move-up-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↑</b></button>
+                  <button id="move-left-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>←</b></button>
+                  <button id="move-right-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>→</b></button>
+                  <button id="move-down-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
+                </b>
+              </p>
+
+              <!-- ZOOM -->
+              <p style="padding-left: 55px;">     
+                <b>Zoom: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="scale-up-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
+                  <button id="scale-down-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
+                </b>     
+              </p>
+              
+              <!-- PROJECTION -->
+              <p style="padding-left: 55px;">
+                <b>Projection type: </b>
+                <b style="padding-left: 9px;">
+                  <select id="projection-selection_2" class="custom-select" style="width:200px; height: 40px;">
+                    <option value="0">Orthogonal Projection</option>
+                    <option value="1">Perspective Projection</option>
+                  </select>
+                </b>
+              </p>
+
+              <!-- RENDERING -->
+              <p style="padding-left: 55px;"><b>Rendering mode: </b>
                 <select id="rendering-mode-selection_2" class="custom-select" style="width:193px; height: 40px;">
                   <option value="0">Filled Triangles</option>
                   <option value="1">Wireframe</option>
                   <option value="2">Vertices</option>
                 </select>
+              </p>
+
+              <!-- RESET -->
+              <p style="padding-bottom: 15px; text-align: center;">
+                <button id="reset-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
               </p>
             </div>
           </div>        

@@ -267,71 +267,179 @@ function outputInfos_2(){
 }
 
 function setEventListeners_2(){
+
+		// start/stop Molecule
+		document.getElementById("start-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				if( sceneModels_2[i].rotXXOn_2 ) {
+					sceneModels_2[i].rotXXOn_2 = false;
+				}
+				else {
+					sceneModels_2[i].rotXXOn_2 = true;
+				}	
+			}
+		}; 
 	
-    // Dropdown list	
-	var projection = document.getElementById("projection-selection_2");	
-	projection.addEventListener("click", function(){		
-		var p = projection.selectedIndex;				
-		switch(p){			
-			case 0 : projectionType_2 = 0;
-				break;			
-			case 1 : projectionType_2 = 1;
-				break;
-		}  	
-	});      
-
-	// Dropdown list	
-	var list = document.getElementById("rendering-mode-selection_2");	
-	list.addEventListener("click", function(){						
-		var mode = list.selectedIndex;				
-		switch(mode){
-			case 0 : primitiveType_2 = gl_2.TRIANGLES;
-				break;			
-			case 1 : primitiveType_2 = gl_2.LINE_LOOP;
-				break;			
-			case 2 : primitiveType_2 = gl_2.POINTS;
-				break;
-		}
-	});      
-
-	// Button events
-	document.getElementById("XX-on-off-button_2").onclick = function(){	
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			if( sceneModels_2[i].rotXXOn_2 ) {
-				sceneModels_2[i].rotXXOn_2 = false;
+		document.getElementById("stop-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				if( sceneModels_2[i].rotXXOn_2 ) {
+					sceneModels_2[i].rotXXOn_2 = false;
+				}
+				else {
+					sceneModels_2[i].rotXXOn_2 = true;
+				}	
 			}
-			else {
-				sceneModels_2[i].rotXXOn_2 = true;
-			}	
-		}
-	};
-
-	document.getElementById("XX-direction-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			if( sceneModels_2[i].rotXXDir_2 == 1 ) {
-				sceneModels_2[i].rotXXDir_2 = -1;
+		};
+	
+		// movement
+		document.getElementById("XX-start-button_2").onclick = function(){
+	
+		};	
+		
+		document.getElementById("XX-stop-button_2").onclick = function(){
+	
+		};	
+		
+		document.getElementById("YY-start-button_2").onclick = function(){
+	
+		};
+	
+		document.getElementById("YY-stop-button_2").onclick = function(){
+	
+		};
+		
+		document.getElementById("ZZ-start-button_2").onclick = function(){
+	
+		};
+	
+		document.getElementById("ZZ-stop-button_2").onclick = function(){
+	
+		};	
+	
+		// direction
+		document.getElementById("XX-direction-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				if( sceneModels_2[i].rotXXDir_2 == 1 ) {
+					sceneModels_2[i].rotXXDir_2 = -1;
+				}
+				else {
+					sceneModels_2[i].rotXXDir_2 = 1;
+				}	
 			}
-			else {
-				sceneModels_2[i].rotXXDir_2 = 1;
-			}	
-		}
-	};      
-
-	document.getElementById("XX-slower-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].rotXXSpeed_2 *= 0.75; 
-		}
-	};      
-
-	document.getElementById("XX-faster-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].rotXXSpeed_2 *= 1.25; 
-		}
-	};  
+		};
+		
+		document.getElementById("YY-direction-button_2").onclick = function(){
+	
+		};   
+	
+		document.getElementById("ZZ-direction-button_2").onclick = function(){
+	
+		};   
+	
+		// shift
+		document.getElementById("move-left-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels.length; i++ )
+			{
+				sceneModels_2[i].tx_2 -= 0.25;
+			}
+			drawScene();  
+		};
+	
+		document.getElementById("move-right-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				sceneModels_2[i].tx_2 += 0.25;
+			}		
+			drawScene();  
+		};      
+	
+		document.getElementById("move-up-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				sceneModels_2[i].ty_2 += 0.25;
+			}
+			drawScene();  
+		};      
+	
+		document.getElementById("move-down-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+			{
+				sceneModels_2[i].ty_2 -= 0.25;
+			}
+			drawScene();  
+		};
+	
+		// speed 
+		document.getElementById("XX-slower-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+	    	{
+				sceneModels_2[i].rotXXSpeed_2 *= 0.75; 
+			}
+		};      
+	
+		document.getElementById("XX-faster-button_2").onclick = function(){
+			for(var i = 0; i < sceneModels_2.length; i++ )
+	    	{
+				sceneModels_2[i].rotXXSpeed_2 *= 1.25; 
+			}
+		};      
+	
+		// zoom 
+		var countScale = 0;
+		document.getElementById("scale-up-button_2").onclick = function(){ 
+			if (countScale != 5){
+				for(var i = 0; i < sceneModels_2.length; i++ )
+				{
+					sceneModels_2[i].sx_2 *= 1.1;
+					sceneModels_2[i].sy_2 *= 1.1;
+					sceneModels_2[i].sz_2 *= 1.1;	
+				}
+				countScale++;
+			} 
+			drawScene(); 
+		};
+	
+		document.getElementById("scale-down-button_2").onclick = function(){
+			if (countScale != -5){
+				for(var i = 0; i < sceneModels_2.length; i++ )
+				{
+					sceneModels_2[i].sx_2 *= 0.9;
+					sceneModels_2[i].sy_2 *= 0.9;
+					sceneModels_2[i].sz_2 *= 0.9;	
+				}
+				countScale--;
+			} 
+			drawScene(); 
+		};
+	
+		// projection 	
+		var projection = document.getElementById("projection-selection_2");	
+		projection.addEventListener("click", function(){		
+			var p = projection.selectedIndex;				
+			switch(p){			
+				case 0 : projectionType_2 = 0;
+					break;			
+				case 1 : projectionType_2 = 1;
+					break;
+			}  		
+		});      
+	
+		// rendering	
+		var list = document.getElementById("rendering-mode-selection_2");	
+		list.addEventListener("click", function(){						
+			var mode = list.selectedIndex;				
+			switch(mode){
+				case 0 : primitiveType_2 = gl_2.TRIANGLES;
+					break;			
+				case 1 : primitiveType_2 = gl_2.LINE_LOOP;
+					break;			
+				case 2 : primitiveType_2 = gl_2.POINTS;
+					break;
+			}
+		});   
 }
 
 //--------------------------- WebGL Initialization ---------------------------
