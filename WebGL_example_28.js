@@ -261,6 +261,26 @@ function outputInfos_3(){
     
 }
 
+function checkMove_3(){
+	var a=0, b=1;
+	if ((globalRotationXX_ON_3 == false && globalRotationYY_ON_3 == false && globalRotationZZ_ON_3 == false) || (globalRotationXX_ON_3 == 0 && globalRotationYY_ON_3 == 0 && globalRotationZZ_ON_3 == 0)){
+		a = 1;
+	}
+	for(var i = 0; i < sceneModels_3.length; i++ )
+	{
+		if( sceneModels_3[i].rotXXOn_3 ) {
+			b = 0;
+		}
+	}
+	if (a == 1 && b == 1){
+		document.getElementById("start-button_3").disabled = false;
+		document.getElementById("stop-button_3").disabled = true;
+	} else {
+		document.getElementById("start-button_3").disabled = true;
+		document.getElementById("stop-button_3").disabled = false;
+	}
+}
+
 function setEventListeners_3(){
 	
 	// choose Molecule
@@ -278,30 +298,47 @@ function setEventListeners_3(){
 		$('#dioxide_atom_buttons').show();
 	}; 
 	
+	var old_globalRotationXX_ON_3, old_globalRotationYY_ON_3, old_globalRotationZZ_ON_3; 
+	
 	// start/stop Molecule
 	document.getElementById("start-button_3").onclick = function(){
 		for(var i = 0; i < sceneModels_3.length; i++ )
 	    {
 			sceneModels_3[i].rotXXOn_3 = true;
 		}
-		if(globalAngleXX_3 != 0){
-			globalRotationXX_ON_3 = true;
+		
+		if (old_globalRotationXX_ON_3 == 0 || old_globalRotationXX_ON_3 == false){
+			document.getElementById("XX-start-button_3").disabled = false;
+			document.getElementById("XX-stop-button_3").disabled = true;
+		} else {
 			document.getElementById("XX-start-button_3").disabled = true;
 			document.getElementById("XX-stop-button_3").disabled = false;
+			globalRotationXX_ON_3 = 1;
 		}
-		if(globalAngleYY_3 != 0){
-			globalRotationYY_ON_3 = true;
+
+		if (old_globalRotationYY_ON_3 == 0 || old_globalRotationYY_ON_3 == false){
+			document.getElementById("YY-start-button_3").disabled = false;
+			document.getElementById("YY-stop-button_3").disabled = true;
+		} else {
 			document.getElementById("YY-start-button_3").disabled = true;
 			document.getElementById("YY-stop-button_3").disabled = false;
+			globalRotationYY_ON_3 = 1;
 		}
-		if(globalAngleZZ_3 != 0){
-			globalRotationZZ_ON_3 = true;
+
+		if (old_globalRotationZZ_ON_3 == 0 || old_globalRotationZZ_ON_3 == false){
+			document.getElementById("ZZ-start-button_3").disabled = false;
+			document.getElementById("ZZ-stop-button_3").disabled = true;
+		} else {
 			document.getElementById("ZZ-start-button_3").disabled = true;
 			document.getElementById("ZZ-stop-button_3").disabled = false;
+			globalRotationZZ_ON_3 = 1;
 		}
 	}; 
 
 	document.getElementById("stop-button_3").onclick = function(){
+		old_globalRotationXX_ON_3 = globalRotationXX_ON_3;
+		old_globalRotationYY_ON_3 = globalRotationYY_ON_3;
+		old_globalRotationZZ_ON_3 = globalRotationZZ_ON_3;
 		for(var i = 0; i < sceneModels_3.length; i++ )
 	    {
 			sceneModels_3[i].rotXXOn_3 = false;
@@ -320,26 +357,35 @@ function setEventListeners_3(){
 	// movement
 	document.getElementById("XX-start-button_3").onclick = function(){
 		globalRotationXX_ON_3 = true;
+		document.getElementById("stop-button_3").disabled = false;
+		document.getElementById("start-button_3").disabled = true;
 	};	
 	
 	document.getElementById("XX-stop-button_3").onclick = function(){
 		globalRotationXX_ON_3 = false;
+		checkMove_3();
 	};	
 	
 	document.getElementById("YY-start-button_3").onclick = function(){
 		globalRotationYY_ON_3 = true;
+		document.getElementById("stop-button_3").disabled = false;
+		document.getElementById("start-button_3").disabled = true;
 	};
 
 	document.getElementById("YY-stop-button_3").onclick = function(){
 		globalRotationYY_ON_3 = false;
+		checkMove_3();
 	};
 	
 	document.getElementById("ZZ-start-button_3").onclick = function(){
 		globalRotationZZ_ON_3 = true;
+		document.getElementById("stop-button_3").disabled = false;
+		document.getElementById("start-button_3").disabled = true;
 	};
 
 	document.getElementById("ZZ-stop-button_3").onclick = function(){
 		globalRotationZZ_ON_3 = false;
+		checkMove_3();
 	};	
 
 	// direction
@@ -365,6 +411,7 @@ function setEventListeners_3(){
 				sceneModels_3[i].rotXXOn_3 = true;
 			}	
 		}
+		checkMove_3();
 	};   
 
 	// shift
@@ -388,7 +435,6 @@ function setEventListeners_3(){
 	    {
 			sceneModels_3[i].ty_3 += 0.25;
 		}
-
 	};      
 
 	document.getElementById("move-down-button_3").onclick = function(){
@@ -396,7 +442,6 @@ function setEventListeners_3(){
 	    {
 			sceneModels_3[i].ty_3 -= 0.25;
 		}
-
 	};
 
 	// speed 
@@ -479,6 +524,16 @@ function setEventListeners_3(){
 
 	document.getElementById("reset-button_3").onclick = function(){
 		
+		document.getElementById("stop-button_3").disabled = true;
+		document.getElementById("start-button_3").disabled = false;
+		
+		document.getElementById("XX-start-button_3").disabled = false;
+		document.getElementById("XX-stop-button_3").disabled = true;
+		document.getElementById("YY-start-button_3").disabled = false;
+		document.getElementById("YY-stop-button_3").disabled = true;
+		document.getElementById("ZZ-start-button_3").disabled = false;
+		document.getElementById("ZZ-stop-button_3").disabled = true;
+
 		globalRotationXX_ON_3 = false;
 		globalRotationYY_ON_3 = false;
 		globalRotationZZ_ON_3 = false;
@@ -536,8 +591,6 @@ function setEventListeners_3(){
 		sceneModels_3[4].rotYYSpeed_3 = 1.0;
 		sceneModels_3[4].rotZZSpeed_3 = 1.0;
 
-		document.getElementById("stop-button_3").disabled = true;
-		document.getElementById("start-button_3").disabled = false;
 		drawScene_3();  
 	};
 }

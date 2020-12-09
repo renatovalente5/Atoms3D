@@ -261,6 +261,27 @@ function outputInfos(){
     
 }
 
+function checkMove(){
+	var a=0, b=1;
+	if ((globalRotationXX_ON == false && globalRotationYY_ON == false && globalRotationZZ_ON == false) || (globalRotationXX_ON == 0 && globalRotationYY_ON == 0 && globalRotationZZ_ON == 0)){
+		a = 1;
+	}
+	for(var i = 0; i < sceneModels.length; i++ )
+	{
+		if( sceneModels[i].rotXXOn ) {
+			b = 0;
+		}
+	}
+	console.log("a: " + a + " b: " + b);
+	if (a == 1 && b == 1){
+		document.getElementById("start-button").disabled = false;
+		document.getElementById("stop-button").disabled = true;
+	} else {
+		document.getElementById("start-button").disabled = true;
+		document.getElementById("stop-button").disabled = false;
+	}
+}
+
 function setEventListeners(){
 
 	// choose Molecule
@@ -278,30 +299,47 @@ function setEventListeners(){
 		$('#dioxide_atom_buttons').show();
 	}; 
 	
+	var old_globalRotationXX_ON, old_globalRotationYY_ON, old_globalRotationZZ_ON; 
+	
 	// start/stop Molecule
 	document.getElementById("start-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
 			sceneModels[i].rotXXOn = true;
 		}
-		if(globalAngleXX != 0){
-			globalRotationXX_ON = true;
+		
+		if (old_globalRotationXX_ON == 0 || old_globalRotationXX_ON == false){
+			document.getElementById("XX-start-button").disabled = false;
+			document.getElementById("XX-stop-button").disabled = true;
+		} else {
 			document.getElementById("XX-start-button").disabled = true;
 			document.getElementById("XX-stop-button").disabled = false;
+			globalRotationXX_ON = 1;
 		}
-		if(globalAngleYY != 0){
-			globalRotationYY_ON = true;
+
+		if (old_globalRotationYY_ON == 0 || old_globalRotationYY_ON == false){
+			document.getElementById("YY-start-button").disabled = false;
+			document.getElementById("YY-stop-button").disabled = true;
+		} else {
 			document.getElementById("YY-start-button").disabled = true;
 			document.getElementById("YY-stop-button").disabled = false;
+			globalRotationYY_ON = 1;
 		}
-		if(globalAngleZZ != 0){
-			globalRotationZZ_ON = true;
+
+		if (old_globalRotationZZ_ON == 0 || old_globalRotationZZ_ON == false){
+			document.getElementById("ZZ-start-button").disabled = false;
+			document.getElementById("ZZ-stop-button").disabled = true;
+		} else {
 			document.getElementById("ZZ-start-button").disabled = true;
 			document.getElementById("ZZ-stop-button").disabled = false;
+			globalRotationZZ_ON = 1;
 		}
 	}; 
 
 	document.getElementById("stop-button").onclick = function(){
+		old_globalRotationXX_ON = globalRotationXX_ON;
+		old_globalRotationYY_ON = globalRotationYY_ON;
+		old_globalRotationZZ_ON = globalRotationZZ_ON;
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
 			sceneModels[i].rotXXOn = false;
@@ -320,27 +358,35 @@ function setEventListeners(){
 	// movement
 	document.getElementById("XX-start-button").onclick = function(){
 		globalRotationXX_ON = true;
-		// tick();
+		document.getElementById("stop-button").disabled = false;
+		document.getElementById("start-button").disabled = true;
 	};	
 	
 	document.getElementById("XX-stop-button").onclick = function(){
 		globalRotationXX_ON = false;
+		checkMove();
 	};	
 	
 	document.getElementById("YY-start-button").onclick = function(){
 		globalRotationYY_ON = true;
+		document.getElementById("stop-button").disabled = false;
+		document.getElementById("start-button").disabled = true;
 	};
 
 	document.getElementById("YY-stop-button").onclick = function(){
 		globalRotationYY_ON = false;
+		checkMove();
 	};
 	
 	document.getElementById("ZZ-start-button").onclick = function(){
 		globalRotationZZ_ON = true;
+		document.getElementById("stop-button").disabled = false;
+		document.getElementById("start-button").disabled = true;
 	};
 
 	document.getElementById("ZZ-stop-button").onclick = function(){
 		globalRotationZZ_ON = false;
+		checkMove();
 	};	
 
 	// direction
@@ -366,6 +412,7 @@ function setEventListeners(){
 				sceneModels[i].rotXXOn = true;
 			}	
 		}
+		checkMove();
 	};   
 
 	// shift
@@ -479,7 +526,17 @@ function setEventListeners(){
 	});  
 
 	document.getElementById("reset-button").onclick = function(){
+
+		document.getElementById("stop-button").disabled = true;
+		document.getElementById("start-button").disabled = false;
 		
+		document.getElementById("XX-start-button").disabled = false;
+		document.getElementById("XX-stop-button").disabled = true;
+		document.getElementById("YY-start-button").disabled = false;
+		document.getElementById("YY-stop-button").disabled = true;
+		document.getElementById("ZZ-start-button").disabled = false;
+		document.getElementById("ZZ-stop-button").disabled = true;
+
 		globalRotationXX_ON = false;
 		globalRotationYY_ON = false;
 		globalRotationZZ_ON = false;
@@ -537,14 +594,8 @@ function setEventListeners(){
 		sceneModels[4].rotYYSpeed = 1.0;
 		sceneModels[4].rotZZSpeed = 1.0;
 
-		document.getElementById("stop-button").disabled = true;
-		document.getElementById("start-button").disabled = false;
 		drawScene();  
-		// sceneModels[i].rotXXOn = true;
-		// sceneModels[i].rotYYOn = true;
-		// sceneModels[i].rotZZOn = true;
 	};
-
 }
 
 //--------------------------- WebGL Initialization ---------------------------

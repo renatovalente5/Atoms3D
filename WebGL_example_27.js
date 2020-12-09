@@ -325,21 +325,6 @@ function outputInfos_2(){
 }
 
 function setEventListeners_2(){
-
-	// choose Molecule
-	// document.getElementById("water-button").onclick = function(){
-	// 	$('#water_molecule_buttons').show();
-	// 	$('#dioxide_molecule_buttons').hide();
-	// 	$('#water_atom_buttons').show();
-	// 	$('#dioxide_atom_buttons').hide();
-	// };
-	
-	// document.getElementById("dioxide-button").onclick = function(){
-	// 	$('#water_buttons').hide();
-	// 	$('#dioxide_buttons').show();
-	// 	$('#water_atom_buttons').hide();
-	// 	$('#dioxide_atom_buttons').show();
-	// }; 
 	
 	// start/stop Molecule
 	document.getElementById("start-button_2").onclick = function(){
@@ -384,27 +369,38 @@ function setEventListeners_2(){
 	// movement
 	document.getElementById("XX-start-button_2").onclick = function(){
 		globalRotationXX_ON_2 = true;
-		// tick();
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};	
 	
 	document.getElementById("XX-stop-button_2").onclick = function(){
 		globalRotationXX_ON_2 = false;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};	
 	
 	document.getElementById("YY-start-button_2").onclick = function(){
 		globalRotationYY_ON_2 = true;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};
 
 	document.getElementById("YY-stop-button_2").onclick = function(){
 		globalRotationYY_ON_2 = false;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};
 	
 	document.getElementById("ZZ-start-button_2").onclick = function(){
 		globalRotationZZ_ON_2 = true;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};
 
 	document.getElementById("ZZ-stop-button_2").onclick = function(){
 		globalRotationZZ_ON_2 = false;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
 	};	
 
 	// direction
