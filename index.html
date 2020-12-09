@@ -99,11 +99,15 @@
         $("#water-button").click(function() {
             $('#dioxide-button').removeAttr('disabled');
             $(this).attr('disabled', 'disabled');
+            runWebGL();
+            runWebGL_2();
         });
 
         $("#dioxide-button").click(function() {
             $('#water-button').removeAttr('disabled');
             $(this).attr('disabled', 'disabled');
+            runWebGL_3();
+            runWebGL_4();
         });
       });
 
@@ -278,11 +282,13 @@
   <script type="text/javascript" src="sceneModels_1.js"></script>
   <script type="text/javascript" src="sceneModels_2.js"></script>
   <script type="text/javascript" src="sceneModels_3.js"></script>
+  <script type="text/javascript" src="sceneModels_4.js"></script>
 	<!-- WebGL code -->
 	<script type="text/javascript" src="initShaders.js"></script>
   <script type="text/javascript" src="WebGL_example_26.js"></script>
   <script type="text/javascript" src="WebGL_example_27.js"></script>
   <script type="text/javascript" src="WebGL_example_28.js"></script>
+  <script type="text/javascript" src="WebGL_example_29.js"></script>
 </head>
 
   <body>        
@@ -296,19 +302,19 @@
           <button id="dioxide-button" class="tm-intro-text tm-btn-primary" style="width: 160px; height: 40px;">Carbon Dioxide</button>
         </p>
 
-        <!-- WATER -->
-        <div class="row" id="water">     
+        <div class="row" >    
+
           <!-- MOLECULE -->
           <div class="col-lg-6">
             <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
             <p style="text-align: center; color:white;"><b>MOLECULE</b></p>              
-            <div style="text-align: left; padding-top: 20px;"> 
-              
+            
+            <!-- WATER -->
+            <div style="text-align: left; padding-top: 20px;" id="water_molecule_buttons"> 
               <p style="padding-bottom: 15px; text-align: center;">
                 <button id="start-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
                 <button id="stop-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
-              </p>
-   
+              </p>  
               <p style="padding-left: 55px;">
                 <b>Movement: </b>
                 <b style="padding-left: 15px;">XX</b> 
@@ -321,7 +327,6 @@
                 <button id="ZZ-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="ZZ-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Direction: </b> 
                 <b style="padding-left: 26px;">XX</b> 
@@ -329,7 +334,6 @@
                 <b style="padding-left: 73px;">ON/OFF</b> 
                 <button id="XX_direction_on_off" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
                 <b style="padding-left: 72px;">
@@ -337,7 +341,6 @@
                   <button id="XX-slower-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Shift: </b> 
                 <b style="padding-left: 80px;">
@@ -347,7 +350,6 @@
                   <button id="move-down-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
                 </b>
               </p>
-
               <p style="padding-left: 55px;">     
                 <b>Zoom: </b>      
                 <b style="padding-left: 72px;">
@@ -355,7 +357,6 @@
                   <button id="scale-down-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
                 </b>     
               </p>
-              
               <p style="padding-left: 55px;">
                 <b>Projection type: </b>
                 <b style="padding-left: 9px;">
@@ -365,7 +366,6 @@
                   </select>
                 </b>
               </p>
-
               <p style="padding-left: 55px;"><b>Rendering mode: </b>
                 <select id="rendering-mode-selection" class="custom-select" style="width:193px; height: 40px;">
                   <option value="0">Filled Triangles</option>
@@ -373,27 +373,95 @@
                   <option value="2">Vertices</option>
                 </select>
               </p>
-
               <p style="padding-bottom: 15px; text-align: center;">
                 <button id="reset-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
               </p> 
             </div>
+            <script>
+              runWebGL();
+            </script>
+
+            <!-- DIOXIDE -->
+            <div style="text-align: left; padding-top: 20px; display: none;" id="dioxide_molecule_buttons">
+              <p style="padding-bottom: 15px; text-align: center;">
+                <button id="start-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
+                <button id="stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Movement: </b>
+                <b style="padding-left: 15px;">XX</b> 
+                <button id="XX-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"disabled>▷</button>
+                <button id="XX-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <b style="padding-left: 25px;">YY</b> 
+                <button id="YY-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
+                <button id="YY-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <b style="padding-left: 25px;"> ZZ </b> 
+                <button id="ZZ-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Direction: </b> 
+                <b style="padding-left: 26px;">XX</b> 
+                <button id="XX-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 73px;">ON/OFF</b> 
+                <button id="XX_direction_on_off_3" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Speed: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="XX-faster-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
+                  <button id="XX-slower-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
+                </b>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Shift: </b> 
+                <b style="padding-left: 80px;">
+                  <button id="move-up-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↑</b></button>
+                  <button id="move-left-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>←</b></button>
+                  <button id="move-right-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>→</b></button>
+                  <button id="move-down-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
+                </b>
+              </p>
+              <p style="padding-left: 55px;">     
+                <b>Zoom: </b>      
+                <b style="padding-left: 72px;">
+                  <button id="scale-up-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
+                  <button id="scale-down-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
+                </b>     
+              </p>  
+              <p style="padding-left: 55px;">
+                <b>Projection type: </b>
+                <b style="padding-left: 9px;">
+                  <select id="projection-selection_3" class="custom-select" style="width:200px; height: 40px;">
+                    <option value="0">Orthogonal Projection</option>
+                    <option value="1">Perspective Projection</option>
+                  </select>
+                </b>
+              </p>
+              <p style="padding-left: 55px;"><b>Rendering mode: </b>
+                <select id="rendering-mode-selection_3" class="custom-select" style="width:193px; height: 40px;">
+                  <option value="0">Filled Triangles</option>
+                  <option value="1">Wireframe</option>
+                  <option value="2">Vertices</option>
+                </select>
+              </p>
+              <p style="padding-bottom: 15px; text-align: center;">
+                <button id="reset-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
+              </p> 
+            </div>
           </div>
-          <script>
-            runWebGL();
-          </script>
 
           <!-- ATOM -->
           <div class="col-lg-6">
             <canvas id="my-canvas-2" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
             <p style="text-align: center; color:white;"><b>ATOM</b></p>
-            <div style="text-align: left; padding-top: 20px;"> 
-
+            
+            <!-- WATER -->
+            <div style="text-align: left; padding-top: 20px;" id="water_atom_buttons"> 
                <p style="padding-bottom: 15px; text-align: center;">
                 <button id="start-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
                 <button id="stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
-              </p>
-   
+               </p>
               <p style="padding-left: 55px;">
                 <b>Movement: </b>
                 <b style="padding-left: 15px;">XX</b> 
@@ -406,7 +474,6 @@
                 <button id="ZZ-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="ZZ-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Translation: </b> 
                 <b style="padding-left: 26px;">DIR</b> 
@@ -417,7 +484,6 @@
                 <button id="XX_direction_on_off_2" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
                 <!-- <button id="XX_direction_off" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">off</button> -->
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
                 <b style="padding-left: 72px;">
@@ -425,15 +491,13 @@
                   <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
               </p>
-
               <p style="padding-left: 55px;">     
                 <b>Zoom: </b>      
                 <b style="padding-left: 72px;">
                   <button id="scale-up-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
                   <button id="scale-down-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
                 </b>     
-              </p>
-              
+              </p> 
               <p style="padding-left: 55px;">
                 <b>Projection type: </b>
                 <b style="padding-left: 9px;">
@@ -443,7 +507,6 @@
                   </select>
                 </b>
               </p>
-
               <p style="padding-left: 55px;"><b>Rendering mode: </b>
                 <select id="rendering-mode-selection_2" class="custom-select" style="width:193px; height: 40px;">
                   <option value="0">Filled Triangles</option>
@@ -451,189 +514,78 @@
                   <option value="2">Vertices</option>
                 </select>
               </p>
-
               <p style="padding-bottom: 15px; text-align: center;">
                 <button id="reset-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
               </p>
             </div>
-          </div>        
-          <script>
-            runWebGL_2();
-          </script>      
-        </div>
+            <script>
+              runWebGL_2();
+            </script>
 
-        <!-- DIOXIDE -->
-        <!-- <div class="row" id="dioxide" hidden>     
-          <div class="col-lg-6">
-            <canvas id="my-canvas" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
-            <p style="text-align: center; color:white;"><b>MOLECULE</b></p>              
-            <div style="text-align: left; padding-top: 20px;"> 
-              
+            <!-- DIOXIDE -->
+            <div style="text-align: left; padding-top: 20px; display: none;" id="dioxide_atom_buttons"> 
               <p style="padding-bottom: 15px; text-align: center;">
-                <button id="start-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
-                <button id="stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
-              </p>
-   
+                <button id="start-button_4" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
+                <button id="stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
+               </p>
               <p style="padding-left: 55px;">
                 <b>Movement: </b>
                 <b style="padding-left: 15px;">XX</b> 
-                <button id="XX-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
-                <button id="XX-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="XX-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="XX-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
                 <b style="padding-left: 25px;">YY</b> 
-                <button id="YY-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
-                <button id="YY-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="YY-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="YY-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
                 <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
-                <button id="ZZ-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="ZZ-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
               </p>
-
               <p style="padding-left: 55px;">
-                <b>Direction: </b> 
-                <b style="padding-left: 26px;">XX</b> 
-                <button id="XX-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b>Translation: </b> 
+                <b style="padding-left: 26px;">DIR</b> 
+                <button id="XX-direction-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
+                <b style="padding-left: 26px;">Random DIR</b> 
+                <button id="XX-randomDir-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
                 <b style="padding-left: 73px;">ON/OFF</b> 
-                <button id="XX_direction_on_off_3" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
+                <button id="XX_direction_on_off_4" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
+                <!-- <button id="XX_direction_off" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">off</button> -->
               </p>
-
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
                 <b style="padding-left: 72px;">
-                  <button id="XX-faster-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
-                  <button id="XX-slower-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
+                  <button id="XX-faster-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
+                  <button id="XX-slower-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
               </p>
-
-              <p style="padding-left: 55px;">
-                <b>Shift: </b> 
-                <b style="padding-left: 80px;">
-                  <button id="move-up-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↑</b></button>
-                  <button id="move-left-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>←</b></button>
-                  <button id="move-right-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>→</b></button>
-                  <button id="move-down-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
-                </b>
-              </p>
-
               <p style="padding-left: 55px;">     
                 <b>Zoom: </b>      
                 <b style="padding-left: 72px;">
-                  <button id="scale-up-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
-                  <button id="scale-down-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
+                  <button id="scale-up-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
+                  <button id="scale-down-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
                 </b>     
-              </p>
-
+              </p> 
               <p style="padding-left: 55px;">
                 <b>Projection type: </b>
                 <b style="padding-left: 9px;">
-                  <select id="projection-selection_3" class="custom-select" style="width:200px; height: 40px;">
+                  <select id="projection-selection_4" class="custom-select" style="width:200px; height: 40px;">
                     <option value="0">Orthogonal Projection</option>
                     <option value="1">Perspective Projection</option>
                   </select>
                 </b>
               </p>
-
-
               <p style="padding-left: 55px;"><b>Rendering mode: </b>
-                <select id="rendering-mode-selection_3" class="custom-select" style="width:193px; height: 40px;">
-                  <option value="0">Filled Triangles</option>
-                  <option value="1">Wireframe</option>
-                  <option value="2">Vertices</option>
-                </select>
-              </p>
-
-              <p style="padding-bottom: 15px; text-align: center;">
-                <button id="reset-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
-              </p>
-            </div>
-          </div>
-          <script>
-            runWebGL_3();
-          </script>
-
-          <div class="col-lg-6">
-            <canvas id="my-canvas-2" style="border:1px solid white; padding-top: 20px; background-color: rgba(255, 255, 255, 0.8);" width="500" height="490"></canvas>
-            <p style="text-align: center; color:white;"><b>ATOM</b></p>
-            <div style="text-align: left; padding-top: 20px;"> 
-
-               <p style="padding-bottom: 15px; text-align: center;">
-                <button id="start-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
-                <button id="stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
-              </p>
-   
-              <p style="padding-left: 55px;">
-                <b>Movement: </b>
-                <b style="padding-left: 15px;">XX</b> 
-                <button id="XX-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
-                <button id="XX-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
-                <b style="padding-left: 25px;">YY</b> 
-                <button id="YY-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
-                <button id="YY-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
-                <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
-                <button id="ZZ-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>||</b></button>
-              </p>
-
-              <p style="padding-left: 55px;">
-                <b>Direction: </b> 
-                <b style="padding-left: 26px;">XX</b> 
-                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;">YY</b> 
-                <button id="YY-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;"> ZZ </b> 
-                <button id="ZZ-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-              </p>
-
-              <p style="padding-left: 55px;">
-                <b>Speed: </b>      
-                <b style="padding-left: 72px;">
-                  <button id="XX-faster-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
-                  <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
-                </b>
-              </p>
-
-              <p style="padding-left: 55px;">
-                <b>Shift: </b> 
-                <b style="padding-left: 80px;">
-                  <button id="move-up-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↑</b></button>
-                  <button id="move-left-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>←</b></button>
-                  <button id="move-right-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>→</b></button>
-                  <button id="move-down-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>↓</b></button> 
-                </b>
-              </p>
-
-              <p style="padding-left: 55px;">     
-                <b>Zoom: </b>      
-                <b style="padding-left: 72px;">
-                  <button id="scale-up-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>+</b></button>
-                  <button id="scale-down-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"><b>-</b></button>
-                </b>     
-              </p>
-              
-              <p style="padding-left: 55px;">
-                <b>Projection type: </b>
-                <b style="padding-left: 9px;">
-                  <select id="projection-selection_2" class="custom-select" style="width:200px; height: 40px;">
-                    <option value="0">Orthogonal Projection</option>
-                    <option value="1">Perspective Projection</option>
-                  </select>
-                </b>
-              </p>
-
-              <p style="padding-left: 55px;"><b>Rendering mode: </b>
-                <select id="rendering-mode-selection_2" class="custom-select" style="width:193px; height: 40px;">
+                <select id="rendering-mode-selection_4" class="custom-select" style="width:193px; height: 40px;">
                   <option value="0">Filled Triangles</option>
                   <option value="1">Wireframe</option>
                   <option value="2">Vertices</option>
                 </select>
               </p>
               <p style="padding-bottom: 15px; text-align: center;">
-                <button id="reset-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
+                <button id="reset-button_4" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;"> Reset</button>
               </p>
             </div>
           </div>        
-          <script>
-            runWebGL_2();
-          </script>      
-        </div> -->
+        </div>
         <p style="font-size: 10px; text-align: center; padding-bottom: 10px"> Renato Valente (89077) • Rita Amante (89264) </p>
       </div>
     </div>

@@ -265,11 +265,17 @@ function setEventListeners_3(){
 	
 	// choose Molecule
 	document.getElementById("water-button").onclick = function(){
-
+		$('#water_molecule_buttons').show();
+		$('#dioxide_molecule_buttons').hide();
+		$('#water_atom_buttons').show();
+		$('#dioxide_atom_buttons').hide();
 	};
 	
 	document.getElementById("dioxide-button").onclick = function(){
-
+		$('#water_buttons').hide();
+		$('#dioxide_buttons').show();
+		$('#water_atom_buttons').hide();
+		$('#dioxide_atom_buttons').show();
 	}; 
 	
 	// start/stop Molecule

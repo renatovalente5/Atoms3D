@@ -326,13 +326,19 @@ function outputInfos_2(){
 
 function setEventListeners_2(){
 
-		// // choose Molecule
+	// choose Molecule
 	// document.getElementById("water-button").onclick = function(){
-
+	// 	$('#water_molecule_buttons').show();
+	// 	$('#dioxide_molecule_buttons').hide();
+	// 	$('#water_atom_buttons').show();
+	// 	$('#dioxide_atom_buttons').hide();
 	// };
 	
 	// document.getElementById("dioxide-button").onclick = function(){
-
+	// 	$('#water_buttons').hide();
+	// 	$('#dioxide_buttons').show();
+	// 	$('#water_atom_buttons').hide();
+	// 	$('#dioxide_atom_buttons').show();
 	// }; 
 	
 	// start/stop Molecule
@@ -408,7 +414,6 @@ function setEventListeners_2(){
 		}else{
 			globalTranslationZZ_DIR_2 = 1;
 		}
-		
 	};
 	
 	document.getElementById("XX-randomDir-button_2").onclick = function(){
@@ -417,7 +422,6 @@ function setEventListeners_2(){
 		}else{
 			randomDir = 0;
 		}
-		
 	};
 	
 	document.getElementById("XX_direction_on_off_2").onclick = function(){
@@ -427,7 +431,6 @@ function setEventListeners_2(){
 			globalTranslationZZ_ON_2 = 1;
 		}
 	};   
-
 
 	// speed 
 	document.getElementById("XX-slower-button_2").onclick = function(){
@@ -460,7 +463,7 @@ function setEventListeners_2(){
 			}
 			countScale_2++;
 		} 
-		drawScene(); 
+		drawScene_2(); 
 	};
 
 	document.getElementById("scale-down-button_2").onclick = function(){
@@ -478,7 +481,7 @@ function setEventListeners_2(){
 			}
 			countScale_2--;
 		} 
-		drawScene(); 
+		drawScene_2(); 
 	};
 	
 		// projection 	
