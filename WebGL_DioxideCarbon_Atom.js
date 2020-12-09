@@ -25,7 +25,7 @@ var globalRotationZZ_ON_4 = 0;
 var globalRotationZZ_DIR_4 = 1;
 var globalRotationZZ_SPEED_4 = 1;
 
-var globalTranslationZZ_ON_4 = 1;
+var globalTranslationZZ_ON_4 = 0;
 var globalTranslationZZ_DIR_4 = 1;
 var globalTranslationZZ_SPEED_4 = 1;
 
@@ -187,38 +187,32 @@ function drawScene_4() {
 		var lsmUniform = gl_4.getUniformLocation(shaderProgram_4, "allLights["+ String(i) + "].lightSourceMatrix");
 		gl_4.uniformMatrix4fv(lsmUniform, false, new Float32Array(flatten(lightSourceMatrix)));
 	}
-	if(randomDir_4==1){
+	if(randomDir_4==0){
 
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_4.length; i++ )
 		{
-			if(i==0 || i==1 || i==4){
+			if(i==0 || i==9){
 				drawModel_4( sceneModels_4[i],
 					translationMatrix( 0, 0, globalTz_4 ),
 					primitiveType_4 );
-			}else if(i==3){
+			}else if(i==1 || i== 2 || i==3 || i==4 || i==5 || i==6 || i==7 || i==8 ){
 				drawModel_4( sceneModels_4[i],
-					mult(translationMatrix( -0.45, 0.85, globalTz_4),
+					mult(translationMatrix( -0.70, 0, globalTz_4),
 					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
-					rotationZZMatrix( globalAngleZZ_4 * (-1) ))),
-					primitiveType_4 );
-			}else if(i==2){
-				drawModel_4( sceneModels_4[i],
-					mult(translationMatrix( 0.45, 0.85, globalTz_4),
-					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
-					rotationZZMatrix( globalAngleZZ_4))),
-					primitiveType_4 );
-			}else if(i==5 || i==10 || i==12){
-				drawModel_4( sceneModels_4[i],
-					mult(translationMatrix( 0, 0, globalTz_4),
-					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1))),
 					rotationZZMatrix( globalAngleZZ_4 ))),
+					primitiveType_4 );
+			}else if(i==10 || i==11 || i==12 || i==13 || i==14 || i==15 || i==16 || i==17){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
+					rotationZZMatrix( globalAngleZZ_4))),
 					primitiveType_4 );
 			}else{
 				drawModel_4( sceneModels_4[i],
 					mult(translationMatrix( 0, 0, globalTz_4),
 					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
-						rotationZZMatrix( globalAngleZZ_4 * (-1) ))),
+						rotationZZMatrix( globalAngleZZ_4 ))),
 					primitiveType_4 );
 			}
 		}
@@ -226,27 +220,39 @@ function drawScene_4() {
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_4.length; i++ )
 		{
-			if(i==0 || i==1 || i==4){
+			if(i==0 || i==9){
 				drawModel_4( sceneModels_4[i],
 					translationMatrix( 0, 0, globalTz_4 ),
 					primitiveType_4 );
-			}else if(i==3){
+			}else if(i==1 || i==3 || i==4 || i==6 || i==8 ){
 				drawModel_4( sceneModels_4[i],
-					mult(translationMatrix( -0.45, 0.85, globalTz_4),
-					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
+					mult(translationMatrix( -0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1)), rotationYYMatrix( globalAngleYY_4 )),
+					rotationZZMatrix( globalAngleZZ_4 * (-1) ))),
+					primitiveType_4 );
+			}else if(i== 2 || i==5 || i==7 ){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( -0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
 					rotationZZMatrix( globalAngleZZ_4 ))),
 					primitiveType_4 );
-			}else if(i==2){
+			}else if(i==10 || i==12 || i==14 || i==15 || i==17){
 				drawModel_4( sceneModels_4[i],
-					mult(translationMatrix( 0.45, 0.85, globalTz_4),
-					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
-					rotationZZMatrix( globalAngleZZ_4 ))),
+					mult(translationMatrix( 0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
+					rotationZZMatrix( globalAngleZZ_4))),
+					primitiveType_4 );
+			}else if(i==10 || i==11 || i==12 || i==13 || i==14 || i==15 || i==16 || i==17){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
+					rotationZZMatrix( globalAngleZZ_4))),
 					primitiveType_4 );
 			}else{
 				drawModel_4( sceneModels_4[i],
 					mult(translationMatrix( 0, 0, globalTz_4),
 					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
-						rotationZZMatrix( globalAngleZZ_4 ))),
+						rotationZZMatrix( globalAngleZZ_4 * (-1) ))),
 					primitiveType_4 );
 			}
 		}
