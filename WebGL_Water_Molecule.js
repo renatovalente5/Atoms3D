@@ -25,10 +25,6 @@ var globalRotationZZ_ON = 0;
 var globalRotationZZ_DIR = 1;
 var globalRotationZZ_SPEED = 1;
 
-// var globalTranslationZZ_ON = 0;
-// var globalTranslationZZ_DIR = 1;
-// var globalTranslationZZ_SPEED = 1;
-
 // To allow choosing the way of drawing the model triangles
 var primitiveType = null;
  
@@ -160,7 +156,6 @@ function drawScene() {
         flatten(pos_Viewer) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	//mvMatrix = translationMatrix( 0, 0, globalTz );
 	mvMatrix = mult(translationMatrix( 0, 0, globalTz),
 	mult(mult(rotationXXMatrix( globalAngleXX ), rotationYYMatrix( globalAngleYY )),
 			  rotationZZMatrix( globalAngleZZ)));
@@ -281,6 +276,8 @@ function checkMove(){
 	}
 }
 
+var resetClick = 0;
+
 function setEventListeners(){
 
 	// choose Molecule
@@ -302,7 +299,6 @@ function setEventListeners(){
 	
 	// start/stop Molecule
 	document.getElementById("start-button").onclick = function(){
-
 		if (old_rotXXOn == 0 || old_rotXXOn == false){
 			document.getElementById("XX_direction_on").disabled = false;
 			document.getElementById("XX_direction_off").disabled = true;
@@ -337,10 +333,17 @@ function setEventListeners(){
 			document.getElementById("ZZ-start-button").disabled = false;
 			document.getElementById("ZZ-stop-button").disabled = true;
 		} else {
-			document.getElementById("ZZ-start-button").disabled = true;
-			document.getElementById("ZZ-stop-button").disabled = false;
-			globalRotationZZ_ON = 1;
+			if (resetClick == 0){
+				document.getElementById("ZZ-start-button").disabled = true;
+				document.getElementById("ZZ-stop-button").disabled = false;
+				globalRotationZZ_ON = 1;
+			} else {
+				document.getElementById("ZZ-start-button").disabled = false;
+				document.getElementById("ZZ-stop-button").disabled = true;
+				globalRotationZZ_ON = 0;
+			}		
 		}
+		resetClick = 0;
 	}; 
 
 	document.getElementById("stop-button").onclick = function(){
@@ -451,19 +454,6 @@ function setEventListeners(){
 		checkMove();
 	};
 
-	// document.getElementById("XX_direction_on_off").onclick = function(){
-	// 	for(var i = 0; i < sceneModels.length; i++ )
-	//     {
-	// 		if( sceneModels[i].rotXXOn ) {
-	// 			sceneModels[i].rotXXOn = false;
-	// 		}
-	// 		else {
-	// 			sceneModels[i].rotXXOn = true;
-	// 		}	
-	// 	}
-	// 	checkMove();
-	// };
-
 	// shift
 	document.getElementById("move-left-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
@@ -485,7 +475,6 @@ function setEventListeners(){
 	    {
 			sceneModels[i].ty += 0.25;
 		}
-
 	};      
 
 	document.getElementById("move-down-button").onclick = function(){
@@ -493,7 +482,6 @@ function setEventListeners(){
 	    {
 			sceneModels[i].ty -= 0.25;
 		}
- 
 	};
 
 	// speed 
@@ -573,6 +561,7 @@ function setEventListeners(){
 	});  
 
 	document.getElementById("reset-button").onclick = function(){
+		resetClick = 1;
 
 		document.getElementById("stop-button").disabled = true;
 		document.getElementById("start-button").disabled = false;
@@ -622,6 +611,7 @@ function setEventListeners(){
 			sceneModels[i].rotYYSpeed = 1.0;
 			sceneModels[i].rotZZSpeed = 1.0;
 		}
+
 		drawScene();  
 	};
 }

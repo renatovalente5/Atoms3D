@@ -25,10 +25,6 @@ var globalRotationZZ_ON_3 = 0;
 var globalRotationZZ_DIR_3 = 1;
 var globalRotationZZ_SPEED_3 = 1;
 
-// var globalTranslationZZ_ON_3 = 0;
-// var globalTranslationZZ_DIR_3 = 1;
-// var globalTranslationZZ_SPEED_3 = 1;
-
 // To allow choosing the way of drawing the model triangles
 var primitiveType_3 = null;
  
@@ -160,7 +156,6 @@ function drawScene_3() {
         flatten(pos_Viewer_3) );
 	
 	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	//mvMatrix = translationMatrix( 0, 0, globalTz );
 	mvMatrix = mult(translationMatrix( 0, 0, globalTz_3),
 	mult(mult(rotationXXMatrix( globalAngleXX_3 ), rotationYYMatrix( globalAngleYY_3 )),
 			  rotationZZMatrix( globalAngleZZ_3)));
@@ -281,6 +276,8 @@ function checkMove_3(){
 	}
 }
 
+var resetClick_3 = 0;
+
 function setEventListeners_3(){
 	
 	// choose Molecule
@@ -302,7 +299,6 @@ function setEventListeners_3(){
 	
 	// start/stop Molecule
 	document.getElementById("start-button_3").onclick = function(){
-
 		if (old_rotXXOn_3 == 0 || old_rotXXOn_3 == false){
 			document.getElementById("XX_direction_on_3").disabled = false;
 			document.getElementById("XX_direction_off_3").disabled = true;
@@ -337,10 +333,17 @@ function setEventListeners_3(){
 			document.getElementById("ZZ-start-button_3").disabled = false;
 			document.getElementById("ZZ-stop-button_3").disabled = true;
 		} else {
-			document.getElementById("ZZ-start-button_3").disabled = true;
-			document.getElementById("ZZ-stop-button_3").disabled = false;
-			globalRotationZZ_ON_3 = 1;
+			if (resetClick_3 == 0){
+				document.getElementById("ZZ-start-button_3").disabled = true;
+				document.getElementById("ZZ-stop-button_3").disabled = false;
+				globalRotationZZ_ON_3 = 1;
+			} else {
+				document.getElementById("ZZ-start-button_3").disabled = false;
+				document.getElementById("ZZ-stop-button_3").disabled = true;
+				globalRotationZZ_ON_3 = 0;
+			}	
 		}
+		resetClick_3 = 0;
 	}; 
 
 	document.getElementById("stop-button_3").onclick = function(){
@@ -450,20 +453,7 @@ function setEventListeners_3(){
 		}
 		checkMove_3();
 	};
-
-	// document.getElementById("XX_direction_on_off_3").onclick = function(){
-	// 	for(var i = 0; i < sceneModels_3.length; i++ )
-	//     {
-	// 		if( sceneModels_3[i].rotXXOn_3 ) {
-	// 			sceneModels_3[i].rotXXOn_3 = false;
-	// 		}
-	// 		else {
-	// 			sceneModels_3[i].rotXXOn_3 = true;
-	// 		}	
-	// 	}
-	// 	checkMove_3();
-	// };   
-
+ 
 	// shift
 	document.getElementById("move-left-button_3").onclick = function(){
 		for(var i = 0; i < sceneModels_3.length; i++ )
@@ -570,7 +560,8 @@ function setEventListeners_3(){
 	});  
 
 	document.getElementById("reset-button_3").onclick = function(){
-		
+		resetClick_3 = 1;
+
 		document.getElementById("stop-button_3").disabled = true;
 		document.getElementById("start-button_3").disabled = false;
 		

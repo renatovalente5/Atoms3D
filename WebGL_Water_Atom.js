@@ -21,13 +21,9 @@ var globalRotationYY_ON_2 = 0;
 var globalRotationYY_DIR_2 = 1;
 var globalRotationYY_SPEED_2 = 1;
 
-var globalRotationZZ_ON_2 = 0;
+var globalRotationZZ_ON_2 = 1;
 var globalRotationZZ_DIR_2 = 1;
 var globalRotationZZ_SPEED_2 = 1;
-
-// var globalTranslationZZ_ON_2 = 0;
-// var globalTranslationZZ_DIR_2 = 1;
-// var globalTranslationZZ_SPEED_2 = 1;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_2 = null;
@@ -39,7 +35,6 @@ var projectionType_2 = 0;
 var pos_Viewer_2 = [ 0.0, 0.0, 0.0, 1.0 ];
 
 var randomDir = 0;
-
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -130,7 +125,6 @@ function drawModel_2( model,
 //  Drawing the 3D scene
 function drawScene_2() {
 	var pMatrix;	
-	var mvMatrix = mat4();
 	
 	// Clearing the frame-buffer and the depth-buffer	
 	gl_2.clear(gl_2.COLOR_BUFFER_BIT | gl_2.DEPTH_BUFFER_BIT);
@@ -161,13 +155,6 @@ function drawScene_2() {
 	gl_2.uniform4fv( gl_2.getUniformLocation(shaderProgram_2, "viewerPosition"),
         flatten(pos_Viewer_2) );
 	
-	// GLOBAL TRANSFORMATION FOR THE WHOLE SCENE	
-	//mvMatrix = translationMatrix( 0, 0, globalTz );
-	// mvMatrix = mult(translationMatrix( 0, 0, globalTz),
-	// mult(mult(rotationXXMatrix( globalAngleXX ), rotationYYMatrix( globalAngleYY )),
-	// 		  rotationZZMatrix( globalAngleZZ)));
-
-
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
 	{
@@ -272,10 +259,6 @@ function animate_2() {
 			globalAngleZZ_2 += globalRotationZZ_DIR_2 * globalRotationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
 		}
 
-		// if( globalTranslationZZ_ON_2 ) {
-		// 	globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
-	    // }
-
 		// Local rotations	
 		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
@@ -325,28 +308,24 @@ function outputInfos_2(){
 }
 
 function checkMove_2(){
-	var a=0, b=1;
 	if ((globalRotationXX_ON_2 == false && globalRotationYY_ON_2 == false && globalRotationZZ_ON_2 == false) || (globalRotationXX_ON_2 == 0 && globalRotationYY_ON_2 == 0 && globalRotationZZ_ON_2 == 0)){
-		a = 1;
-	}
-	for(var i = 0; i < sceneModels_2.length; i++ )
-	{
-		if( sceneModels_2[i].rotXXOn_2 ) {
-			b = 0;
-		}
-	}
-	if (a == 1 && b == 1){
 		document.getElementById("start-button_2").disabled = false;
 		document.getElementById("stop-button_2").disabled = true;
+		document.getElementById("XX-randomDir-button_on_2").disabled = false;
+		document.getElementById("XX-randomDir-button_off_2").disabled = true;
 	} else {
 		document.getElementById("start-button_2").disabled = true;
 		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("XX-randomDir-button_on_2").disabled = true;
+		document.getElementById("XX-randomDir-button_off_2").disabled = false;
 	}
 }
 
+var resetClick_2 = 0;
+
 function setEventListeners_2(){
 	
-	var old_globalRotationXX_ON_2, old_globalRotationYY_ON_2, old_globalRotationZZ_ON_2, old_rotXXOn_2, old_random; 
+	var old_globalRotationXX_ON_2, old_globalRotationYY_ON_2, old_globalRotationZZ_ON_2, old_random; 
 
 	// start/stop Molecule
 	document.getElementById("start-button_2").onclick = function(){
@@ -355,38 +334,45 @@ function setEventListeners_2(){
 			document.getElementById("XX-randomDir-button_on_2").disabled = false;
 			document.getElementById("XX-randomDir-button_off_2").disabled = true;
 		} else{
-			document.getElementById("XX-randomDir-button_on_2").disabled = true;
-			document.getElementById("XX-randomDir-button_off_2").disabled = false;
+			if (resetClick_2 == 0){
+				document.getElementById("XX-randomDir-button_on_2").disabled = true;
+				document.getElementById("XX-randomDir-button_off_2").disabled = false;
+				randomDir = 1;
+			} else {
+				document.getElementById("XX-randomDir-button_on_2").disabled = false;
+				document.getElementById("XX-randomDir-button_off_2").disabled = true;
+				randomDir = 0;
+			}	
 		}
-
-		// if (old_rotXXOn_2 == 0 || old_rotXXOn_2 == false){
-		// 	document.getElementById("XX_direction_on_2").disabled = false;
-		// 	document.getElementById("XX_direction_off_2").disabled = true;
-		// } else {
-		// 	document.getElementById("XX_direction_on_2").disabled = true;
-		// 	document.getElementById("XX_direction_off_2").disabled = false;
-		// 	for(var i = 0; i < sceneModels_2.length; i++ )
-		// 	{
-		// 		sceneModels_2[i].rotXXOn_2 = true;
-		// 	}
-		// }
 
 		if (old_globalRotationXX_ON_2 == 0 || old_globalRotationXX_ON_2 == false){
 			document.getElementById("XX-start-button_2").disabled = false;
 			document.getElementById("XX-stop-button_2").disabled = true;
 		} else {
-			document.getElementById("XX-start-button_2").disabled = true;
-			document.getElementById("XX-stop-button_2").disabled = false;
-			globalRotationXX_ON_2 = 1;
+			if (resetClick_2 == 0){
+				document.getElementById("XX-start-button_2").disabled = true;
+				document.getElementById("XX-stop-button_2").disabled = false;
+				globalRotationXX_ON_2 = 1;
+			} else {
+				document.getElementById("XX-start-button_2").disabled = false;
+				document.getElementById("XX-stop-button_2").disabled = true;
+				globalRotationXX_ON_2 = 0;
+			}	
 		}
 
 		if (old_globalRotationYY_ON_2 == 0 || old_globalRotationYY_ON_2 == false){
 			document.getElementById("YY-start-button_2").disabled = false;
 			document.getElementById("YY-stop-button_2").disabled = true;
 		} else {
-			document.getElementById("YY-start-button_2").disabled = true;
-			document.getElementById("YY-stop-button_2").disabled = false;
-			globalRotationYY_ON_2 = 1;
+			if (resetClick_2 == 0){
+				document.getElementById("YY-start-button_2").disabled = true;
+				document.getElementById("YY-stop-button_2").disabled = false;
+				globalRotationYY_ON_2 = 1;
+			} else {
+				document.getElementById("YY-start-button_2").disabled = false;
+				document.getElementById("YY-stop-button_2").disabled = true;
+				globalRotationYY_ON_2 = 0;
+			}
 		}
 
 		if (old_globalRotationZZ_ON_2 == 0 || old_globalRotationZZ_ON_2 == false){
@@ -397,6 +383,8 @@ function setEventListeners_2(){
 			document.getElementById("ZZ-stop-button_2").disabled = false;
 			globalRotationZZ_ON_2 = 1;
 		}
+
+		resetClick_2 = 0;
 	}; 
 
 	document.getElementById("stop-button_2").onclick = function(){
@@ -404,22 +392,15 @@ function setEventListeners_2(){
 		old_globalRotationYY_ON_2 = globalRotationYY_ON_2;
 		old_globalRotationZZ_ON_2 = globalRotationZZ_ON_2;
 		old_random = randomDir;
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].rotXXOn_2 = false;
-		}
 		globalRotationXX_ON_2 = false;
 		globalRotationYY_ON_2 = false;
 		globalRotationZZ_ON_2 = false;
-		//globalTranslationZZ_ON_2 = false;
 		document.getElementById("XX-start-button_2").disabled = false;
 		document.getElementById("XX-stop-button_2").disabled = true;
 		document.getElementById("YY-start-button_2").disabled = false;
 		document.getElementById("YY-stop-button_2").disabled = true;
 		document.getElementById("ZZ-start-button_2").disabled = false;
 		document.getElementById("ZZ-stop-button_2").disabled = true;
-		// document.getElementById("XX_direction_on_2").disabled = false;
-		// document.getElementById("XX_direction_off_2").disabled = true;
 		document.getElementById("XX-randomDir-button_on_2").disabled = false;
 		document.getElementById("XX-randomDir-button_off_2").disabled = true;
 	};
@@ -433,6 +414,13 @@ function setEventListeners_2(){
 	
 	document.getElementById("XX-stop-button_2").onclick = function(){
 		globalRotationXX_ON_2 = false;
+		if (randomDir == 0){
+			document.getElementById("XX-randomDir-button_on_2").disabled = false;
+			document.getElementById("XX-randomDir-button_off_2").disabled = true;
+		} else {
+			document.getElementById("XX-randomDir-button_on_2").disabled = true;
+			document.getElementById("XX-randomDir-button_off_2").disabled = false;
+		}
 		checkMove_2();
 	};	
 
@@ -452,7 +440,14 @@ function setEventListeners_2(){
 
 	document.getElementById("YY-stop-button_2").onclick = function(){
 		globalRotationYY_ON_2 = false;
-		checkMove_2();
+		if (randomDir == 0){
+			document.getElementById("XX-randomDir-button_on_2").disabled = false;
+			document.getElementById("XX-randomDir-button_off_2").disabled = true;
+		} else {
+			document.getElementById("XX-randomDir-button_on_2").disabled = true;
+			document.getElementById("XX-randomDir-button_off_2").disabled = false;
+		}
+		checkMove_2();	
 	};
 
 	document.getElementById("YY-direction-button_2").onclick = function(){
@@ -471,6 +466,13 @@ function setEventListeners_2(){
 
 	document.getElementById("ZZ-stop-button_2").onclick = function(){
 		globalRotationZZ_ON_2 = false;
+		if (randomDir == 0){
+			document.getElementById("XX-randomDir-button_on_2").disabled = false;
+			document.getElementById("XX-randomDir-button_off_2").disabled = true;
+		} else {
+			document.getElementById("XX-randomDir-button_on_2").disabled = true;
+			document.getElementById("XX-randomDir-button_off_2").disabled = false;
+		}
 		checkMove_2();
 	};	
 
@@ -483,69 +485,33 @@ function setEventListeners_2(){
 	};
 
 	document.getElementById("XX-randomDir-button_on_2").onclick = function(){
-		randomDir = 1;
 		document.getElementById("stop-button_2").disabled = false;
 		document.getElementById("start-button_2").disabled = true;
+
+		document.getElementById("XX-start-button_2").disabled = true;
+		document.getElementById("XX-stop-button_2").disabled = false;
+		globalRotationXX_ON_2 = 1;
+		document.getElementById("YY-start-button_2").disabled = true;
+		document.getElementById("YY-stop-button_2").disabled = false;
+		globalRotationYY_ON_2 = 1;
+		document.getElementById("ZZ-start-button_2").disabled = true;
+		document.getElementById("ZZ-stop-button_2").disabled = false;
+		globalRotationZZ_ON_2 = 1;
+		randomDir = 1;
 	};
 
 	document.getElementById("XX-randomDir-button_off_2").onclick = function(){
 		randomDir = 0;
 	};
 
-	// direction
-	// document.getElementById("XX-direction-button_2").onclick = function(){
-	// 	if(globalTranslationZZ_DIR_2 == 1){
-	// 		globalTranslationZZ_DIR_2 = -1;
-	// 	}else{
-	// 		globalTranslationZZ_DIR_2 = 1;
-	// 	}
-	// };
-
-	// document.getElementById("XX-direction-button_2").onclick = function(){
-	// 	for(var i = 0; i < sceneModels_2.length; i++ )
-	//     {
-	// 		if( sceneModels_2[i].rotXXDir_2 == 1 ) {
-	// 			sceneModels_2[i].rotXXDir_2 = -1;
-	// 		}
-	// 		else {
-	// 			sceneModels_2[i].rotXXDir_2 = 1;
-	// 		}	
-	// 	}
-	// };
-
-	// document.getElementById("XX_direction_on_2").onclick = function(){
-	// 	for(var i = 0; i < sceneModels_2.length; i++ )
-	//     {
-	// 		sceneModels_2[i].rotXXOn_2 = true;
-	// 	}
-	// };
-
-	// document.getElementById("XX_direction_off_2").onclick = function(){
-	// 	for(var i = 0; i < sceneModels_2.length; i++ )
-	//     {
-	// 		sceneModels_2[i].rotXXOn_2 = false;
-	// 	}
-	// 	checkMove();
-	// };
-		
-	// document.getElementById("XX_direction_on_off_2").onclick = function(){
-	// 	if(globalTranslationZZ_ON_2 == 1){
-	// 		globalTranslationZZ_ON_2 = 0;
-	// 	}else{
-	// 		globalTranslationZZ_ON_2 = 1;
-	// 	}
-	// };   
-
 	// speed 
 	document.getElementById("XX-slower-button_2").onclick = function(){
-		// globalTranslationZZ_SPEED_2 *= 0.75; 
 		globalRotationXX_SPEED_2 *= 0.75; 
 		globalRotationYY_SPEED_2 *= 0.75;
 		globalRotationZZ_SPEED_2 *= 0.75;
 	};      
 
 	document.getElementById("XX-faster-button_2").onclick = function(){
-		// globalTranslationZZ_SPEED_2 *= 1.25; 
 		globalRotationXX_SPEED_2 *= 1.25;
 		globalRotationYY_SPEED_2 *= 1.25; 
 		globalRotationZZ_SPEED_2 *= 1.25;
@@ -606,6 +572,7 @@ function setEventListeners_2(){
 	});   
 
 	document.getElementById("reset-button_2").onclick = function(){
+		resetClick_2 = 1;
 
 		document.getElementById("stop-button_2").disabled = true;
 		document.getElementById("start-button_2").disabled = false;
@@ -616,11 +583,12 @@ function setEventListeners_2(){
 		document.getElementById("YY-stop-button_2").disabled = true;
 		document.getElementById("ZZ-start-button_2").disabled = false;
 		document.getElementById("ZZ-stop-button_2").disabled = true;
-
-		// globalRotationXX_ON_2 = false;
-		// globalRotationYY_ON_2 = false;
-		// globalRotationZZ_ON_2 = false;
-		//globalTranslationZZ_ON_2 = false;
+		document.getElementById("XX-randomDir-button_on_2").disabled = false;
+		document.getElementById("XX-randomDir-button_off_2").disabled = true;
+		
+		globalRotationXX_ON_2 = false;
+		globalRotationYY_ON_2 = false;
+		globalRotationZZ_ON_2 = false;
 		globalAngleXX_2 = 0;
 		globalAngleYY_2 = 0;
 		globalAngleZZ_2 = 0;
