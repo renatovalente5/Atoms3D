@@ -25,9 +25,9 @@ var globalRotationZZ_ON_4 = 0;
 var globalRotationZZ_DIR_4 = 1;
 var globalRotationZZ_SPEED_4 = 1;
 
-var globalTranslationZZ_ON_4 = 0;
-var globalTranslationZZ_DIR_4 = 1;
-var globalTranslationZZ_SPEED_4 = 1;
+// var globalTranslationZZ_ON_4 = 0;
+// var globalTranslationZZ_DIR_4 = 1;
+// var globalTranslationZZ_SPEED_4 = 1;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_4 = null;
@@ -278,9 +278,9 @@ function animate_4() {
 			globalAngleZZ_4 += globalRotationZZ_DIR_4 * globalRotationZZ_SPEED_4 * (90 * elapsed) / 1000.0;
 		}
 
-		if( globalTranslationZZ_ON_4 ) {
-			globalAngleZZ_4 += globalTranslationZZ_DIR_4 * globalTranslationZZ_SPEED_4 * (90 * elapsed) / 1000.0;
-	    }
+		// if( globalTranslationZZ_ON_4 ) {
+		// 	globalAngleZZ_4 += globalTranslationZZ_DIR_4 * globalTranslationZZ_SPEED_4 * (90 * elapsed) / 1000.0;
+	    // }
 
 		// Local rotations	
 		for(var i = 0; i < sceneModels_4.length; i++ )
@@ -330,32 +330,79 @@ function outputInfos_4(){
     
 }
 
+function checkMove_4(){
+	var a=0, b=1;
+	if ((globalRotationXX_ON_4 == false && globalRotationYY_ON_4 == false && globalRotationZZ_ON_4 == false) || (globalRotationXX_ON_4 == 0 && globalRotationYY_ON_4 == 0 && globalRotationZZ_ON_4 == 0)){
+		a = 1;
+	}
+	for(var i = 0; i < sceneModels_4.length; i++ )
+	{
+		if( sceneModels_4[i].rotXXOn_4 ) {
+			b = 0;
+		}
+	}
+	if (a == 1 && b == 1){
+		document.getElementById("start-button_4").disabled = false;
+		document.getElementById("stop-button_4").disabled = true;
+	} else {
+		document.getElementById("start-button_4").disabled = true;
+		document.getElementById("stop-button_4").disabled = false;
+	}
+}
+
 function setEventListeners_4(){
 	
+	var old_globalRotationXX_ON_4, old_globalRotationYY_ON_4, old_globalRotationZZ_ON_4, old_rotXXOn_4, old_random_4; 
+
 	// start/stop Molecule
 	document.getElementById("start-button_4").onclick = function(){
-		for(var i = 0; i < sceneModels_4.length; i++ )
-	    {
-			sceneModels_4[i].rotXXOn_4 = true;
+		
+		if (old_random_4 == 0 || old_random_4 == false){
+			document.getElementById("XX-randomDir-button_on_4").disabled = false;
+			document.getElementById("XX-randomDir-button_off_4").disabled = true;
+		} else{
+			document.getElementById("XX-randomDir-button_on_4").disabled = true;
+			document.getElementById("XX-randomDir-button_off_4").disabled = false;
 		}
-		if(globalAngleXX_4 != 0){
-			globalRotationXX_ON_4 = true;
+
+		// for(var i = 0; i < sceneModels_4.length; i++ )
+	    // {
+		// 	sceneModels_4[i].rotXXOn_4 = true;
+		// }
+
+		if (old_globalRotationXX_ON_4 == 0 || old_globalRotationXX_ON_4 == false){
+			document.getElementById("XX-start-button_4").disabled = false;
+			document.getElementById("XX-stop-button_4").disabled = true;
+		} else {
 			document.getElementById("XX-start-button_4").disabled = true;
 			document.getElementById("XX-stop-button_4").disabled = false;
+			globalRotationXX_ON_4 = 1;
 		}
-		if(globalAngleYY_4 != 0){
-			globalRotationYY_ON_4 = true;
+
+		if (old_globalRotationYY_ON_4 == 0 || old_globalRotationYY_ON_4 == false){
+			document.getElementById("YY-start-button_4").disabled = false;
+			document.getElementById("YY-stop-button_4").disabled = true;
+		} else {
 			document.getElementById("YY-start-button_4").disabled = true;
 			document.getElementById("YY-stop-button_4").disabled = false;
+			globalRotationYY_ON_4 = 1;
 		}
-		if(globalAngleZZ_4 != 0){
-			globalRotationZZ_ON_4 = true;
+
+		if (old_globalRotationZZ_ON_4 == 0 || old_globalRotationZZ_ON_4 == false){
+			document.getElementById("ZZ-start-button_4").disabled = false;
+			document.getElementById("ZZ-stop-button_4").disabled = true;
+		} else {
 			document.getElementById("ZZ-start-button_4").disabled = true;
 			document.getElementById("ZZ-stop-button_4").disabled = false;
+			globalRotationZZ_ON_4 = 1;
 		}
 	}; 
 
 	document.getElementById("stop-button_4").onclick = function(){
+		old_globalRotationXX_ON_4 = globalRotationXX_ON_4;
+		old_globalRotationYY_ON_4 = globalRotationYY_ON_4;
+		old_globalRotationZZ_ON_4 = globalRotationZZ_ON_4;
+		old_random_4 = randomDir_4;
 		for(var i = 0; i < sceneModels_4.length; i++ )
 	    {
 			sceneModels_4[i].rotXXOn_4 = false;
@@ -363,13 +410,15 @@ function setEventListeners_4(){
 		globalRotationXX_ON_4 = false;
 		globalRotationYY_ON_4 = false;
 		globalRotationZZ_ON_4 = false;
-		globalTranslationZZ_ON_4 = false;
+		//globalTranslationZZ_ON_4 = false;
 		document.getElementById("XX-start-button_4").disabled = false;
 		document.getElementById("XX-stop-button_4").disabled = true;
 		document.getElementById("YY-start-button_4").disabled = false;
 		document.getElementById("YY-stop-button_4").disabled = true;
 		document.getElementById("ZZ-start-button_4").disabled = false;
 		document.getElementById("ZZ-stop-button_4").disabled = true;
+		document.getElementById("XX-randomDir-button_on_4").disabled = false;
+		document.getElementById("XX-randomDir-button_off_4").disabled = true;
 	};
 
 	// movement
@@ -381,10 +430,13 @@ function setEventListeners_4(){
 	
 	document.getElementById("XX-stop-button_4").onclick = function(){
 		globalRotationXX_ON_4 = false;
-		document.getElementById("stop-button_4").disabled = false;
-		document.getElementById("start-button_4").disabled = true;
+		checkMove_4();
 	};	
 	
+	document.getElementById("XX-direction-button_4").onclick = function(){
+
+	};
+
 	document.getElementById("YY-start-button_4").onclick = function(){
 		globalRotationYY_ON_4 = true;
 		document.getElementById("stop-button_4").disabled = false;
@@ -393,8 +445,11 @@ function setEventListeners_4(){
 
 	document.getElementById("YY-stop-button_4").onclick = function(){
 		globalRotationYY_ON_4 = false;
-		document.getElementById("stop-button_4").disabled = false;
-		document.getElementById("start-button_4").disabled = true;
+		checkMove_4();
+	};
+	
+	document.getElementById("YY-direction-button_4").onclick = function(){
+
 	};
 	
 	document.getElementById("ZZ-start-button_4").onclick = function(){
@@ -405,46 +460,56 @@ function setEventListeners_4(){
 
 	document.getElementById("ZZ-stop-button_4").onclick = function(){
 		globalRotationZZ_ON_4 = false;
-		document.getElementById("stop-button_4").disabled = false;
-		document.getElementById("start-button_4").disabled = true;
+		checkMove_4();
+	};
+	
+	document.getElementById("ZZ-direction-button_4").onclick = function(){
+
 	};	
 
-	// direction
-	document.getElementById("XX-direction-button_4").onclick = function(){
-		if(globalTranslationZZ_DIR_4 == 1){
-			globalTranslationZZ_DIR_4 = -1;
-		}else{
-			globalTranslationZZ_DIR_4 = 1;
-		}
+	document.getElementById("XX-randomDir-button_on_4").onclick = function(){
+		randomDir_4 = 1;
+		document.getElementById("stop-button_4").disabled = false;
+		document.getElementById("start-button_4").disabled = true;
 	};
-	
-	document.getElementById("XX-randomDir-button_4").onclick = function(){
-		if(randomDir_4 == 0){
-			randomDir_4 = 1;
-		}else{
-			randomDir_4 = 0;
-		}
-	};
-	
-	document.getElementById("XX_direction_on_off_4").onclick = function(){
-		if(globalTranslationZZ_ON_4 == 1){
-			globalTranslationZZ_ON_4 = 0;
-		}else{
-			globalTranslationZZ_ON_4 = 1;
-		}
-	};   
 
+	document.getElementById("XX-randomDir-button_off_4").onclick = function(){
+		randomDir_4 = 0;
+	};
+
+	// // direction
+	// document.getElementById("XX-direction-button_4").onclick = function(){
+	// 	if(globalTranslationZZ_DIR_4 == 1){
+	// 		globalTranslationZZ_DIR_4 = -1;
+	// 	}else{
+	// 		globalTranslationZZ_DIR_4 = 1;
+	// 	}
+	// };
+	
+	// document.getElementById("XX-randomDir-button_4").onclick = function(){
+	// 	if(randomDir_4 == 0){
+	// 		randomDir_4 = 1;
+	// 	}else{
+	// 		randomDir_4 = 0;
+	// 	}
+	// };
+	
+	// document.getElementById("XX_direction_on_off_4").onclick = function(){
+	// 	if(globalTranslationZZ_ON_4 == 1){
+	// 		globalTranslationZZ_ON_4 = 0;
+	// 	}else{
+	// 		globalTranslationZZ_ON_4 = 1;
+	// 	}
+	// };   
 
 	// speed 
 	document.getElementById("XX-slower-button_4").onclick = function(){
-		
 		globalRotationXX_SPEED_4 *= 0.75; 
 		globalRotationYY_SPEED_4 *= 0.75;
 		globalRotationZZ_SPEED_4 *= 0.75;
 	};      
 
 	document.getElementById("XX-faster-button_4").onclick = function(){
-		
 		globalRotationXX_SPEED_4 *= 1.25;
 		globalRotationYY_SPEED_4 *= 1.25; 
 		globalRotationZZ_SPEED_4 *= 1.25;
@@ -456,11 +521,7 @@ function setEventListeners_4(){
 		if (countScale_4 != 3){
 			for(var i = 0; i < sceneModels_4.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					sceneModels_4[i].sx_4 *= 1.0;
-				} else {
-					sceneModels_4[i].sx_4 *= 1.1;
-				} 
+				sceneModels_4[i].sx_4 *= 1.1;
 				sceneModels_4[i].sy_4 *= 1.1;
 				sceneModels_4[i].sz_4 *= 1.1;	
 			}
@@ -473,12 +534,7 @@ function setEventListeners_4(){
 		if (countScale_4 != -3){
 			for(var i = 0; i < sceneModels_4.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					if (sceneModels_4[i].sx_4 <= 0.48)
-						sceneModels_4[i].sx_4 *= 1.1;
-				} else {
-					sceneModels_4[i].sx_4 *= 0.9;
-				}
+				sceneModels_4[i].sx_4 *= 0.9;
 				sceneModels_4[i].sy_4 *= 0.9;
 				sceneModels_4[i].sz_4 *= 0.9;	
 			}
@@ -487,31 +543,166 @@ function setEventListeners_4(){
 		drawScene_4(); 
 	};
 	
-		// projection 	
-		var projection = document.getElementById("projection-selection_4");	
-		projection.addEventListener("click", function(){		
-			var p = projection.selectedIndex;				
-			switch(p){			
-				case 0 : projectionType_4 = 0;
-					break;			
-				case 1 : projectionType_4 = 1;
-					break;
-			}  		
-		});      
+	// projection 	
+	var projection = document.getElementById("projection-selection_4");	
+	projection.addEventListener("click", function(){		
+		var p = projection.selectedIndex;				
+		switch(p){			
+			case 0 : projectionType_4 = 0;
+				break;			
+			case 1 : projectionType_4 = 1;
+				break;
+		}  		
+	});      
+
+	// rendering	
+	var list = document.getElementById("rendering-mode-selection_4");	
+	list.addEventListener("click", function(){						
+		var mode = list.selectedIndex;				
+		switch(mode){
+			case 0 : primitiveType_4 = gl_4.TRIANGLES;
+				break;			
+			case 1 : primitiveType_4 = gl_4.LINE_LOOP;
+				break;			
+			case 2 : primitiveType_4 = gl_4.POINTS;
+				break;
+		}
+	});  
 	
-		// rendering	
-		var list = document.getElementById("rendering-mode-selection_4");	
-		list.addEventListener("click", function(){						
-			var mode = list.selectedIndex;				
-			switch(mode){
-				case 0 : primitiveType_4 = gl_4.TRIANGLES;
-					break;			
-				case 1 : primitiveType_4 = gl_4.LINE_LOOP;
-					break;			
-				case 2 : primitiveType_4 = gl_4.POINTS;
-					break;
-			}
-		});   
+	document.getElementById("reset-button_4").onclick = function(){
+
+		document.getElementById("stop-button_4").disabled = true;
+		document.getElementById("start-button_4").disabled = false;
+		
+		document.getElementById("XX-start-button_4").disabled = false;
+		document.getElementById("XX-stop-button_4").disabled = true;
+		document.getElementById("YY-start-button_4").disabled = false;
+		document.getElementById("YY-stop-button_4").disabled = true;
+		document.getElementById("ZZ-start-button_4").disabled = false;
+		document.getElementById("ZZ-stop-button_4").disabled = true;
+
+		// globalRotationXX_ON_2 = false;
+		// globalRotationYY_ON_2 = false;
+		// globalRotationZZ_ON_2 = false;
+		//globalTranslationZZ_ON_2 = false;
+		globalAngleXX_4 = 0;
+		globalAngleYY_4 = 0;
+		globalAngleZZ_4 = 0;
+		randomDir_4 = 0;
+
+		// NUCLEO O-1 (ESQUERDA)
+		sceneModels_4[0].tx_4 = -0.70; sceneModels_4[0].ty_4 = 0;
+		sceneModels_4[0].sx_4 = 0.1; sceneModels_4[0].sy_4 = 0.1; sceneModels_4[0].sz_4 = 0.1;
+
+		// ELETRAO 1 DENTRO NUCLEO O-1 
+		sceneModels_4[1].tx_4 = 0; sceneModels_4[1].ty_4 = 0.35;
+		sceneModels_4[1].sx_4 = 0.03; sceneModels_4[1].sy_4 = 0.03; sceneModels_4[1].sz_4 = 0.03;
+
+		// ELETRAO 2 DENTRO NUCLEO O-1
+		sceneModels_4[2].tx_4 = -0.25; sceneModels_4[2].ty_4 = 0.25;
+		sceneModels_4[2].sx_4 = 0.03; sceneModels_4[2].sy_4 = 0.03; sceneModels_4[2].sz_4 = 0.03;
+
+		// ELETRAO 1 FORA NUCLEO O-1 
+		sceneModels_4[3].tx_4 = -0.25; sceneModels_4[3].ty_4 = -0.25;
+		sceneModels_4[3].sx_4 = 0.03; sceneModels_4[3].sy_4 = 0.03; sceneModels_4[3].sz_4 = 0.03;
+
+		// ELETRAO 2 FORA NUCLEO O-1
+		sceneModels_4[4].tx_4 = 0; sceneModels_4[4].ty_4 = -0.30;
+		sceneModels_4[4].sx_4 = 0.03; sceneModels_4[4].sy_4 = 0.03; sceneModels_4[4].sz_4 = 0.03;
+
+		// ELETRAO 3 FORA NUCLEO O-1
+		sceneModels_4[5].tx_4 = 0.25; sceneModels_4[5].ty_4 = -0.25;
+		sceneModels_4[5].sx_4 = 0.03; sceneModels_4[5].sy_4 = 0.03; sceneModels_4[5].sz_4 = 0.03;
+
+		// ELETRAO 4 FORA NUCLEO O-1
+		sceneModels_4[6].tx_4 = 0.25; sceneModels_4[6].ty_4 = 0.25;
+		sceneModels_4[6].sx_4 = 0.03; sceneModels_4[6].sy_4 = 0.03; sceneModels_4[6].sz_4 = 0.03;
+
+		// ELETRAO 5 DENTRO NUCLEO O-1
+		sceneModels_4[7].tx_4 = 0.15; sceneModels_4[7].ty_4 = 0;
+		sceneModels_4[7].sx_4 = 0.03; sceneModels_4[7].sy_4 = 0.03; sceneModels_4[7].sz_4 = 0.03;
+
+		// ELETRAO 6 DENTRO NUCLEO O-1 
+		sceneModels_4[8].tx_4 = -0.15; sceneModels_4[8].ty_4 = 0;
+		sceneModels_4[8].sx_4 = 0.03; sceneModels_4[8].sy_4 = 0.03; sceneModels_4[8].sz_4 = 0.03;
+
+		// NUCLEO O-2 (DIREITO)
+		sceneModels_4[9].tx_4 = 0.70; sceneModels_4[9].ty_4 = 0;
+		sceneModels_4[9].sx_4 = 0.1; sceneModels_4[9].sy_4 = 0.1; sceneModels_4[9].sz_4 = 0.1;
+
+		// ELETRAO 1 DENTRO NUCLEO O-2 
+		sceneModels_4[10].tx_4 = 0; sceneModels_4[10].ty_4 = 0.35;
+		sceneModels_4[10].sx_4 = 0.03; sceneModels_4[10].sy_4 = 0.03; sceneModels_4[10].sz_4 = 0.03;
+
+		// ELETRAO 2 FORA NUCLEO O-2
+		sceneModels_4[11].tx_4 = -0.25; sceneModels_4[11].ty_4 = 0.25;
+		sceneModels_4[11].sx_4 = 0.03; sceneModels_4[11].sy_4 = 0.03; sceneModels_4[11].sz_4 = 0.03;
+
+		// ELETRAO 1 FORA NUCLEO O-2 
+		sceneModels_4[12].tx_4 = -0.25; sceneModels_4[12].ty_4 = -0.25;
+		sceneModels_4[12].sx_4 = 0.03; sceneModels_4[12].sy_4 = 0.03; sceneModels_4[12].sz_4 = 0.03;
+
+		// ELETRAO 2 FORA NUCLEO O-2
+		sceneModels_4[13].tx_4 = 0; sceneModels_4[13].ty_4 = -0.30;
+		sceneModels_4[13].sx_4 = 0.03; sceneModels_4[13].sy_4 = 0.03; sceneModels_4[13].sz_4 = 0.03;
+
+		// ELETRAO 3 FORA NUCLEO O-2
+		sceneModels_4[14].tx_4 = 0.25; sceneModels_4[14].ty_4 = -0.25;
+		sceneModels_4[14].sx_4 = 0.03; sceneModels_4[14].sy_4 = 0.03; sceneModels_4[14].sz_4 = 0.03;
+
+		// ELETRAO 4 FORA NUCLEO O-2
+		sceneModels_4[15].tx_4 = 0.25; sceneModels_4[15].ty_4 = 0.25;
+		sceneModels_4[15].sx_4 = 0.03; sceneModels_4[15].sy_4 = 0.03; sceneModels_4[15].sz_4 = 0.03;
+
+		// ELETRAO 5 DENTRO NUCLEO O-2
+		sceneModels_4[16].tx_4 = 0.15; sceneModels_4[16].ty_4 = 0;
+		sceneModels_4[16].sx_4 = 0.03; sceneModels_4[16].sy_4 = 0.03; sceneModels_4[16].sz_4 = 0.03;
+
+		// ELETRAO 6 DENTRO NUCLEO O-2 
+		sceneModels_4[17].tx_4 = -0.15; sceneModels_4[17].ty_4 = 0;
+		sceneModels_4[17].sx_4 = 0.03; sceneModels_4[17].sy_4 = 0.03; sceneModels_4[17].sz_4 = 0.03;
+
+		// NUCLEO C (DIREITO)
+		sceneModels_4[18].tx_4 = 0; sceneModels_4[18].ty_4 = 0;
+		sceneModels_4[18].sx_4 = 0.1; sceneModels_4[18].sy_4 = 0.1; sceneModels_4[18].sz_4 = 0.1;
+
+		// ELETRAO 1 FORA NUCLEO C
+		sceneModels_4[19].tx_4 = 0.15; sceneModels_4[19].ty_4 = 0;
+		sceneModels_4[19].sx_4 = 0.03; sceneModels_4[19].sy_4 = 0.03; sceneModels_4[19].sz_4 = 0.03;
+
+		// ELETRAO 2 FORA NUCLEO C
+		sceneModels_4[20].tx_4 = -0.25; sceneModels_4[20].ty_4 = 0.25;
+		sceneModels_4[20].sx_4 = 0.03; sceneModels_4[20].sy_4 = 0.03; sceneModels_4[20].sz_4 = 0.03;
+
+		// ELETRAO 1 FORA NUCLEO C
+		sceneModels_4[21].tx_4 = -0.25; sceneModels_4[21].ty_4 = -0.25;
+		sceneModels_4[21].sx_4 = 0.03; sceneModels_4[21].sy_4 = 0.03; sceneModels_4[21].sz_4 = 0.03;
+
+		// ELETRAO 2 FORA NUCLEO C
+		sceneModels_4[22].tx_4 = -0.15; sceneModels_4[22].ty_4 = 0;
+		sceneModels_4[22].sx_4 = 0.03; sceneModels_4[22].sy_4 = 0.03; sceneModels_4[22].sz_4 = 0.03;
+
+		// ELETRAO 3 DENTRO NUCLEO C
+		sceneModels_4[23].tx_4 = 0.25; sceneModels_4[23].ty_4 = -0.25;
+		sceneModels_4[23].sx_4 = 0.03; sceneModels_4[23].sy_4 = 0.03; sceneModels_4[23].sz_4 = 0.03;
+
+		// ELETRAO 4 DENTRO NUCLEO C
+		sceneModels_4[24].tx_4 = 0.25; sceneModels_4[24].ty_4 = 0.25;
+		sceneModels_4[24].sx_4 = 0.03; sceneModels_4[24].sy_4 = 0.03; sceneModels_4[24].sz_4 = 0.03;
+
+
+		for(var i = 0; i < sceneModels_4.length; i++ )
+		{
+			sceneModels_4[i].rotXXOn_4 = false;	
+			sceneModels_4[i].rotYYOn_4 = false;
+			sceneModels_4[i].rotZZOn_4 = false;
+			sceneModels_4[i].rotXXSpeed_4 = 1.0;
+			sceneModels_4[i].rotYYSpeed_4 = 1.0;
+			sceneModels_4[i].rotZZSpeed_4 = 1.0;
+		}
+
+		drawScene();  
+	};
 }
 
 //--------------------------- WebGL Initialization ---------------------------

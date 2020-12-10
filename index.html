@@ -111,7 +111,7 @@
         });
       });
 
-      // start/stop molecule
+      // molecule - Water
       $(document).ready(function() {
         $("#start-button").click(function() {
             $('#stop-button').removeAttr('disabled');
@@ -124,7 +124,6 @@
         });
       });
 
-      // movement XX
       $(document).ready(function() {
         $("#XX-start-button").click(function() {
             $('#XX-stop-button').removeAttr('disabled');
@@ -137,7 +136,6 @@
         });
       });
 
-      // movement YY
       $(document).ready(function() {
         $("#YY-start-button").click(function() {
             $('#YY-stop-button').removeAttr('disabled');
@@ -150,7 +148,6 @@
         });
       });
 
-      // movement ZZ
       $(document).ready(function() {
         $("#ZZ-start-button").click(function() {
             $('#ZZ-stop-button').removeAttr('disabled');
@@ -163,7 +160,19 @@
         });
       });
 
-      // start/stop molecule
+      $(document).ready(function() {
+        $("#XX_direction_on").click(function() {
+            $('#XX_direction_off').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX_direction_off").click(function() {
+            $('#XX_direction_on').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // atom - Water
       $(document).ready(function() {
         $("#start-button_2").click(function() {
             $('#stop-button_2').removeAttr('disabled');
@@ -176,7 +185,6 @@
         });
       });
 
-      // movement XX
       $(document).ready(function() {
         $("#XX-start-button_2").click(function() {
             $('#XX-stop-button_2').removeAttr('disabled');
@@ -189,7 +197,6 @@
         });
       });
 
-      // movement YY
       $(document).ready(function() {
         $("#YY-start-button_2").click(function() {
             $('#YY-stop-button_2').removeAttr('disabled');
@@ -202,7 +209,6 @@
         });
       });
 
-      // movement ZZ
       $(document).ready(function() {
         $("#ZZ-start-button_2").click(function() {
             $('#ZZ-stop-button_2').removeAttr('disabled');
@@ -215,7 +221,19 @@
         });
       });
 
-      // start/stop molecule
+      $(document).ready(function() {
+        $("#XX-randomDir-button_on_2").click(function() {
+            $('#XX-randomDir-button_off_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX-randomDir-button_off_2").click(function() {
+            $('#XX-randomDir-button_on_2').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      // molecule - Dioxide
       $(document).ready(function() {
         $("#start-button_3").click(function() {
             $('#stop-button_3').removeAttr('disabled');
@@ -228,7 +246,6 @@
         });
       });
 
-      // movement XX
       $(document).ready(function() {
         $("#XX-start-button_3").click(function() {
             $('#XX-stop-button_3').removeAttr('disabled');
@@ -241,7 +258,6 @@
         });
       });
 
-      // movement YY
       $(document).ready(function() {
         $("#YY-start-button_3").click(function() {
             $('#YY-stop-button_3').removeAttr('disabled');
@@ -254,7 +270,6 @@
         });
       });
 
-      // movement ZZ
       $(document).ready(function() {
         $("#ZZ-start-button_3").click(function() {
             $('#ZZ-stop-button_3').removeAttr('disabled');
@@ -267,6 +282,78 @@
         });
       });
 
+      $(document).ready(function() {
+        $("#XX_direction_on_3").click(function() {
+            $('#XX_direction_off_3').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX_direction_off_3").click(function() {
+            $('#XX_direction_on_3').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });      
+      
+      // atom - Dioxide
+      $(document).ready(function() {
+        $("#start-button_4").click(function() {
+            $('#stop-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#stop-button_4").click(function() {
+            $('#start-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      $(document).ready(function() {
+        $("#XX-start-button_4").click(function() {
+            $('#XX-stop-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX-stop-button_4").click(function() {
+            $('#XX-start-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      $(document).ready(function() {
+        $("#YY-start-button_4").click(function() {
+            $('#YY-stop-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#YY-stop-button_4").click(function() {
+            $('#YY-start-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      $(document).ready(function() {
+        $("#ZZ-start-button_4").click(function() {
+            $('#ZZ-stop-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#ZZ-stop-button_4").click(function() {
+            $('#ZZ-start-button_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
+
+      $(document).ready(function() {
+        $("#XX-randomDir-button_on_4").click(function() {
+            $('#XX-randomDir-button_off_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+
+        $("#XX-randomDir-button_off_4").click(function() {
+            $('#XX-randomDir-button_on_4').removeAttr('disabled');
+            $(this).attr('disabled', 'disabled');
+        });
+      });
     </script>
   
   <!-- The JS files -->
@@ -316,27 +403,34 @@
                 <button id="stop-button" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
               </p>  
               <p style="padding-left: 55px;">
-                <b>Movement: </b>
-                <b style="padding-left: 15px;">XX</b> 
+                <b>Translation: </b>
+                <b style="padding-left: 13px;">XX</b> 
                 <button id="XX-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"disabled>▷</button>
                 <button id="XX-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="XX-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
                 <b style="padding-left: 25px;">YY</b> 
                 <button id="YY-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
                 <button id="YY-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
-                <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
-                <button id="ZZ-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="YY-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
-                <b>Direction: </b> 
-                <b style="padding-left: 26px;">XX</b> 
-                <button id="XX-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;">ON/OFF</b> 
-                <button id="XX_direction_on_off" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
+                <b style="padding-left: 100px;"> ZZ </b> 
+                <button id="ZZ-start-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="ZZ-direction-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Rotation: </b> 
+                <b style="padding-left: 30px;">XX</b> 
+                <!-- <b style="padding-left: 73px;">ON/OFF</b>  -->
+                <!-- <button id="XX_direction_on_off" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button> -->
+                <button id="XX_direction_on" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"disabled>▷</button>
+                <button id="XX_direction_off" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="XX-direction-rot-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
-                <b style="padding-left: 72px;">
+                <b style="padding-left: 71px;">
                   <button id="XX-faster-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
                   <button id="XX-slower-button" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
@@ -388,27 +482,34 @@
                 <button id="stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
               </p>
               <p style="padding-left: 55px;">
-                <b>Movement: </b>
-                <b style="padding-left: 15px;">XX</b> 
+                <b>Translation: </b>
+                <b style="padding-left: 13px;">XX</b> 
                 <button id="XX-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"disabled>▷</button>
                 <button id="XX-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="XX-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
                 <b style="padding-left: 25px;">YY</b> 
                 <button id="YY-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled>▷</button>
                 <button id="YY-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
-                <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
-                <button id="ZZ-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="YY-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
-                <b>Direction: </b> 
-                <b style="padding-left: 26px;">XX</b> 
-                <button id="XX-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;">ON/OFF</b> 
-                <button id="XX_direction_on_off_3" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
+                <b style="padding-left: 100px;"> ZZ </b> 
+                <button id="ZZ-start-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="ZZ-direction-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
+              </p>
+              <p style="padding-left: 55px;">
+                <b>Rotation: </b> 
+                <b style="padding-left: 30px;">XX</b> 
+                <!-- <b style="padding-left: 73px;">ON/OFF</b>  -->
+                <!-- <button id="XX_direction_on_off" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button> -->
+                <button id="XX_direction_on_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;"disabled>▷</button>
+                <button id="XX_direction_off_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" ><b>||</b></button>
+                <button id="XX-direction-rot-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
-                <b style="padding-left: 72px;">
+                <b style="padding-left: 71px;">
                   <button id="XX-faster-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
                   <button id="XX-slower-button_3" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
@@ -463,30 +564,29 @@
                 <button id="stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
                </p>
               <p style="padding-left: 55px;">
-                <b>Movement: </b>
-                <b style="padding-left: 15px;">XX</b> 
+                <b>Translation: </b>
+                <b style="padding-left: 13px;">XX</b> 
                 <button id="XX-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="XX-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
                 <b style="padding-left: 25px;">YY</b> 
                 <button id="YY-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="YY-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
-                <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
-                <button id="ZZ-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="YY-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
-                <b>Translation: </b> 
-                <b style="padding-left: 26px;">DIR</b> 
-                <button id="XX-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 26px;">Random DIR</b> 
-                <button id="XX-randomDir-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;">ON/OFF</b> 
-                <button id="XX_direction_on_off_2" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
-                <!-- <button id="XX_direction_off" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">off</button> -->
+                <b style="padding-left: 100px;"> ZZ </b> 
+                <button id="ZZ-start-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="ZZ-direction-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
+                <b style="padding-left: 28px;">Rand </b> 
+                <!-- <button id="XX-randomDir-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button> -->
+                <button id="XX-randomDir-button_on_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="XX-randomDir-button_off_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
               </p>
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      
-                <b style="padding-left: 72px;">
+                <b style="padding-left: 71px;">
                   <button id="XX-faster-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px">+</button>
                   <button id="XX-slower-button_2" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">-</button> 
                 </b>
@@ -528,27 +628,26 @@
                 <button id="start-button_4" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;" disabled> Start</button>
                 <button id="stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 100px; height: 35px;">Stop</button>
                </p>
-              <p style="padding-left: 55px;">
-                <b>Movement: </b>
-                <b style="padding-left: 15px;">XX</b> 
+               <p style="padding-left: 55px;">
+                <b>Translation: </b>
+                <b style="padding-left: 13px;">XX</b> 
                 <button id="XX-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="XX-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="XX-direction-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
                 <b style="padding-left: 25px;">YY</b> 
                 <button id="YY-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
                 <button id="YY-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
-                <b style="padding-left: 25px;"> ZZ </b> 
-                <button id="ZZ-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
-                <button id="ZZ-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="YY-direction-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
               </p>
               <p style="padding-left: 55px;">
-                <b>Translation: </b> 
-                <b style="padding-left: 26px;">DIR</b> 
-                <button id="XX-direction-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 26px;">Random DIR</b> 
-                <button id="XX-randomDir-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button>
-                <b style="padding-left: 73px;">ON/OFF</b> 
-                <button id="XX_direction_on_off_4" class="tm-intro-text tm-btn-primary" style="width: 80px; height: 35px;">on/off</button>
-                <!-- <button id="XX_direction_off" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">off</button> -->
+                <b style="padding-left: 100px;"> ZZ </b> 
+                <button id="ZZ-start-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="ZZ-stop-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
+                <button id="ZZ-direction-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px; background-color: rgb(153, 195, 223);">⟳</button>
+                <b style="padding-left: 28px;">Rand </b> 
+                <!-- <button id="XX-randomDir-button_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">⟳</button> -->
+                <button id="XX-randomDir-button_on_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;">▷</button>
+                <button id="XX-randomDir-button_off_4" class="tm-intro-text tm-btn-primary" style="width: 40px; height: 35px;" disabled><b>||</b></button>
               </p>
               <p style="padding-left: 55px;">
                 <b>Speed: </b>      

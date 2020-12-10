@@ -25,9 +25,9 @@ var globalRotationZZ_ON = 0;
 var globalRotationZZ_DIR = 1;
 var globalRotationZZ_SPEED = 1;
 
-var globalTranslationZZ_ON = 0;
-var globalTranslationZZ_DIR = 1;
-var globalTranslationZZ_SPEED = 1;
+// var globalTranslationZZ_ON = 0;
+// var globalTranslationZZ_DIR = 1;
+// var globalTranslationZZ_SPEED = 1;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType = null;
@@ -272,7 +272,6 @@ function checkMove(){
 			b = 0;
 		}
 	}
-	console.log("a: " + a + " b: " + b);
 	if (a == 1 && b == 1){
 		document.getElementById("start-button").disabled = false;
 		document.getElementById("stop-button").disabled = true;
@@ -299,13 +298,21 @@ function setEventListeners(){
 		$('#dioxide_atom_buttons').show();
 	}; 
 	
-	var old_globalRotationXX_ON, old_globalRotationYY_ON, old_globalRotationZZ_ON; 
+	var old_globalRotationXX_ON, old_globalRotationYY_ON, old_globalRotationZZ_ON, old_rotXXOn; 
 	
 	// start/stop Molecule
 	document.getElementById("start-button").onclick = function(){
-		for(var i = 0; i < sceneModels.length; i++ )
-	    {
-			sceneModels[i].rotXXOn = true;
+
+		if (old_rotXXOn == 0 || old_rotXXOn == false){
+			document.getElementById("XX_direction_on").disabled = false;
+			document.getElementById("XX_direction_off").disabled = true;
+		} else {
+			document.getElementById("XX_direction_on").disabled = true;
+			document.getElementById("XX_direction_off").disabled = false;
+			for(var i = 0; i < sceneModels.length; i++ )
+			{
+				sceneModels[i].rotXXOn = true;
+			}
 		}
 		
 		if (old_globalRotationXX_ON == 0 || old_globalRotationXX_ON == false){
@@ -340,6 +347,7 @@ function setEventListeners(){
 		old_globalRotationXX_ON = globalRotationXX_ON;
 		old_globalRotationYY_ON = globalRotationYY_ON;
 		old_globalRotationZZ_ON = globalRotationZZ_ON;
+		old_rotXXOn = sceneModels[0].rotXXOn;
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
 			sceneModels[i].rotXXOn = false;
@@ -353,6 +361,8 @@ function setEventListeners(){
 		document.getElementById("YY-stop-button").disabled = true;
 		document.getElementById("ZZ-start-button").disabled = false;
 		document.getElementById("ZZ-stop-button").disabled = true;
+		document.getElementById("XX_direction_on").disabled = false;
+		document.getElementById("XX_direction_off").disabled = true;
 	};
 
 	// movement
@@ -366,6 +376,10 @@ function setEventListeners(){
 		globalRotationXX_ON = false;
 		checkMove();
 	};	
+
+	document.getElementById("XX-direction-button").onclick = function(){
+
+	};
 	
 	document.getElementById("YY-start-button").onclick = function(){
 		globalRotationYY_ON = true;
@@ -378,6 +392,10 @@ function setEventListeners(){
 		checkMove();
 	};
 	
+	document.getElementById("YY-direction-button").onclick = function(){
+
+	};
+
 	document.getElementById("ZZ-start-button").onclick = function(){
 		globalRotationZZ_ON = true;
 		document.getElementById("stop-button").disabled = false;
@@ -389,8 +407,12 @@ function setEventListeners(){
 		checkMove();
 	};	
 
+	document.getElementById("ZZ-direction-button").onclick = function(){
+
+	};
+
 	// direction
-	document.getElementById("XX-direction-button").onclick = function(){
+	document.getElementById("XX-direction-rot-button").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
 			if( sceneModels[i].rotXXDir == 1 ) {
@@ -402,18 +424,33 @@ function setEventListeners(){
 		}
 	};
 	
-	document.getElementById("XX_direction_on_off").onclick = function(){
+	document.getElementById("XX_direction_on").onclick = function(){
 		for(var i = 0; i < sceneModels.length; i++ )
 	    {
-			if( sceneModels[i].rotXXOn ) {
-				sceneModels[i].rotXXOn = false;
-			}
-			else {
-				sceneModels[i].rotXXOn = true;
-			}	
+			sceneModels[i].rotXXOn = true;
+		}
+	};
+
+	document.getElementById("XX_direction_off").onclick = function(){
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].rotXXOn = false;
 		}
 		checkMove();
-	};   
+	};
+
+	// document.getElementById("XX_direction_on_off").onclick = function(){
+	// 	for(var i = 0; i < sceneModels.length; i++ )
+	//     {
+	// 		if( sceneModels[i].rotXXOn ) {
+	// 			sceneModels[i].rotXXOn = false;
+	// 		}
+	// 		else {
+	// 			sceneModels[i].rotXXOn = true;
+	// 		}	
+	// 	}
+	// 	checkMove();
+	// };
 
 	// shift
 	document.getElementById("move-left-button").onclick = function(){
@@ -449,14 +486,12 @@ function setEventListeners(){
 
 	// speed 
 	document.getElementById("XX-slower-button").onclick = function(){
-		
 		globalRotationXX_SPEED *= 0.75; 
 		globalRotationYY_SPEED *= 0.75;
 		globalRotationZZ_SPEED *= 0.75;
 	};      
 
-	document.getElementById("XX-faster-button").onclick = function(){
-		
+	document.getElementById("XX-faster-button").onclick = function(){	
 		globalRotationXX_SPEED *= 1.25;
 		globalRotationYY_SPEED *= 1.25; 
 		globalRotationZZ_SPEED *= 1.25;
@@ -536,6 +571,8 @@ function setEventListeners(){
 		document.getElementById("YY-stop-button").disabled = true;
 		document.getElementById("ZZ-start-button").disabled = false;
 		document.getElementById("ZZ-stop-button").disabled = true;
+		document.getElementById("XX_direction_on").disabled = false;
+		document.getElementById("XX_direction_off").disabled = true;
 
 		globalRotationXX_ON = false;
 		globalRotationYY_ON = false;
@@ -547,53 +584,32 @@ function setEventListeners(){
 		// left sphere
 		sceneModels[0].tx = -0.75; sceneModels[0].ty = -0.03;
 		sceneModels[0].sx = 0.20; sceneModels[0].sy = 0.20; sceneModels[0].sz = 0.20;
-		sceneModels[0].rotXXOn = false;	
-		sceneModels[0].rotYYOn = false;
-		sceneModels[0].rotZZOn = false;
-		sceneModels[0].rotXXSpeed = 1.0;
-		sceneModels[0].rotYYSpeed = 1.0;
-		sceneModels[0].rotZZSpeed = 1.0;
 
 		// left link
 		sceneModels[1].tx = -0.40; sceneModels[1].ty = 0.23;
 		sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
-		sceneModels[1].rotXXOn = false;	
-		sceneModels[1].rotYYOn = false;
-		sceneModels[1].rotZZOn = false;
-		sceneModels[1].rotXXSpeed = 1.0;
-		sceneModels[1].rotYYSpeed = 1.0;
-		sceneModels[1].rotZZSpeed = 1.0;
 
 		// middle sphere
 		sceneModels[2].tx = 0; sceneModels[2].ty = 0.5;
 		sceneModels[2].sx = 0.25; sceneModels[2].sy = 0.25; sceneModels[2].sz = 0.25;
-		sceneModels[2].rotXXOn = false;	
-		sceneModels[2].rotYYOn = false;
-		sceneModels[2].rotZZOn = false;
-		sceneModels[2].rotXXSpeed = 1.0;
-		sceneModels[2].rotYYSpeed = 1.0;
-		sceneModels[2].rotZZSpeed = 1.0;
 
 		// right link
 		sceneModels[3].tx = 0.40; sceneModels[3].ty = 0.23;
 		sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
-		sceneModels[3].rotXXOn = false;	
-		sceneModels[3].rotYYOn = false;
-		sceneModels[3].rotZZOn = false;
-		sceneModels[3].rotXXSpeed = 1.0;
-		sceneModels[3].rotYYSpeed = 1.0;
-		sceneModels[3].rotZZSpeed = 1.0;
 
 		// right sphere
 		sceneModels[4].tx = 0.75; sceneModels[4].ty = -0.03;
 		sceneModels[4].sx = 0.20; sceneModels[4].sy = 0.20; sceneModels[4].sz = 0.20;
-		sceneModels[4].rotXXOn = false;	
-		sceneModels[4].rotYYOn = false;
-		sceneModels[4].rotZZOn = false;
-		sceneModels[4].rotXXSpeed = 1.0;
-		sceneModels[4].rotYYSpeed = 1.0;
-		sceneModels[4].rotZZSpeed = 1.0;
 
+		for(var i = 0; i < sceneModels.length; i++ )
+	    {
+			sceneModels[i].rotXXOn = false;	
+			sceneModels[i].rotYYOn = false;
+			sceneModels[i].rotZZOn = false;
+			sceneModels[i].rotXXSpeed = 1.0;
+			sceneModels[i].rotYYSpeed = 1.0;
+			sceneModels[i].rotZZSpeed = 1.0;
+		}
 		drawScene();  
 	};
 }

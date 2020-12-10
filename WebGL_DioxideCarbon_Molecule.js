@@ -25,9 +25,9 @@ var globalRotationZZ_ON_3 = 0;
 var globalRotationZZ_DIR_3 = 1;
 var globalRotationZZ_SPEED_3 = 1;
 
-var globalTranslationZZ_ON_3 = 0;
-var globalTranslationZZ_DIR_3 = 1;
-var globalTranslationZZ_SPEED_3 = 1;
+// var globalTranslationZZ_ON_3 = 0;
+// var globalTranslationZZ_DIR_3 = 1;
+// var globalTranslationZZ_SPEED_3 = 1;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_3 = null;
@@ -298,13 +298,21 @@ function setEventListeners_3(){
 		$('#dioxide_atom_buttons').show();
 	}; 
 	
-	var old_globalRotationXX_ON_3, old_globalRotationYY_ON_3, old_globalRotationZZ_ON_3; 
+	var old_globalRotationXX_ON_3, old_globalRotationYY_ON_3, old_globalRotationZZ_ON_3, old_rotXXOn_3; 
 	
 	// start/stop Molecule
 	document.getElementById("start-button_3").onclick = function(){
-		for(var i = 0; i < sceneModels_3.length; i++ )
-	    {
-			sceneModels_3[i].rotXXOn_3 = true;
+
+		if (old_rotXXOn_3 == 0 || old_rotXXOn_3 == false){
+			document.getElementById("XX_direction_on_3").disabled = false;
+			document.getElementById("XX_direction_off_3").disabled = true;
+		} else {
+			document.getElementById("XX_direction_on_3").disabled = true;
+			document.getElementById("XX_direction_off_3").disabled = false;
+			for(var i = 0; i < sceneModels_3.length; i++ )
+			{
+				sceneModels_3[i].rotXXOn_3 = true;
+			}
 		}
 		
 		if (old_globalRotationXX_ON_3 == 0 || old_globalRotationXX_ON_3 == false){
@@ -339,6 +347,7 @@ function setEventListeners_3(){
 		old_globalRotationXX_ON_3 = globalRotationXX_ON_3;
 		old_globalRotationYY_ON_3 = globalRotationYY_ON_3;
 		old_globalRotationZZ_ON_3 = globalRotationZZ_ON_3;
+		old_rotXXOn_3 = sceneModels_3[0].rotXXOn_3;
 		for(var i = 0; i < sceneModels_3.length; i++ )
 	    {
 			sceneModels_3[i].rotXXOn_3 = false;
@@ -352,6 +361,8 @@ function setEventListeners_3(){
 		document.getElementById("YY-stop-button_3").disabled = true;
 		document.getElementById("ZZ-start-button_3").disabled = false;
 		document.getElementById("ZZ-stop-button_3").disabled = true;
+		document.getElementById("XX_direction_on_3").disabled = false;
+		document.getElementById("XX_direction_off_3").disabled = true;
 	};
 
 	// movement
@@ -365,6 +376,10 @@ function setEventListeners_3(){
 		globalRotationXX_ON_3 = false;
 		checkMove_3();
 	};	
+
+	document.getElementById("XX-direction-button_3").onclick = function(){
+
+	};
 	
 	document.getElementById("YY-start-button_3").onclick = function(){
 		globalRotationYY_ON_3 = true;
@@ -375,6 +390,10 @@ function setEventListeners_3(){
 	document.getElementById("YY-stop-button_3").onclick = function(){
 		globalRotationYY_ON_3 = false;
 		checkMove_3();
+	};
+
+	document.getElementById("YY-direction-button_3").onclick = function(){
+
 	};
 	
 	document.getElementById("ZZ-start-button_3").onclick = function(){
@@ -388,8 +407,12 @@ function setEventListeners_3(){
 		checkMove_3();
 	};	
 
+	document.getElementById("ZZ-direction-button_3").onclick = function(){
+
+	};
+
 	// direction
-	document.getElementById("XX-direction-button_3").onclick = function(){
+	document.getElementById("XX-direction-rot-button_3").onclick = function(){
 		for(var i = 0; i < sceneModels_3.length; i++ )
 	    {
 			if( sceneModels_3[i].rotXXDir_3 == 1 ) {
@@ -401,18 +424,33 @@ function setEventListeners_3(){
 		}
 	};
 	
-	document.getElementById("XX_direction_on_off_3").onclick = function(){
+	document.getElementById("XX_direction_on_3").onclick = function(){
 		for(var i = 0; i < sceneModels_3.length; i++ )
 	    {
-			if( sceneModels_3[i].rotXXOn_3 ) {
-				sceneModels_3[i].rotXXOn_3 = false;
-			}
-			else {
-				sceneModels_3[i].rotXXOn_3 = true;
-			}	
+			sceneModels_3[i].rotXXOn_3 = true;
+		}
+	};
+
+	document.getElementById("XX_direction_off_3").onclick = function(){
+		for(var i = 0; i < sceneModels_3.length; i++ )
+	    {
+			sceneModels_3[i].rotXXOn_3 = false;
 		}
 		checkMove_3();
-	};   
+	};
+
+	// document.getElementById("XX_direction_on_off_3").onclick = function(){
+	// 	for(var i = 0; i < sceneModels_3.length; i++ )
+	//     {
+	// 		if( sceneModels_3[i].rotXXOn_3 ) {
+	// 			sceneModels_3[i].rotXXOn_3 = false;
+	// 		}
+	// 		else {
+	// 			sceneModels_3[i].rotXXOn_3 = true;
+	// 		}	
+	// 	}
+	// 	checkMove_3();
+	// };   
 
 	// shift
 	document.getElementById("move-left-button_3").onclick = function(){
@@ -427,7 +465,6 @@ function setEventListeners_3(){
 	    {
 			sceneModels_3[i].tx_3 += 0.25;
 		}		
-
 	};      
 
 	document.getElementById("move-up-button_3").onclick = function(){
@@ -446,14 +483,12 @@ function setEventListeners_3(){
 
 	// speed 
 	document.getElementById("XX-slower-button_3").onclick = function(){
-		
 		globalRotationXX_SPEED_3 *= 0.75; 
 		globalRotationYY_SPEED_3 *= 0.75;
 		globalRotationZZ_SPEED_3 *= 0.75;
 	};      
 
 	document.getElementById("XX-faster-button_3").onclick = function(){
-		
 		globalRotationXX_SPEED_3 *= 1.25;
 		globalRotationYY_SPEED_3 *= 1.25; 
 		globalRotationZZ_SPEED_3 *= 1.25;
@@ -533,6 +568,8 @@ function setEventListeners_3(){
 		document.getElementById("YY-stop-button_3").disabled = true;
 		document.getElementById("ZZ-start-button_3").disabled = false;
 		document.getElementById("ZZ-stop-button_3").disabled = true;
+		document.getElementById("XX_direction_on_3").disabled = false;
+		document.getElementById("XX_direction_off_3").disabled = true;
 
 		globalRotationXX_ON_3 = false;
 		globalRotationYY_ON_3 = false;
@@ -544,52 +581,32 @@ function setEventListeners_3(){
 		// left sphere
 		sceneModels_3[0].tx_3 = -0.75; sceneModels_3[0].ty_3 = 0;
 		sceneModels_3[0].sx_3 = 0.20; sceneModels_3[0].sy_3 = 0.20; sceneModels_3[0].sz_3 = 0.20;
-		sceneModels_3[0].rotXXOn_3 = false;	
-		sceneModels_3[0].rotYYOn_3 = false;
-		sceneModels_3[0].rotZZOn_3 = false;
-		sceneModels_3[0].rotXXSpeed_3 = 1.0;
-		sceneModels_3[0].rotYYSpeed_3 = 1.0;
-		sceneModels_3[0].rotZZSpeed_3 = 1.0;
-
+		
 		// left link
 		sceneModels_3[1].tx_3 = -0.40; sceneModels_3[1].ty_3 = 0;
 		sceneModels_3[1].sx_3 = 0.16; sceneModels_3[1].sy_3 = 0.05; sceneModels_3[1].sz_3 = 0.05;
-		sceneModels_3[1].rotXXOn_3 = false;	
-		sceneModels_3[1].rotYYOn_3 = false;
-		sceneModels_3[1].rotZZOn_3 = false;
-		sceneModels_3[1].rotXXSpeed_3 = 1.0;
-		sceneModels_3[1].rotYYSpeed_3 = 1.0;
-		sceneModels_3[1].rotZZSpeed_3 = 1.0;
 
 		// middle sphere
 		sceneModels_3[2].tx_3 = 0; sceneModels_3[2].ty_3 = 0;
 		sceneModels_3[2].sx_3 = 0.25; sceneModels_3[2].sy_3 = 0.25; sceneModels_3[2].sz_3 = 0.25;
-		sceneModels_3[2].rotXXOn_3 = false;	
-		sceneModels_3[2].rotYYOn_3 = false;
-		sceneModels_3[2].rotZZOn_3 = false;
-		sceneModels_3[2].rotXXSpeed_3 = 1.0;
-		sceneModels_3[2].rotYYSpeed_3 = 1.0;
-		sceneModels_3[2].rotZZSpeed_3 = 1.0;
 
 		// right link
 		sceneModels_3[3].tx_3 = 0.40; sceneModels_3[3].ty_3 = 0;
 		sceneModels_3[3].sx_3 = 0.16; sceneModels_3[3].sy_3 = 0.05; sceneModels_3[3].sz_3 = 0.05;
-		sceneModels_3[3].rotXXOn_3 = false;	
-		sceneModels_3[3].rotYYOn_3 = false;
-		sceneModels_3[3].rotZZOn_3 = false;
-		sceneModels_3[3].rotXXSpeed_3 = 1.0;
-		sceneModels_3[3].rotYYSpeed_3 = 1.0;
-		sceneModels_3[3].rotZZSpeed_3 = 1.0;
 
 		// right sphere
 		sceneModels_3[4].tx_3 = 0.75; sceneModels_3[4].ty_3 = 0;
 		sceneModels_3[4].sx_3 = 0.20; sceneModels_3[4].sy_3 = 0.20; sceneModels_3[4].sz_3 = 0.20;
-		sceneModels_3[4].rotXXOn_3 = false;	
-		sceneModels_3[4].rotYYOn_3 = false;
-		sceneModels_3[4].rotZZOn_3 = false;
-		sceneModels_3[4].rotXXSpeed_3 = 1.0;
-		sceneModels_3[4].rotYYSpeed_3 = 1.0;
-		sceneModels_3[4].rotZZSpeed_3 = 1.0;
+
+		for(var i = 0; i < sceneModels_3.length; i++ )
+	    {
+			sceneModels_3[i].rotXXOn_3 = false;	
+			sceneModels_3[i].rotYYOn_3 = false;
+			sceneModels_3[i].rotZZOn_3 = false;
+			sceneModels_3[i].rotXXSpeed_3 = 1.0;
+			sceneModels_3[i].rotYYSpeed_3 = 1.0;
+			sceneModels_3[i].rotZZSpeed_3 = 1.0;
+		}
 
 		drawScene_3();  
 	};

@@ -25,9 +25,9 @@ var globalRotationZZ_ON_2 = 0;
 var globalRotationZZ_DIR_2 = 1;
 var globalRotationZZ_SPEED_2 = 1;
 
-var globalTranslationZZ_ON_2 = 1;
-var globalTranslationZZ_DIR_2 = 1;
-var globalTranslationZZ_SPEED_2 = 1;
+// var globalTranslationZZ_ON_2 = 0;
+// var globalTranslationZZ_DIR_2 = 1;
+// var globalTranslationZZ_SPEED_2 = 1;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_2 = null;
@@ -272,9 +272,9 @@ function animate_2() {
 			globalAngleZZ_2 += globalRotationZZ_DIR_2 * globalRotationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
 		}
 
-		if( globalTranslationZZ_ON_2 ) {
-			globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
-	    }
+		// if( globalTranslationZZ_ON_2 ) {
+		// 	globalAngleZZ_2 += globalTranslationZZ_DIR_2 * globalTranslationZZ_SPEED_2 * (90 * elapsed) / 1000.0;
+	    // }
 
 		// Local rotations	
 		for(var i = 0; i < sceneModels_2.length; i++ )
@@ -324,32 +324,86 @@ function outputInfos_2(){
     
 }
 
+function checkMove_2(){
+	var a=0, b=1;
+	if ((globalRotationXX_ON_2 == false && globalRotationYY_ON_2 == false && globalRotationZZ_ON_2 == false) || (globalRotationXX_ON_2 == 0 && globalRotationYY_ON_2 == 0 && globalRotationZZ_ON_2 == 0)){
+		a = 1;
+	}
+	for(var i = 0; i < sceneModels_2.length; i++ )
+	{
+		if( sceneModels_2[i].rotXXOn_2 ) {
+			b = 0;
+		}
+	}
+	if (a == 1 && b == 1){
+		document.getElementById("start-button_2").disabled = false;
+		document.getElementById("stop-button_2").disabled = true;
+	} else {
+		document.getElementById("start-button_2").disabled = true;
+		document.getElementById("stop-button_2").disabled = false;
+	}
+}
+
 function setEventListeners_2(){
 	
+	var old_globalRotationXX_ON_2, old_globalRotationYY_ON_2, old_globalRotationZZ_ON_2, old_rotXXOn_2, old_random; 
+
 	// start/stop Molecule
 	document.getElementById("start-button_2").onclick = function(){
-		for(var i = 0; i < sceneModels_2.length; i++ )
-	    {
-			sceneModels_2[i].rotXXOn_2 = true;
+
+		if (old_random == 0 || old_random == false){
+			document.getElementById("XX-randomDir-button_on_2").disabled = false;
+			document.getElementById("XX-randomDir-button_off_2").disabled = true;
+		} else{
+			document.getElementById("XX-randomDir-button_on_2").disabled = true;
+			document.getElementById("XX-randomDir-button_off_2").disabled = false;
 		}
-		if(globalAngleXX_2 != 0){
-			globalRotationXX_ON_2 = true;
+
+		// if (old_rotXXOn_2 == 0 || old_rotXXOn_2 == false){
+		// 	document.getElementById("XX_direction_on_2").disabled = false;
+		// 	document.getElementById("XX_direction_off_2").disabled = true;
+		// } else {
+		// 	document.getElementById("XX_direction_on_2").disabled = true;
+		// 	document.getElementById("XX_direction_off_2").disabled = false;
+		// 	for(var i = 0; i < sceneModels_2.length; i++ )
+		// 	{
+		// 		sceneModels_2[i].rotXXOn_2 = true;
+		// 	}
+		// }
+
+		if (old_globalRotationXX_ON_2 == 0 || old_globalRotationXX_ON_2 == false){
+			document.getElementById("XX-start-button_2").disabled = false;
+			document.getElementById("XX-stop-button_2").disabled = true;
+		} else {
 			document.getElementById("XX-start-button_2").disabled = true;
 			document.getElementById("XX-stop-button_2").disabled = false;
+			globalRotationXX_ON_2 = 1;
 		}
-		if(globalAngleYY_2 != 0){
-			globalRotationYY_ON_2 = true;
+
+		if (old_globalRotationYY_ON_2 == 0 || old_globalRotationYY_ON_2 == false){
+			document.getElementById("YY-start-button_2").disabled = false;
+			document.getElementById("YY-stop-button_2").disabled = true;
+		} else {
 			document.getElementById("YY-start-button_2").disabled = true;
 			document.getElementById("YY-stop-button_2").disabled = false;
+			globalRotationYY_ON_2 = 1;
 		}
-		if(globalAngleZZ_2 != 0){
-			globalRotationZZ_ON_2 = true;
+
+		if (old_globalRotationZZ_ON_2 == 0 || old_globalRotationZZ_ON_2 == false){
+			document.getElementById("ZZ-start-button_2").disabled = false;
+			document.getElementById("ZZ-stop-button_2").disabled = true;
+		} else {
 			document.getElementById("ZZ-start-button_2").disabled = true;
 			document.getElementById("ZZ-stop-button_2").disabled = false;
+			globalRotationZZ_ON_2 = 1;
 		}
 	}; 
 
 	document.getElementById("stop-button_2").onclick = function(){
+		old_globalRotationXX_ON_2 = globalRotationXX_ON_2;
+		old_globalRotationYY_ON_2 = globalRotationYY_ON_2;
+		old_globalRotationZZ_ON_2 = globalRotationZZ_ON_2;
+		old_random = randomDir;
 		for(var i = 0; i < sceneModels_2.length; i++ )
 	    {
 			sceneModels_2[i].rotXXOn_2 = false;
@@ -357,13 +411,17 @@ function setEventListeners_2(){
 		globalRotationXX_ON_2 = false;
 		globalRotationYY_ON_2 = false;
 		globalRotationZZ_ON_2 = false;
-		globalTranslationZZ_ON_2 = false;
+		//globalTranslationZZ_ON_2 = false;
 		document.getElementById("XX-start-button_2").disabled = false;
 		document.getElementById("XX-stop-button_2").disabled = true;
 		document.getElementById("YY-start-button_2").disabled = false;
 		document.getElementById("YY-stop-button_2").disabled = true;
 		document.getElementById("ZZ-start-button_2").disabled = false;
 		document.getElementById("ZZ-stop-button_2").disabled = true;
+		// document.getElementById("XX_direction_on_2").disabled = false;
+		// document.getElementById("XX_direction_off_2").disabled = true;
+		document.getElementById("XX-randomDir-button_on_2").disabled = false;
+		document.getElementById("XX-randomDir-button_off_2").disabled = true;
 	};
 
 	// movement
@@ -375,9 +433,12 @@ function setEventListeners_2(){
 	
 	document.getElementById("XX-stop-button_2").onclick = function(){
 		globalRotationXX_ON_2 = false;
-		document.getElementById("stop-button_2").disabled = false;
-		document.getElementById("start-button_2").disabled = true;
+		checkMove_2();
 	};	
+
+	document.getElementById("XX-direction-button_2").onclick = function(){
+
+	};
 	
 	document.getElementById("YY-start-button_2").onclick = function(){
 		globalRotationYY_ON_2 = true;
@@ -387,8 +448,11 @@ function setEventListeners_2(){
 
 	document.getElementById("YY-stop-button_2").onclick = function(){
 		globalRotationYY_ON_2 = false;
-		document.getElementById("stop-button_2").disabled = false;
-		document.getElementById("start-button_2").disabled = true;
+		checkMove_2();
+	};
+
+	document.getElementById("YY-direction-button_2").onclick = function(){
+
 	};
 	
 	document.getElementById("ZZ-start-button_2").onclick = function(){
@@ -399,45 +463,77 @@ function setEventListeners_2(){
 
 	document.getElementById("ZZ-stop-button_2").onclick = function(){
 		globalRotationZZ_ON_2 = false;
-		document.getElementById("stop-button_2").disabled = false;
-		document.getElementById("start-button_2").disabled = true;
+		checkMove_2();
 	};	
 
+	document.getElementById("ZZ-direction-button_2").onclick = function(){
+
+	};
+
+	document.getElementById("XX-randomDir-button_on_2").onclick = function(){
+		randomDir = 1;
+		document.getElementById("stop-button_2").disabled = false;
+		document.getElementById("start-button_2").disabled = true;
+	};
+
+	document.getElementById("XX-randomDir-button_off_2").onclick = function(){
+		randomDir = 0;
+	};
+
 	// direction
-	document.getElementById("XX-direction-button_2").onclick = function(){
-		if(globalTranslationZZ_DIR_2 == 1){
-			globalTranslationZZ_DIR_2 = -1;
-		}else{
-			globalTranslationZZ_DIR_2 = 1;
-		}
-	};
-	
-	document.getElementById("XX-randomDir-button_2").onclick = function(){
-		if(randomDir == 0){
-			randomDir = 1;
-		}else{
-			randomDir = 0;
-		}
-	};
-	
-	document.getElementById("XX_direction_on_off_2").onclick = function(){
-		if(globalTranslationZZ_ON_2 == 1){
-			globalTranslationZZ_ON_2 = 0;
-		}else{
-			globalTranslationZZ_ON_2 = 1;
-		}
-	};   
+	// document.getElementById("XX-direction-button_2").onclick = function(){
+	// 	if(globalTranslationZZ_DIR_2 == 1){
+	// 		globalTranslationZZ_DIR_2 = -1;
+	// 	}else{
+	// 		globalTranslationZZ_DIR_2 = 1;
+	// 	}
+	// };
+
+	// document.getElementById("XX-direction-button_2").onclick = function(){
+	// 	for(var i = 0; i < sceneModels_2.length; i++ )
+	//     {
+	// 		if( sceneModels_2[i].rotXXDir_2 == 1 ) {
+	// 			sceneModels_2[i].rotXXDir_2 = -1;
+	// 		}
+	// 		else {
+	// 			sceneModels_2[i].rotXXDir_2 = 1;
+	// 		}	
+	// 	}
+	// };
+
+	// document.getElementById("XX_direction_on_2").onclick = function(){
+	// 	for(var i = 0; i < sceneModels_2.length; i++ )
+	//     {
+	// 		sceneModels_2[i].rotXXOn_2 = true;
+	// 	}
+	// };
+
+	// document.getElementById("XX_direction_off_2").onclick = function(){
+	// 	for(var i = 0; i < sceneModels_2.length; i++ )
+	//     {
+	// 		sceneModels_2[i].rotXXOn_2 = false;
+	// 	}
+	// 	checkMove();
+	// };
+		
+	// document.getElementById("XX_direction_on_off_2").onclick = function(){
+	// 	if(globalTranslationZZ_ON_2 == 1){
+	// 		globalTranslationZZ_ON_2 = 0;
+	// 	}else{
+	// 		globalTranslationZZ_ON_2 = 1;
+	// 	}
+	// };   
 
 	// speed 
 	document.getElementById("XX-slower-button_2").onclick = function(){
-		
+		// globalTranslationZZ_SPEED_2 *= 0.75; 
 		globalRotationXX_SPEED_2 *= 0.75; 
 		globalRotationYY_SPEED_2 *= 0.75;
 		globalRotationZZ_SPEED_2 *= 0.75;
 	};      
 
 	document.getElementById("XX-faster-button_2").onclick = function(){
-		
+		// globalTranslationZZ_SPEED_2 *= 1.25; 
 		globalRotationXX_SPEED_2 *= 1.25;
 		globalRotationYY_SPEED_2 *= 1.25; 
 		globalRotationZZ_SPEED_2 *= 1.25;
@@ -449,13 +545,9 @@ function setEventListeners_2(){
 		if (countScale_2 != 3){
 			for(var i = 0; i < sceneModels_2.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					sceneModels_2[i].sx *= 1.0;
-				} else {
-					sceneModels_2[i].sx *= 1.1;
-				} 
-				sceneModels_2[i].sy *= 1.1;
-				sceneModels_2[i].sz *= 1.1;	
+				sceneModels_2[i].sx_2 *= 1.1;
+				sceneModels_2[i].sy_2 *= 1.1;
+				sceneModels_2[i].sz_2 *= 1.1;	
 			}
 			countScale_2++;
 		} 
@@ -466,45 +558,126 @@ function setEventListeners_2(){
 		if (countScale_2 != -3){
 			for(var i = 0; i < sceneModels_2.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					if (sceneModels_2[i].sx <= 0.48)
-						sceneModels_2[i].sx *= 1.1;
-				} else {
-					sceneModels_2[i].sx *= 0.9;
-				}
-				sceneModels_2[i].sy *= 0.9;
-				sceneModels_2[i].sz *= 0.9;	
+				sceneModels_2[i].sx_2 *= 0.9;
+				sceneModels_2[i].sy_2 *= 0.9;
+				sceneModels_2[i].sz_2 *= 0.9;	
 			}
 			countScale_2--;
 		} 
 		drawScene_2(); 
 	};
 	
-		// projection 	
-		var projection = document.getElementById("projection-selection_2");	
-		projection.addEventListener("click", function(){		
-			var p = projection.selectedIndex;				
-			switch(p){			
-				case 0 : projectionType_2 = 0;
-					break;			
-				case 1 : projectionType_2 = 1;
-					break;
-			}  		
-		});      
-	
-		// rendering	
-		var list = document.getElementById("rendering-mode-selection_2");	
-		list.addEventListener("click", function(){						
-			var mode = list.selectedIndex;				
-			switch(mode){
-				case 0 : primitiveType_2 = gl_2.TRIANGLES;
-					break;			
-				case 1 : primitiveType_2 = gl_2.LINE_LOOP;
-					break;			
-				case 2 : primitiveType_2 = gl_2.POINTS;
-					break;
-			}
-		});   
+	// projection 	
+	var projection = document.getElementById("projection-selection_2");	
+	projection.addEventListener("click", function(){		
+		var p = projection.selectedIndex;				
+		switch(p){			
+			case 0 : projectionType_2 = 0;
+				break;			
+			case 1 : projectionType_2 = 1;
+				break;
+		}  		
+	});      
+
+	// rendering	
+	var list = document.getElementById("rendering-mode-selection_2");	
+	list.addEventListener("click", function(){						
+		var mode = list.selectedIndex;				
+		switch(mode){
+			case 0 : primitiveType_2 = gl_2.TRIANGLES;
+				break;			
+			case 1 : primitiveType_2 = gl_2.LINE_LOOP;
+				break;			
+			case 2 : primitiveType_2 = gl_2.POINTS;
+				break;
+		}
+	});   
+
+	document.getElementById("reset-button_2").onclick = function(){
+
+		document.getElementById("stop-button_2").disabled = true;
+		document.getElementById("start-button_2").disabled = false;
+		
+		document.getElementById("XX-start-button_2").disabled = false;
+		document.getElementById("XX-stop-button_2").disabled = true;
+		document.getElementById("YY-start-button_2").disabled = false;
+		document.getElementById("YY-stop-button_2").disabled = true;
+		document.getElementById("ZZ-start-button_2").disabled = false;
+		document.getElementById("ZZ-stop-button_2").disabled = true;
+
+		// globalRotationXX_ON_2 = false;
+		// globalRotationYY_ON_2 = false;
+		// globalRotationZZ_ON_2 = false;
+		//globalTranslationZZ_ON_2 = false;
+		globalAngleXX_2 = 0;
+		globalAngleYY_2 = 0;
+		globalAngleZZ_2 = 0;
+		randomDir = 0;
+
+		// NUCLEO H1
+		sceneModels_2[0].tx_2 = -0.50; sceneModels_2[0].ty_2 = 0.84;
+		sceneModels_2[0].sx_2 = 0.06; sceneModels_2[0].sy_2 = 0.06; sceneModels_2[0].sz_2 = 0.06;
+		
+		// NUCLEO H2
+		sceneModels_2[1].tx_2 = 0.50; sceneModels_2[1].ty_2 = 0.84;
+		sceneModels_2[1].sx_2 = 0.06; sceneModels_2[1].sy_2 = 0.06; sceneModels_2[1].sz_2 = 0.06;
+		
+		// ELETRAO NUCLEO H1
+		sceneModels_2[2].tx_2 = 0.25; sceneModels_2[2].ty_2 = 0.43;
+		sceneModels_2[2].sx_2 = 0.03; sceneModels_2[2].sy_2 = 0.03; sceneModels_2[2].sz_2 = 0.03;
+
+		// ELETRAO NUCLEO H2
+		sceneModels_2[3].tx_2 = -0.25; sceneModels_2[3].ty_2 = 0.43; 
+		sceneModels_2[3].sx_2 = 0.03; sceneModels_2[3].sy_2 = 0.03; sceneModels_2[3].sz_2 = 0.03;
+
+		// NUCLEO O
+		sceneModels_2[4].tx_2 = 0; sceneModels_2[4].ty_2 = 0;
+		sceneModels_2[4].sx_2 = 0.1; sceneModels_2[4].sy_2 = 0.1; sceneModels_2[4].sz_2 = 0.1;
+
+		// ELETRAO 1 DENTRO NUCLEO O 
+		sceneModels_2[5].tx_2 = 0; sceneModels_2[5].ty_2 = 0.25;
+		sceneModels_2[5].sx_2 = 0.03; sceneModels_2[5].sy_2 = 0.03; sceneModels_2[5].sz_2 = 0.03;
+
+		// ELETRAO 2 DENTRO NUCLEO O 
+		sceneModels_2[6].tx_2 = 0; sceneModels_2[6].ty_2 = -0.25;
+		sceneModels_2[6].sx_2 = 0.03; sceneModels_2[6].sy_2 = 0.03; sceneModels_2[6].sz_2 = 0.03;
+
+		// ELETRAO 1 FORA NUCLEO O 
+		sceneModels_2[7].tx_2 = 0.5; sceneModels_2[7].ty_2 = 0;
+		sceneModels_2[7].sx_2 = 0.03; sceneModels_2[7].sy_2 = 0.03; sceneModels_2[7].sz_2 = 0.03;
+		
+		// ELETRAO 2 FORA NUCLEO O 
+		sceneModels_2[8].tx_2 = -0.50; sceneModels_2[8].ty_2 = 0;
+		sceneModels_2[8].sx_2 = 0.03; sceneModels_2[8].sy_2 = 0.03; sceneModels_2[8].sz_2 = 0.03;
+
+		// ELETRAO 3 FORA NUCLEO O 
+		sceneModels_2[9].tx_2 = 0.25; sceneModels_2[9].ty_2 = 0.43;
+		sceneModels_2[9].sx_2 = 0.03; sceneModels_2[9].sy_2 = 0.03; sceneModels_2[9].sz_2 = 0.03;
+
+		// ELETRAO 4 DENTRO NUCLEO O 
+		sceneModels_2[10].tx_2 = -0.25; sceneModels_2[10].ty_2 = 0.43;
+		sceneModels_2[10].sx_2 = 0.03; sceneModels_2[10].sy_2 = 0.03; sceneModels_2[10].sz_2 = 0.03;
+
+		// ELETRAO 5 FORA NUCLEO O 
+		sceneModels_2[11].tx_2 = 0.25; sceneModels_2[11].ty_2 = -0.43;
+		sceneModels_2[11].sx_2 = 0.03; sceneModels_2[11].sy_2 = 0.03; sceneModels_2[11].sz_2 = 0.03;
+		
+		// ELETRAO 6 FORA NUCLEO O 
+		sceneModels_2[12].tx_2 = -0.25; sceneModels_2[12].ty_2 = -0.43;
+		sceneModels_2[12].sx_2 = 0.03; sceneModels_2[12].sy_2 = 0.03; sceneModels_2[12].sz_2 = 0.03;
+
+		for(var i = 0; i < sceneModels_2.length; i++ )
+		{
+			sceneModels_2[i].rotXXOn_2 = false;	
+			sceneModels_2[i].rotYYOn_2 = false;
+			sceneModels_2[i].rotZZOn_2 = false;
+			sceneModels_2[i].rotXXSpeed_2 = 1.0;
+			sceneModels_2[i].rotYYSpeed_2 = 1.0;
+			sceneModels_2[i].rotZZSpeed_2 = 1.0;
+		}
+
+		drawScene();  
+	};
 }
 
 //--------------------------- WebGL Initialization ---------------------------
