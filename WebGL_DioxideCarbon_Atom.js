@@ -192,7 +192,7 @@ function drawScene_4() {
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_4.length; i++ )
 		{
-			if(i==0 || i==9){
+			if(i==0 || i==9 || i==18){
 				drawModel_4( sceneModels_4[i],
 					translationMatrix( 0, 0, globalTz_4 ),
 					primitiveType_4 );
@@ -208,6 +208,12 @@ function drawScene_4() {
 					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
 					rotationZZMatrix( globalAngleZZ_4))),
 					primitiveType_4 );
+			}else if(i==19 || i==20 || i==21 || i==22 || i==23 || i==24){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
+					rotationZZMatrix( globalAngleZZ_4))),
+					primitiveType_4 );
 			}else{
 				drawModel_4( sceneModels_4[i],
 					mult(translationMatrix( 0, 0, globalTz_4),
@@ -220,7 +226,7 @@ function drawScene_4() {
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_4.length; i++ )
 		{
-			if(i==0 || i==9){
+			if(i==0 || i==9 || i==18){
 				drawModel_4( sceneModels_4[i],
 					translationMatrix( 0, 0, globalTz_4 ),
 					primitiveType_4 );
@@ -242,10 +248,28 @@ function drawScene_4() {
 					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
 					rotationZZMatrix( globalAngleZZ_4))),
 					primitiveType_4 );
-			}else if(i==10 || i==11 || i==12 || i==13 || i==14 || i==15 || i==16 || i==17){
+			}else if(i==10 || i==11 || i==13 || i==14 || i==16 || i==17){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0.70, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
+					rotationZZMatrix( globalAngleZZ_4 * (-1)))),
+					primitiveType_4 );
+			}else if( i==12 || i==14 || i==15 || i==17){
 				drawModel_4( sceneModels_4[i],
 					mult(translationMatrix( 0.70, 0, globalTz_4),
 					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1) ), rotationYYMatrix( globalAngleYY_4 * (-1) )),
+					rotationZZMatrix( globalAngleZZ_4))),
+					primitiveType_4 );
+			}else if(i==19 || i==21 || i==22 || i==24){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 ), rotationYYMatrix( globalAngleYY_4 )),
+					rotationZZMatrix( globalAngleZZ_4 * (-1)))),
+					primitiveType_4 );
+			}else if(i==20 || i==22 || i==23){
+				drawModel_4( sceneModels_4[i],
+					mult(translationMatrix( 0, 0, globalTz_4),
+					mult(mult(rotationXXMatrix( globalAngleXX_4 * (-1)), rotationYYMatrix( globalAngleYY_4 * (-1))),
 					rotationZZMatrix( globalAngleZZ_4))),
 					primitiveType_4 );
 			}else{
@@ -434,7 +458,11 @@ function setEventListeners_4(){
 	};	
 	
 	document.getElementById("XX-direction-button_4").onclick = function(){
-
+		if(globalRotationXX_DIR_4 == -1){
+			globalRotationXX_DIR_4 = 1;
+		}else{
+			globalRotationXX_DIR_4 = -1;
+		}
 	};
 
 	document.getElementById("YY-start-button_4").onclick = function(){
@@ -449,7 +477,11 @@ function setEventListeners_4(){
 	};
 	
 	document.getElementById("YY-direction-button_4").onclick = function(){
-
+		if(globalRotationYY_DIR_4 == -1){
+			globalRotationYYIR_4 = 1;
+		}else{
+			globalRotationYY_DIR_4 = -1;
+		}
 	};
 	
 	document.getElementById("ZZ-start-button_4").onclick = function(){
@@ -464,7 +496,11 @@ function setEventListeners_4(){
 	};
 	
 	document.getElementById("ZZ-direction-button_4").onclick = function(){
-
+		if(globalRotationZZ_DIR_4 == -1){
+			globalRotationZZ_DIR_4 = 1;
+		}else{
+			globalRotationZZ_DIR_4 = -1;
+		}
 	};	
 
 	document.getElementById("XX-randomDir-button_on_4").onclick = function(){

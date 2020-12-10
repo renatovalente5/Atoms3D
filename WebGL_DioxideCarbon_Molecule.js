@@ -378,7 +378,11 @@ function setEventListeners_3(){
 	};	
 
 	document.getElementById("XX-direction-button_3").onclick = function(){
-
+		if(globalRotationXX_DIR_3 == -1){
+			globalRotationXX_DIR_3 = 1;
+		}else{
+			globalRotationXX_DIR_3 = -1;
+		}
 	};
 	
 	document.getElementById("YY-start-button_3").onclick = function(){
@@ -393,7 +397,11 @@ function setEventListeners_3(){
 	};
 
 	document.getElementById("YY-direction-button_3").onclick = function(){
-
+		if(globalRotationYY_DIR_3 == -1){
+			globalRotationYY_DIR_3 = 1;
+		}else{
+			globalRotationYY_DIR_3 = -1;
+		}
 	};
 	
 	document.getElementById("ZZ-start-button_3").onclick = function(){
@@ -408,7 +416,11 @@ function setEventListeners_3(){
 	};	
 
 	document.getElementById("ZZ-direction-button_3").onclick = function(){
-
+		if(globalRotationZZ_DIR_3 == -1){
+			globalRotationZZ_DIR_3 = 1;
+		}else{
+			globalRotationZZ_DIR_3 = -1;
+		}
 	};
 
 	// direction

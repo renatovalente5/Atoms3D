@@ -437,7 +437,11 @@ function setEventListeners_2(){
 	};	
 
 	document.getElementById("XX-direction-button_2").onclick = function(){
-
+		if(globalRotationXX_DIR_2 == -1){
+			globalRotationXX_DIR_2 = 1;
+		}else{
+			globalRotationXX_DIR_2 = -1;
+		}
 	};
 	
 	document.getElementById("YY-start-button_2").onclick = function(){
@@ -452,7 +456,11 @@ function setEventListeners_2(){
 	};
 
 	document.getElementById("YY-direction-button_2").onclick = function(){
-
+		if(globalRotationYY_DIR_2 == -1){
+			globalRotationYY_DIR_2 = 1;
+		}else{
+			globalRotationYY_DIR_2 = -1;
+		}
 	};
 	
 	document.getElementById("ZZ-start-button_2").onclick = function(){
@@ -467,7 +475,11 @@ function setEventListeners_2(){
 	};	
 
 	document.getElementById("ZZ-direction-button_2").onclick = function(){
-
+		if(globalRotationZZ_DIR_2 == -1){
+			globalRotationZZ_DIR_2 = 1;
+		}else{
+			globalRotationZZ_DIR_2 = -1;
+		}
 	};
 
 	document.getElementById("XX-randomDir-button_on_2").onclick = function(){
