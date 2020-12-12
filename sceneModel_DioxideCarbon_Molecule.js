@@ -117,7 +117,7 @@ var sceneModels_3 = [];
 sceneModels_3.push( new sphereModel_3( 6 ) );
 sceneModels_3[0].rotZZOn_3 = false;
 sceneModels_3[0].rotYYOn_3 = false;
-sceneModels_3[0].kDiff_3 = [ 1.0, 1.0, 1.0 ];
+sceneModels_3[0].kDiff_3 = [ 1.0, 0.0, 0.0 ];
 sceneModels_3[0].tx_3 = -0.75; sceneModels_3[0].ty_3 = 0;
 sceneModels_3[0].sx_3 = 0.20; sceneModels_3[0].sy_3 = 0.20; sceneModels_3[0].sz_3 = 0.20;
 
@@ -133,7 +133,7 @@ sceneModels_3[1].sx_3 = 0.16; sceneModels_3[1].sy_3 = 0.05; sceneModels_3[1].sz_
 sceneModels_3.push( new sphereModel_3( 6 ) );
 sceneModels_3[2].rotZZOn_3 = false;
 sceneModels_3[2].rotYYOn_3 = false;
-sceneModels_3[2].kDiff_3 = [ 1.0, 0.0, 0.0 ];
+sceneModels_3[2].kDiff_3 = [ 1.0, 1.0, 1.0 ];
 sceneModels_3[2].tx_3 = 0; sceneModels_3[2].ty_3 = 0;
 sceneModels_3[2].sx_3 = 0.25; sceneModels_3[2].sy_3 = 0.25; sceneModels_3[2].sz_3 = 0.25;
 
@@ -149,6 +149,6 @@ sceneModels_3[3].sx_3 = 0.16; sceneModels_3[3].sy_3 = 0.05; sceneModels_3[3].sz_
 sceneModels_3.push( new sphereModel_3( 6 ) );
 sceneModels_3[4].rotZZOn_3 = false;
 sceneModels_3[4].rotYYOn_3 = false;
-sceneModels_3[4].kDiff_3 = [ 1.0, 1.0, 1.0 ];
+sceneModels_3[4].kDiff_3 = [ 1.0, 0.0, 0.0 ];
 sceneModels_3[4].tx_3 = 0.75; sceneModels_3[4].ty_3 = 0;
 sceneModels_3[4].sx_3 = 0.20; sceneModels_3[4].sy_3 = 0.20; sceneModels_3[4].sz_3 = 0.20;
