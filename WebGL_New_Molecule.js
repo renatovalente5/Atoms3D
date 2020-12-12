@@ -34,6 +34,8 @@ var projectionType_5 = 0;
 // The viewer position
 var pos_Viewer_5 = [ 0.0, 0.0, 0.0, 1.0 ];
 
+var geralSave_5 = [];
+
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -595,28 +597,12 @@ function setEventListeners_5(){
 		globalAngleYY_5 = 0;
 		globalAngleZZ_5 = 0;
 
-		// left sphere
-		sceneModels_5[0].tx_5 = -0.75; sceneModels_5[0].ty_5 = 0;
-		sceneModels_5[0].sx_5 = 0.20; sceneModels_5[0].sy_5 = 0.20; sceneModels_5[0].sz_5 = 0.20;
-		
-		// left link
-		sceneModels_5[1].tx_5 = -0.40; sceneModels_5[1].ty_5 = 0;
-		sceneModels_5[1].sx_5 = 0.16; sceneModels_5[1].sy_5 = 0.05; sceneModels_5[1].sz_5 = 0.05;
-
-		// middle sphere
-		sceneModels_5[2].tx_5 = 0; sceneModels_5[2].ty_5 = 0;
-		sceneModels_5[2].sx_5 = 0.25; sceneModels_5[2].sy_5 = 0.25; sceneModels_5[2].sz_5 = 0.25;
-
-		// right link
-		sceneModels_5[3].tx_5 = 0.40; sceneModels_5[3].ty_5 = 0;
-		sceneModels_5[3].sx_5 = 0.16; sceneModels_5[3].sy_5 = 0.05; sceneModels_5[3].sz_5 = 0.05;
-
-		// right sphere
-		sceneModels_5[4].tx_5 = 0.75; sceneModels_5[4].ty_5 = 0;
-		sceneModels_5[4].sx_5 = 0.20; sceneModels_5[4].sy_5 = 0.20; sceneModels_5[4].sz_5 = 0.20;
-
 		for(var i = 0; i < sceneModels_5.length; i++ )
 	    {
+
+			sceneModels_5[i].tx_5 = geralSave[i].tx_5; sceneModels_5[i].ty_5 = geralSave[i].ty_5;
+			sceneModels_5[i].sx_5 = geralSave[i].tx_5; sceneModels_5[i].sx_5 = geralSave[i].sy_5; sceneModels_5[i].sz_5 = geralSave[i].sz_5;
+
 			sceneModels_5[i].rotXXOn_5 = false;	
 			sceneModels_5[i].rotYYOn_5 = false;
 			sceneModels_5[i].rotZZOn_5 = false;
@@ -679,7 +665,7 @@ function setEventListeners_5(){
 			}
 		}
 		tick_5(); 
-		
+		geralSav_5 = sceneModels_5;
 
 		// Entire file read as a string
 			

@@ -37,6 +37,7 @@ var pos_Viewer_6 = [ 0.0, 0.0, 0.0, 1.0 ];
 var randomDir = 0;
 var stopped = 0;
 var aux = []
+var geralSave_5 = [];
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -617,8 +618,8 @@ function setEventListeners_6(){
 
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{
-			sceneModels_6[i].tx_6 = -0.50; sceneModels_6[i].ty_6 = 0.84;
-			sceneModels_6[i].sx_6 = 0.06; sceneModels_6[i].sy_6 = 0.06; sceneModels_6[i].sz_6 = 0.06;
+			sceneModels_6[i].tx_6 = geralSave[i].tx_6; sceneModels_6[i].ty_6 = geralSave[i].ty_6;
+			sceneModels_6[i].sx_6 = geralSave[i].tx_6; sceneModels_6[i].sx_6 = geralSave[i].sy_6; sceneModels_6[i].sz_6 = geralSave[i].sz_6;
 		
 			sceneModels_6[i].rotXXOn_6 = false;	
 			sceneModels_6[i].rotYYOn_6 = false;
@@ -687,6 +688,8 @@ function setEventListeners_6(){
 			}
 		}
 		tick_6(); 
+		geralSave_6 = sceneModels_6;
+
 
 		// Entire file read as a string
 			
