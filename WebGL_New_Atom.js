@@ -37,7 +37,7 @@ var pos_Viewer_6 = [ 0.0, 0.0, 0.0, 1.0 ];
 var randomDir = 0;
 var stopped = 0;
 var aux = []
-var geralSave_6 = [];
+var geralSave_6 = null;
 var ii = 0;
 
 //------------------------------ The WebGL code ------------------------------
@@ -184,37 +184,51 @@ function drawScene_6() {
 	}
 	if(randomDir==1){
 
+		var count = 0;
+		ii = 0;
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_6.length; i++ )
-		{
-			if(i==0 || i==1 || i==4){
+		{	
+			if(i < stopped){
 				drawModel_6( sceneModels_6[i],
 					translationMatrix( 0, 0, globalTz_6 ),
 					primitiveType_6 );
-			}else if(i==3){
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( -0.45, 0.85, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-					rotationZZMatrix( globalAngleZZ_6 * (-1) ))),
-					primitiveType_6 );
-			}else if(i==2){
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( 0.45, 0.85, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 * (-1) ), rotationYYMatrix( globalAngleYY_6 * (-1) )),
-					rotationZZMatrix( globalAngleZZ_6))),
-					primitiveType_6 );
-			}else if(i==5 || i==10 || i==12){
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( 0, 0, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 * (-1) ), rotationYYMatrix( globalAngleYY_6 * (-1))),
-					rotationZZMatrix( globalAngleZZ_6 ))),
-					primitiveType_6 );
 			}else{
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( 0, 0, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-						rotationZZMatrix( globalAngleZZ_6 * (-1) ))),
-					primitiveType_6 );
+				//alert(sceneModels_6[i].tx_6 + " "+ sceneModels_6[i].ty_6)
+				//alert("count " + count);
+				if(count < aux[ii]){
+					if(count % 3 == 0){
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 *(-1)), rotationYYMatrix( globalAngleYY_6 )),
+						rotationZZMatrix( globalAngleZZ_6 *(-1)))),
+						primitiveType_6 );
+					
+					}else{
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 *(-1))),
+						rotationZZMatrix( globalAngleZZ_6 ))),
+						primitiveType_6 );
+					}
+					count++;
+				}else{
+					ii++;
+					if(count % 3 == 0){
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 *(-1)), rotationYYMatrix( globalAngleYY_6 )),
+						rotationZZMatrix( globalAngleZZ_6 *(-1)))),
+						primitiveType_6 );
+					}else{
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 *(-1))),
+						rotationZZMatrix( globalAngleZZ_6 ))),
+						primitiveType_6 );
+					}
+					count = 1;
+				}
 			}
 		}
 	}else{
@@ -239,14 +253,13 @@ function drawScene_6() {
 						primitiveType_6 );
 					count++;
 				}else{
-					count = 0;
+					ii++;
 					drawModel_6( sceneModels_6[i],
 						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
 						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
 						rotationZZMatrix( globalAngleZZ_6 ))),
 						primitiveType_6 );
-					count++;
-					ii++;
+					count = 1;
 				}
 			}
 		}
@@ -623,7 +636,7 @@ function setEventListeners_6(){
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{
 			sceneModels_6[i].tx_6 = geralSave_6[i].tx_6; sceneModels_6[i].ty_6 = geralSave_6[i].ty_6;
-			sceneModels_6[i].sx_6 = geralSave_6[i].tx_6; sceneModels_6[i].sx_6 = geralSave_6[i].sy_6; sceneModels_6[i].sz_6 = geralSave_6[i].sz_6;
+			sceneModels_6[i].sx_6 = geralSave_6[i].sx_6; sceneModels_6[i].sy_6 = geralSave_6[i].sy_6; sceneModels_6[i].sz_6 = geralSave_6[i].sz_6;
 		
 			sceneModels_6[i].rotXXOn_6 = false;	
 			sceneModels_6[i].rotYYOn_6 = false;
@@ -631,6 +644,7 @@ function setEventListeners_6(){
 			sceneModels_6[i].rotXXSpeed_6 = 1.0;
 			sceneModels_6[i].rotYYSpeed_6 = 1.0;
 			sceneModels_6[i].rotZZSpeed_6 = 1.0;
+			
 		}
 
 		drawScene();  
@@ -692,7 +706,7 @@ function setEventListeners_6(){
 			}
 		}
 		tick_6(); 
-		geralSave_6 = sceneModels_6.slice();
+		geralSave_6 = Object.create(sceneModels_6);
 
 
 		// Entire file read as a string

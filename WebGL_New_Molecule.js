@@ -34,7 +34,7 @@ var projectionType_5 = 0;
 // The viewer position
 var pos_Viewer_5 = [ 0.0, 0.0, 0.0, 1.0 ];
 
-var geralSave_5 = [];
+var geralSave_5 = null;
 var countScale = 0;
 
 
@@ -528,17 +528,18 @@ function setEventListeners_5(){
 	};
 
 	document.getElementById("scale-down-button_5").onclick = function(){
-		if (countScale > -1){
+		if (countScale > -2){
 			for(var i = 0; i < sceneModels_5.length; i++ )
 			{
-				if (countScale == 1){
+				if (countScale == 0){
 					sceneModels_5[i].sx_5 = geralSave_5[i].sx_5;
 					sceneModels_5[i].sy_5 = geralSave_5[i].sy_5;
 					sceneModels_5[i].sz_5 = geralSave_5[i].sz_5;
+				}else{
+					sceneModels_5[i].sx_5 *= 0.9;
+					sceneModels_5[i].sy_5 *= 0.9;
+					sceneModels_5[i].sz_5 *= 0.9;	
 				}
-				sceneModels_5[i].sx_5 *= 0.9;
-				sceneModels_5[i].sy_5 *= 0.9;
-				sceneModels_5[i].sz_5 *= 0.9;	
 			}
 			countScale--;
 		} 
@@ -595,14 +596,8 @@ function setEventListeners_5(){
 
 		for(var i = 0; i < sceneModels_5.length; i++ )
 	    {
-			sceneModels_5[i].rotXXOn_5 = false;
-		}
-
-		for(var i = 0; i < sceneModels_5.length; i++ )
-	    {
 			sceneModels_5[i].tx_5 = geralSave_5[i].tx_5; sceneModels_5[i].ty_5 = geralSave_5[i].ty_5;
-			sceneModels_5[i].sx_5 = geralSave_5[i].tx_5; sceneModels_5[i].sx_5 = geralSave_5[i].sy_5; sceneModels_5[i].sz_5 = geralSave_5[i].sz_5;
-
+			sceneModels_5[i].sx_5 = geralSave_5[i].sx_5; sceneModels_5[i].sy_5 = geralSave_5[i].sy_5; sceneModels_5[i].sz_5 = geralSave_5[i].sz_5;
 			sceneModels_5[i].rotXXOn_5 = false;	
 			sceneModels_5[i].rotYYOn_5 = false;
 			sceneModels_5[i].rotZZOn_5 = false;
@@ -651,24 +646,31 @@ function setEventListeners_5(){
 					sceneModels_5.push( new simpleCubeModel_5() );
 					sceneModels_5[num_sen].rotZZOn_5 = false;
 					sceneModels_5[num_sen].rotYYOn_5 = false;
-					
+
 					cor = theArray[i+1].split(",")
 					sceneModels_5[num_sen].kDiff_5 = [ cor[0], cor[1], cor[2] ];
 
 					sceneModels_5[num_sen].tx_5 = theArray[i+2]; sceneModels_5[num_sen].ty_5 =theArray[i+3];
 
 					sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
+					console.log(sceneModels_5[num_sen].sx_5);
+					//sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
 
 					sceneModels_5[num_sen].rotAngleZZ_5 = theArray[i+7];
 					num_sen++;
 					
 				}
+				//console.log(sceneModels_5[i]);
 			}
 		}
 		tick_5(); 
 		
 		geralSave_5 = Object.create(sceneModels_5);
-
+		console.log(geralSave_5);
+		console.log(geralSave_5[2]);
+		for(let i=0; i<geralSave_5.length; i++){
+			console.log(geralSave_5[i]);
+		}
 		// Entire file read as a string
 			
 		reader.readAsText( file );
