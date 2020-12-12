@@ -341,13 +341,9 @@ function checkMove_4(){
 	if ((globalRotationXX_ON_4 == false && globalRotationYY_ON_4 == false && globalRotationZZ_ON_4 == false) || (globalRotationXX_ON_4 == 0 && globalRotationYY_ON_4 == 0 && globalRotationZZ_ON_4 == 0)){
 		document.getElementById("start-button_4").disabled = false;
 		document.getElementById("stop-button_4").disabled = true;
-		document.getElementById("XX-randomDir-button_on_4").disabled = false;
-		document.getElementById("XX-randomDir-button_off_4").disabled = true;
 	} else {
 		document.getElementById("start-button_4").disabled = true;
 		document.getElementById("stop-button_4").disabled = false;
-		document.getElementById("XX-randomDir-button_on_4").disabled = true;
-		document.getElementById("XX-randomDir-button_off_4").disabled = false;
 	}
 }
 

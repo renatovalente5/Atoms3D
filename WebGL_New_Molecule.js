@@ -35,6 +35,7 @@ var projectionType_5 = 0;
 var pos_Viewer_5 = [ 0.0, 0.0, 0.0, 1.0 ];
 
 var geralSave_5 = [];
+var countScale = 0;
 
 
 //------------------------------ The WebGL code ------------------------------
@@ -513,16 +514,11 @@ function setEventListeners_5(){
 	};      
 
 	// zoom 
-	var countScale = 0;
 	document.getElementById("scale-up-button_5").onclick = function(){ 
-		if (countScale != 3){
+		if (countScale < 3){
 			for(var i = 0; i < sceneModels_5.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					sceneModels_5[i].sx_5 *= 1.0;
-				} else {
-					sceneModels_5[i].sx_5 *= 1.1;
-				} 
+				sceneModels_5[i].sx_5 *= 1.1;
 				sceneModels_5[i].sy_5 *= 1.1;
 				sceneModels_5[i].sz_5 *= 1.1;	
 			}
@@ -532,15 +528,15 @@ function setEventListeners_5(){
 	};
 
 	document.getElementById("scale-down-button_5").onclick = function(){
-		if (countScale != -3){
+		if (countScale > -1){
 			for(var i = 0; i < sceneModels_5.length; i++ )
 			{
-				if (i == 1 || i == 3){
-					if (sceneModels_5[i].sx_5 <= 0.48)
-					sceneModels_5[i].sx_5 *= 1.1;
-				} else {
-					sceneModels_5[i].sx_5 *= 0.9;
+				if (countScale == 1){
+					sceneModels_5[i].sx_5 = geralSave_5[i].sx_5;
+					sceneModels_5[i].sy_5 = geralSave_5[i].sy_5;
+					sceneModels_5[i].sz_5 = geralSave_5[i].sz_5;
 				}
+				sceneModels_5[i].sx_5 *= 0.9;
 				sceneModels_5[i].sy_5 *= 0.9;
 				sceneModels_5[i].sz_5 *= 0.9;	
 			}
@@ -599,9 +595,13 @@ function setEventListeners_5(){
 
 		for(var i = 0; i < sceneModels_5.length; i++ )
 	    {
+			sceneModels_5[i].rotXXOn_5 = false;
+		}
 
-			sceneModels_5[i].tx_5 = geralSave[i].tx_5; sceneModels_5[i].ty_5 = geralSave[i].ty_5;
-			sceneModels_5[i].sx_5 = geralSave[i].tx_5; sceneModels_5[i].sx_5 = geralSave[i].sy_5; sceneModels_5[i].sz_5 = geralSave[i].sz_5;
+		for(var i = 0; i < sceneModels_5.length; i++ )
+	    {
+			sceneModels_5[i].tx_5 = geralSave_5[i].tx_5; sceneModels_5[i].ty_5 = geralSave_5[i].ty_5;
+			sceneModels_5[i].sx_5 = geralSave_5[i].tx_5; sceneModels_5[i].sx_5 = geralSave_5[i].sy_5; sceneModels_5[i].sz_5 = geralSave_5[i].sz_5;
 
 			sceneModels_5[i].rotXXOn_5 = false;	
 			sceneModels_5[i].rotYYOn_5 = false;
@@ -661,11 +661,13 @@ function setEventListeners_5(){
 
 					sceneModels_5[num_sen].rotAngleZZ_5 = theArray[i+7];
 					num_sen++;
+					
 				}
 			}
 		}
 		tick_5(); 
-		geralSav_5 = sceneModels_5;
+		
+		geralSave_5 = Object.create(sceneModels_5);
 
 		// Entire file read as a string
 			

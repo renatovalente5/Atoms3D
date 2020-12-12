@@ -37,7 +37,8 @@ var pos_Viewer_6 = [ 0.0, 0.0, 0.0, 1.0 ];
 var randomDir = 0;
 var stopped = 0;
 var aux = []
-var geralSave_5 = [];
+var geralSave_6 = [];
+var ii = 0;
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -219,7 +220,7 @@ function drawScene_6() {
 	}else{
 
 		var count = 0;
-		var ii = 0;
+		ii = 0;
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{	
@@ -239,13 +240,13 @@ function drawScene_6() {
 					count++;
 				}else{
 					count = 0;
-					ii++;
 					drawModel_6( sceneModels_6[i],
 						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
 						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
 						rotationZZMatrix( globalAngleZZ_6 ))),
 						primitiveType_6 );
 					count++;
+					ii++;
 				}
 			}
 		}
@@ -333,13 +334,9 @@ function checkMove_6(){
 	if ((globalRotationXX_ON_6 == false && globalRotationYY_ON_6 == false && globalRotationZZ_ON_6 == false) || (globalRotationXX_ON_6 == 0 && globalRotationYY_ON_6 == 0 && globalRotationZZ_ON_6 == 0)){
 		document.getElementById("start-button_6").disabled = false;
 		document.getElementById("stop-button_6").disabled = true;
-		document.getElementById("XX-randomDir-button_on_6").disabled = false;
-		document.getElementById("XX-randomDir-button_off_6").disabled = true;
 	} else {
 		document.getElementById("start-button_6").disabled = true;
 		document.getElementById("stop-button_6").disabled = false;
-		document.getElementById("XX-randomDir-button_on_6").disabled = true;
-		document.getElementById("XX-randomDir-button_off_6").disabled = false;
 	}
 }
 
@@ -432,6 +429,13 @@ function setEventListeners_6(){
 		globalRotationXX_ON_6 = true;
 		document.getElementById("stop-button_6").disabled = false;
 		document.getElementById("start-button_6").disabled = true;
+		if (randomDir == 0){
+			document.getElementById("XX-randomDir-button_on_6").disabled = false;
+			document.getElementById("XX-randomDir-button_off_6").disabled = true;
+		} else {
+			document.getElementById("XX-randomDir-button_on_6").disabled = true;
+			document.getElementById("XX-randomDir-button_off_6").disabled = false;
+		}
 	};	
 	
 	document.getElementById("XX-stop-button_6").onclick = function(){
@@ -618,8 +622,8 @@ function setEventListeners_6(){
 
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{
-			sceneModels_6[i].tx_6 = geralSave[i].tx_6; sceneModels_6[i].ty_6 = geralSave[i].ty_6;
-			sceneModels_6[i].sx_6 = geralSave[i].tx_6; sceneModels_6[i].sx_6 = geralSave[i].sy_6; sceneModels_6[i].sz_6 = geralSave[i].sz_6;
+			sceneModels_6[i].tx_6 = geralSave_6[i].tx_6; sceneModels_6[i].ty_6 = geralSave_6[i].ty_6;
+			sceneModels_6[i].sx_6 = geralSave_6[i].tx_6; sceneModels_6[i].sx_6 = geralSave_6[i].sy_6; sceneModels_6[i].sz_6 = geralSave_6[i].sz_6;
 		
 			sceneModels_6[i].rotXXOn_6 = false;	
 			sceneModels_6[i].rotYYOn_6 = false;
@@ -688,7 +692,7 @@ function setEventListeners_6(){
 			}
 		}
 		tick_6(); 
-		geralSave_6 = sceneModels_6;
+		geralSave_6 = sceneModels_6.slice();
 
 
 		// Entire file read as a string
