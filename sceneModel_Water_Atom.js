@@ -127,14 +127,14 @@ sceneModels_2[1].kDiff_2 = [ 1.0, 1.0, 1.0 ];
 sceneModels_2[1].tx_2 = 0.50; sceneModels_2[1].ty_2 = 0.84;
 sceneModels_2[1].sx_2 = 0.06; sceneModels_2[1].sy_2 = 0.06; sceneModels_2[1].sz_2 = 0.06;
 
-// ELETRAO NUCLEO H1
+// ELETRAO NUCLEO H2
 sceneModels_2.push( new sphereModel_2( 6 ) );
 // sceneModels_2[2].traZZOn_2 = true;
 sceneModels_2[2].kDiff_2 = [ 1.0, 1.0, 1.0 ];
 sceneModels_2[2].tx_2 = 0.25; sceneModels_2[2].ty_2 = 0.43;
 sceneModels_2[2].sx_2 = 0.03; sceneModels_2[2].sy_2 = 0.03; sceneModels_2[2].sz_2 = 0.03;
 
-// ELETRAO NUCLEO H2
+// ELETRAO NUCLEO H1
 sceneModels_2.push( new sphereModel_2( 6 ) );
 // sceneModels_2[3].traZZOn_2 = true;
 sceneModels_2[3].kDiff_2 = [ 1.0, 1.0, 1.0 ];

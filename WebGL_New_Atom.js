@@ -35,6 +35,8 @@ var projectionType_6 = 0;
 var pos_Viewer_6 = [ 0.0, 0.0, 0.0, 1.0 ];
 
 var randomDir = 0;
+var stopped = 0;
+var aux = []
 
 //------------------------------ The WebGL code ------------------------------
 
@@ -153,7 +155,11 @@ function drawScene_6() {
 	
 	// Passing the viewer position to the vertex shader
 	gl_6.uniform4fv( gl_6.getUniformLocation(shaderProgram_6, "viewerPosition"),
-        flatten(pos_Viewer_6) );
+		flatten(pos_Viewer_6) );
+		
+	// mvMatrix = mult(translationMatrix( 0, 0, globalTz_6),
+	// mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
+	// 		  rotationZZMatrix( globalAngleZZ_6)));
 	
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
@@ -210,34 +216,49 @@ function drawScene_6() {
 			}
 		}
 	}else{
+
+		var count = 0;
+		var ii = 0;
 		// Instantianting all scene models	
 		for(var i = 0; i < sceneModels_6.length; i++ )
-		{
-			if(i==0 || i==1 || i==4){
+		{	
+			if(i < stopped){
 				drawModel_6( sceneModels_6[i],
 					translationMatrix( 0, 0, globalTz_6 ),
 					primitiveType_6 );
-			}else if(i==3){
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( -0.45, 0.85, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-					rotationZZMatrix( globalAngleZZ_6 ))),
-					primitiveType_6 );
-			}else if(i==2){
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( 0.45, 0.85, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-					rotationZZMatrix( globalAngleZZ_6 ))),
-					primitiveType_6 );
 			}else{
-				drawModel_6( sceneModels_6[i],
-					mult(translationMatrix( 0, 0, globalTz_6),
-					mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
+				//alert(sceneModels_6[i].tx_6 + " "+ sceneModels_6[i].ty_6)
+				//alert("count " + count);
+				if(count < aux[ii]){
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
 						rotationZZMatrix( globalAngleZZ_6 ))),
-					primitiveType_6 );
+						primitiveType_6 );
+					count++;
+				}else{
+					count = 0;
+					ii++;
+					drawModel_6( sceneModels_6[i],
+						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
+						mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
+						rotationZZMatrix( globalAngleZZ_6 ))),
+						primitiveType_6 );
+					count++;
+				}
 			}
 		}
 	}
+
+	// // Instantianting all scene models	
+	// for(var i = 0; i < sceneModels_6.length; i++ )
+	// { 
+	// 	drawModel_6( sceneModels_6[i],
+	// 		mult(translationMatrix( sceneModels_6[i].tx_6, sceneModels_6[i].ty_6, globalTz_6),
+	// 		mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
+	// 				  rotationZZMatrix( globalAngleZZ_6))),
+	// 			primitiveType_6 );
+	// }
 }
 
 //--------------------------------- Animation --------------------------------
@@ -594,60 +615,11 @@ function setEventListeners_6(){
 		globalAngleZZ_6 = 0;
 		randomDir = 0;
 
-		// NUCLEO H1
-		sceneModels_6[0].tx_6 = -0.50; sceneModels_6[0].ty_6 = 0.84;
-		sceneModels_6[0].sx_6 = 0.06; sceneModels_6[0].sy_6 = 0.06; sceneModels_6[0].sz_6 = 0.06;
-		
-		// NUCLEO H2
-		sceneModels_6[1].tx_6 = 0.50; sceneModels_6[1].ty_6 = 0.84;
-		sceneModels_6[1].sx_6 = 0.06; sceneModels_6[1].sy_6 = 0.06; sceneModels_6[1].sz_6 = 0.06;
-		
-		// ELETRAO NUCLEO H1
-		sceneModels_6[2].tx_6 = 0.25; sceneModels_6[2].ty_6 = 0.43;
-		sceneModels_6[2].sx_6 = 0.03; sceneModels_6[2].sy_6 = 0.03; sceneModels_6[2].sz_6 = 0.03;
-
-		// ELETRAO NUCLEO H2
-		sceneModels_6[3].tx_6 = -0.25; sceneModels_6[3].ty_6 = 0.43; 
-		sceneModels_6[3].sx_6 = 0.03; sceneModels_6[3].sy_6 = 0.03; sceneModels_6[3].sz_6 = 0.03;
-
-		// NUCLEO O
-		sceneModels_6[4].tx_6 = 0; sceneModels_6[4].ty_6 = 0;
-		sceneModels_6[4].sx_6 = 0.1; sceneModels_6[4].sy_6 = 0.1; sceneModels_6[4].sz_6 = 0.1;
-
-		// ELETRAO 1 DENTRO NUCLEO O 
-		sceneModels_6[5].tx_6 = 0; sceneModels_6[5].ty_6 = 0.25;
-		sceneModels_6[5].sx_6 = 0.03; sceneModels_6[5].sy_6 = 0.03; sceneModels_6[5].sz_6 = 0.03;
-
-		// ELETRAO 2 DENTRO NUCLEO O 
-		sceneModels_6[6].tx_6 = 0; sceneModels_6[6].ty_6 = -0.25;
-		sceneModels_6[6].sx_6 = 0.03; sceneModels_6[6].sy_6 = 0.03; sceneModels_6[6].sz_6 = 0.03;
-
-		// ELETRAO 1 FORA NUCLEO O 
-		sceneModels_6[7].tx_6 = 0.5; sceneModels_6[7].ty_6 = 0;
-		sceneModels_6[7].sx_6 = 0.03; sceneModels_6[7].sy_6 = 0.03; sceneModels_6[7].sz_6 = 0.03;
-		
-		// ELETRAO 2 FORA NUCLEO O 
-		sceneModels_6[8].tx_6 = -0.50; sceneModels_6[8].ty_6 = 0;
-		sceneModels_6[8].sx_6 = 0.03; sceneModels_6[8].sy_6 = 0.03; sceneModels_6[8].sz_6 = 0.03;
-
-		// ELETRAO 3 FORA NUCLEO O 
-		sceneModels_6[9].tx_6 = 0.25; sceneModels_6[9].ty_6 = 0.43;
-		sceneModels_6[9].sx_6 = 0.03; sceneModels_6[9].sy_6 = 0.03; sceneModels_6[9].sz_6 = 0.03;
-
-		// ELETRAO 4 DENTRO NUCLEO O 
-		sceneModels_6[10].tx_6 = -0.25; sceneModels_6[10].ty_6 = 0.43;
-		sceneModels_6[10].sx_6 = 0.03; sceneModels_6[10].sy_6 = 0.03; sceneModels_6[10].sz_6 = 0.03;
-
-		// ELETRAO 5 FORA NUCLEO O 
-		sceneModels_6[11].tx_6 = 0.25; sceneModels_6[11].ty_6 = -0.43;
-		sceneModels_6[11].sx_6 = 0.03; sceneModels_6[11].sy_6 = 0.03; sceneModels_6[11].sz_6 = 0.03;
-		
-		// ELETRAO 6 FORA NUCLEO O 
-		sceneModels_6[12].tx_6 = -0.25; sceneModels_6[12].ty_6 = -0.43;
-		sceneModels_6[12].sx_6 = 0.03; sceneModels_6[12].sy_6 = 0.03; sceneModels_6[12].sz_6 = 0.03;
-
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{
+			sceneModels_6[i].tx_6 = -0.50; sceneModels_6[i].ty_6 = 0.84;
+			sceneModels_6[i].sx_6 = 0.06; sceneModels_6[i].sy_6 = 0.06; sceneModels_6[i].sz_6 = 0.06;
+		
 			sceneModels_6[i].rotXXOn_6 = false;	
 			sceneModels_6[i].rotYYOn_6 = false;
 			sceneModels_6[i].rotZZOn_6 = false;
@@ -677,9 +649,24 @@ function setEventListeners_6(){
 		reader.onload=function(){ 
 			var theArray = reader.result.trim().split(/\s+/);
 			var cor;
+			stopped = 0;
 			num_sen = 0;
 			for(let i=0; i< theArray.length; i++) {
-				if(theArray[i] == "esfera"){
+				if(theArray[i] == "stopped"){
+					sceneModels_6.push( new sphereModel_6( 6 ) );
+					sceneModels_6[num_sen].rotZZOn_6 = false;
+					sceneModels_6[num_sen].rotYYOn_6 = false;
+
+					cor = theArray[i+1].split(",")
+					sceneModels_6[num_sen].kDiff_6 = [ cor[0], cor[1], cor[2] ];
+
+					sceneModels_6[num_sen].tx_6 = theArray[i+2]; sceneModels_6[num_sen].ty_6 =theArray[i+3];
+
+					sceneModels_6[num_sen].sx_6 = theArray[i+4]; sceneModels_6[num_sen].sy_6 = theArray[i+4]; sceneModels_6[num_sen].sz_6 = theArray[i+4];
+					num_sen++;
+					stopped++;
+				}
+				if(theArray[i] == "rotate"){
 					sceneModels_6.push( new sphereModel_6( 6 ) );
 					sceneModels_6[num_sen].rotZZOn_6 = false;
 					sceneModels_6[num_sen].rotYYOn_6 = false;
@@ -692,21 +679,11 @@ function setEventListeners_6(){
 					sceneModels_6[num_sen].sx_6 = theArray[i+4]; sceneModels_6[num_sen].sy_6 = theArray[i+4]; sceneModels_6[num_sen].sz_6 = theArray[i+4];
 					num_sen++;
 				}
-				if(theArray[i] == "retangulo"){
-					sceneModels_6.push( new simpleCubeModel_6() );
-					sceneModels_6[num_sen].rotZZOn_6 = false;
-					sceneModels_6[num_sen].rotYYOn_6 = false;
-					
-					cor = theArray[i+1].split(",")
-					sceneModels_6[num_sen].kDiff_6 = [ cor[0], cor[1], cor[2] ];
 
-					sceneModels_6[num_sen].tx_6 = theArray[i+2]; sceneModels_6[num_sen].ty_6 =theArray[i+3];
-
-					sceneModels_6[num_sen].sx_6 = theArray[i+4]; sceneModels_6[num_sen].sy_6 = theArray[i+5]; sceneModels_6[num_sen].sz_6 = theArray[i+6];
-
-					sceneModels_6[num_sen].rotAngleZZ_6 = theArray[i+7];
-					num_sen++;
+				if(theArray[i] == "aux"){
+					aux = theArray[i+1].split(",");
 				}
+				
 			}
 		}
 		tick_6(); 

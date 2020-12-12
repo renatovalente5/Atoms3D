@@ -658,63 +658,6 @@ function setEventListeners_2(){
 
 		drawScene();  
 	};
-
-	// document.getElementById("file2").onchange = function(){
-		
-	// 	var file = this.files[0];
-		
-	// 	var reader = new FileReader();
-		
-	// 	// reader.onload = function(){
-			
-	// 	// 	var tokens = this.result;
-    
-	// 	// 	// Array of values; each value is a string
-			
-	// 		// var numVertices = parseInt( tokens[0] );
-	// 		// alert(numVertices);
-	// 	sceneModels_2 = [];
-	// 	reader.onload=function(){ 
-	// 		var theArray = reader.result.trim().split(/\s+/);
-	// 		var cor;
-	// 		num_sen = 0;
-	// 		for(let i=0; i< theArray.length; i++) {
-	// 			if(theArray[i] == "esfera"){
-	// 				sceneModels_2.push( new sphereModel( 6 ) );
-	// 				sceneModels_2[num_sen].rotZZOn_2 = false;
-	// 				sceneModels_2[num_sen].rotYYOn_2 = false;
-
-	// 				cor = theArray[i+1].split(",")
-	// 				sceneModels_2[num_sen].kDiff_2 = [ cor[0], cor[1], cor[2] ];
-
-	// 				sceneModels_2[num_sen].tx_2 = theArray[i+2]; sceneModels_2[num_sen].ty_2 =theArray[i+3];
-
-	// 				sceneModels_2[num_sen].sx_2 = theArray[i+4]; sceneModels_2[num_sen].sy_2 = theArray[i+4]; sceneModels_2[num_sen].sz_2 = theArray[i+4];
-	// 				num_sen++;
-	// 			}
-	// 			// if(theArray[i] == "retangulo"){
-	// 			// 	sceneModels_2.push( new simpleCubeModel() );
-	// 			// 	sceneModels_2[num_sen].rotZZOn_6 = false;
-	// 			// 	sceneModels_2[num_sen].rotYYOn_6 = false;
-					
-	// 			// 	cor = theArray[i+1].split(",")
-	// 			// 	sceneModels_2[num_sen].kDiff_6 = [ cor[0], cor[1], cor[2] ];
-
-	// 			// 	sceneModels_2[num_sen].tx_6 = theArray[i+2]; sceneModels_2[num_sen].ty_6 =theArray[i+3];
-
-	// 			// 	sceneModels_2[num_sen].sx_6 = theArray[i+4]; sceneModels_2[num_sen].sy_6 = theArray[i+5]; sceneModels_2[num_sen].sz_6 = theArray[i+6];
-
-	// 			// 	sceneModels_2[num_sen].rotAngleZZ_6 = theArray[i+7];
-	// 			// 	num_sen++;
-	// 			// }
-	// 		}
-	// 	}
-	// 	tick_2(); 
-
-	// 	// Entire file read as a string
-			
-	// 	reader.readAsText( file );
-	// };
 }
 
 //--------------------------- WebGL Initialization ---------------------------

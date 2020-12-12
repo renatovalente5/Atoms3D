@@ -1,16 +1,16 @@
-//esfera
+esfera
 cor
 localizaçao x
 localizaçao y
 escala
 
-//esfera
+esfera
 cor
 localizaçao x
 localizaçao y
 escala
 
-//retangulo
+retangulo
 cor
 localizaçao x
 localizaçao y
@@ -19,7 +19,7 @@ escala y
 escala z
 angulo
 
-//retangulo
+retangulo
 cor
 localizaçao x
 localizaçao y

@@ -1,0 +1,11 @@
+esfera
+cor
+localizaçao x
+localizaçao y
+escala
+
+esfera
+cor
+localizaçao x
+localizaçao y
+escala
