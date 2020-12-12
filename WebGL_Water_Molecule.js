@@ -286,6 +286,8 @@ function setEventListeners(){
 		$('#dioxide_molecule_buttons').hide();
 		$('#water_atom_buttons').show();
 		$('#dioxide_atom_buttons').hide();
+		$('#new_molecule_buttons').hide();
+		$('#new_atom_buttons').hide();
 	};
 	
 	document.getElementById("dioxide-button").onclick = function(){
@@ -293,6 +295,18 @@ function setEventListeners(){
 		$('#dioxide_molecule_buttons').show();
 		$('#water_atom_buttons').hide();
 		$('#dioxide_atom_buttons').show();
+		$('#new_molecule_buttons').hide();
+		$('#new_atom_buttons').hide();
+	}; 
+
+
+	document.getElementById("new-button").onclick = function(){
+		$('#water_molecule_buttons').hide();
+		$('#dioxide_molecule_buttons').hide();
+		$('#water_atom_buttons').hide();
+		$('#dioxide_atom_buttons').hide();
+		$('#new_molecule_buttons').show();
+		$('#new_atom_buttons').show();
 	}; 
 	
 	var old_globalRotationXX_ON, old_globalRotationYY_ON, old_globalRotationZZ_ON, old_rotXXOn; 
@@ -614,6 +628,65 @@ function setEventListeners(){
 
 		drawScene();  
 	};
+
+	// document.getElementById("file").onchange = function(){
+		
+	// 	var file = this.files[0];
+		
+	// 	var reader = new FileReader();
+		
+	// 	// reader.onload = function(){
+			
+	// 	// 	var tokens = this.result;
+    
+	// 	// 	// Array of values; each value is a string
+			
+	// 		// var numVertices = parseInt( tokens[0] );
+	// 		// alert(numVertices);
+
+	// 	sceneModels = [];
+	// 	reader.onload=function(){ 
+	// 		var theArray = reader.result.trim().split(/\s+/);
+	// 		var cor;
+	// 		num_sen = 0;
+	// 		for(let i=0; i< theArray.length; i++) {
+	// 			if(theArray[i] == "esfera"){
+	// 				sceneModels.push( new sphereModel( 6 ) );
+	// 				sceneModels[num_sen].rotZZOn = false;
+	// 				sceneModels[num_sen].rotYYOn = false;
+
+	// 				cor = theArray[i+1].split(",")
+	// 				sceneModels[num_sen].kDiff = [ cor[0], cor[1], cor[2] ];
+
+	// 				sceneModels[num_sen].tx = theArray[i+2]; sceneModels[num_sen].ty =theArray[i+3];
+					
+	// 				sceneModels[num_sen].sx = theArray[i+4]; sceneModels[num_sen].sy = theArray[i+4]; sceneModels[num_sen].sz = theArray[i+4];
+						
+	// 				num_sen++;
+	// 			}
+	// 			if(theArray[i] == "retangulo"){
+	// 				sceneModels.push( new simpleCubeModel() );
+	// 				sceneModels[num_sen].rotZZOn = false;
+	// 				sceneModels[num_sen].rotYYOn = false;
+					
+	// 				cor = theArray[i+1].split(",")
+	// 				sceneModels[num_sen].kDiff = [ cor[0], cor[1], cor[2] ];
+
+	// 				sceneModels[num_sen].tx = theArray[i+2]; sceneModels[num_sen].ty =theArray[i+3];
+
+	// 				sceneModels[num_sen].sx = theArray[i+4]; sceneModels[num_sen].sy = theArray[i+5]; sceneModels[num_sen].sz = theArray[i+6];
+					
+	// 				sceneModels[num_sen].rotAngleZZ = theArray[i+7];
+	// 				num_sen++;
+	// 			}
+	// 		}
+	// 	}
+	// 	tick(); 
+
+	// 	// Entire file read as a string
+			
+	// 	reader.readAsText( file );
+	// }
 }
 
 //--------------------------- WebGL Initialization ---------------------------

@@ -1,0 +1,29 @@
+//esfera
+cor
+localizaçao x
+localizaçao y
+escala
+
+//esfera
+cor
+localizaçao x
+localizaçao y
+escala
+
+//retangulo
+cor
+localizaçao x
+localizaçao y
+escala x
+escala y
+escala z
+angulo
+
+//retangulo
+cor
+localizaçao x
+localizaçao y
+escala x
+escala y
+escala z
+angulo
