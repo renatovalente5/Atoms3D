@@ -15,15 +15,15 @@ var globalTz_3 = 0.0;
 // GLOBAL Animation controls
 var globalRotationXX_ON_3 = 1;
 var globalRotationXX_DIR_3 = 1;
-var globalRotationXX_SPEED_3 = 1;
+var globalRotationXX_SPEED_3 = 0.4;
 
 var globalRotationYY_ON_3 = 1;
 var globalRotationYY_DIR_3 = 1;
-var globalRotationYY_SPEED_3 = 1;
+var globalRotationYY_SPEED_3 = 0.4;
 
 var globalRotationZZ_ON_3 = 0;
 var globalRotationZZ_DIR_3 = 1;
-var globalRotationZZ_SPEED_3 = 1;
+var globalRotationZZ_SPEED_3 = 0.4;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_3 = null;
@@ -594,6 +594,9 @@ function setEventListeners_3(){
 		globalAngleXX_3 = 0;
 		globalAngleYY_3 = 0;
 		globalAngleZZ_3 = 0;
+		globalRotationXX_SPEED_3 = 0.4;
+		globalRotationYY_SPEED_3 = 0.4;
+		globalRotationZZ_SPEED_3 = 0.4;
 
 		// left sphere
 		sceneModels_3[0].tx_3 = -0.75; sceneModels_3[0].ty_3 = 0;
@@ -620,9 +623,9 @@ function setEventListeners_3(){
 			sceneModels_3[i].rotXXOn_3 = false;	
 			sceneModels_3[i].rotYYOn_3 = false;
 			sceneModels_3[i].rotZZOn_3 = false;
-			sceneModels_3[i].rotXXSpeed_3 = 1.0;
-			sceneModels_3[i].rotYYSpeed_3 = 1.0;
-			sceneModels_3[i].rotZZSpeed_3 = 1.0;
+			sceneModels_3[i].rotXXSpeed_3 = 1;
+			sceneModels_3[i].rotYYSpeed_3 = 1;
+			sceneModels_3[i].rotZZSpeed_3 = 1;
 		}
 
 		drawScene_3();  

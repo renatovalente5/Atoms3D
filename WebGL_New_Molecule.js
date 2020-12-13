@@ -15,15 +15,15 @@ var globalTz_5 = 0.0;
 // GLOBAL Animation controls
 var globalRotationXX_ON_5 = 1;
 var globalRotationXX_DIR_5 = 1;
-var globalRotationXX_SPEED_5 = 1;
+var globalRotationXX_SPEED_5 = 0.4;
 
 var globalRotationYY_ON_5 = 1;
 var globalRotationYY_DIR_5 = 1;
-var globalRotationYY_SPEED_5 = 1;
+var globalRotationYY_SPEED_5 = 0.4;
 
 var globalRotationZZ_ON_5 = 0;
 var globalRotationZZ_DIR_5 = 1;
-var globalRotationZZ_SPEED_5 = 1;
+var globalRotationZZ_SPEED_5 = 0.4;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_5 = null;
@@ -453,6 +453,9 @@ function setEventListeners_5(){
 			else {
 				sceneModels_5[i].rotXXDir_5 = 1;
 			}	
+			sceneModels_5[i].rotXXSpeed_5 = 10;
+			sceneModels_5[i].rotYYSpeed_5 = 10;
+			sceneModels_5[i].rotZZSpeed_5 = 10;
 		}
 	};
 	
@@ -593,6 +596,9 @@ function setEventListeners_5(){
 		globalAngleXX_5 = 0;
 		globalAngleYY_5 = 0;
 		globalAngleZZ_5 = 0;
+		globalRotationXX_SPEED_5 = 0.4;
+		globalRotationYY_SPEED_5 = 0.4;
+		globalRotationZZ_SPEED_5 = 0.4;
 
 		for(var i = 0; i < sceneModels_5.length; i++ )
 	    {
@@ -601,9 +607,9 @@ function setEventListeners_5(){
 			sceneModels_5[i].rotXXOn_5 = false;	
 			sceneModels_5[i].rotYYOn_5 = false;
 			sceneModels_5[i].rotZZOn_5 = false;
-			sceneModels_5[i].rotXXSpeed_5 = 1.0;
-			sceneModels_5[i].rotYYSpeed_5 = 1.0;
-			sceneModels_5[i].rotZZSpeed_5 = 1.0;
+			sceneModels_5[i].rotXXSpeed_5 = 1;
+			sceneModels_5[i].rotYYSpeed_5 = 1;
+			sceneModels_5[i].rotZZSpeed_5 = 1;
 		}
 
 		drawScene_5();  

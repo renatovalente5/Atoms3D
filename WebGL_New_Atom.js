@@ -15,15 +15,15 @@ var globalTz_6 = 0.0;
 // GLOBAL Animation controls
 var globalRotationXX_ON_6 = 0;
 var globalRotationXX_DIR_6 = 1;
-var globalRotationXX_SPEED_6 = 1;
+var globalRotationXX_SPEED_6 = 0.4;
 
 var globalRotationYY_ON_6 = 0;
 var globalRotationYY_DIR_6 = 1;
-var globalRotationYY_SPEED_6 = 1;
+var globalRotationYY_SPEED_6 = 0.4;
 
 var globalRotationZZ_ON_6 = 1;
 var globalRotationZZ_DIR_6 = 1;
-var globalRotationZZ_SPEED_6 = 1;
+var globalRotationZZ_SPEED_6 = 0.4;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_6 = null;
@@ -632,6 +632,9 @@ function setEventListeners_6(){
 		globalAngleYY_6 = 0;
 		globalAngleZZ_6 = 0;
 		randomDir = 0;
+		globalRotationXX_SPEED_6 = 0.4;
+		globalRotationYY_SPEED_6 = 0.4;
+		globalRotationZZ_SPEED_6 = 0.4;
 
 		for(var i = 0; i < sceneModels_6.length; i++ )
 		{
@@ -641,9 +644,9 @@ function setEventListeners_6(){
 			sceneModels_6[i].rotXXOn_6 = false;	
 			sceneModels_6[i].rotYYOn_6 = false;
 			sceneModels_6[i].rotZZOn_6 = false;
-			sceneModels_6[i].rotXXSpeed_6 = 1.0;
-			sceneModels_6[i].rotYYSpeed_6 = 1.0;
-			sceneModels_6[i].rotZZSpeed_6 = 1.0;
+			sceneModels_6[i].rotXXSpeed_6 = 1;
+			sceneModels_6[i].rotYYSpeed_6 = 1;
+			sceneModels_6[i].rotZZSpeed_6 = 1;
 			
 		}
 

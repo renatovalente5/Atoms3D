@@ -15,15 +15,15 @@ var globalTz_4 = 0.0;
 // GLOBAL Animation controls
 var globalRotationXX_ON_4 = 0;
 var globalRotationXX_DIR_4 = 1;
-var globalRotationXX_SPEED_4 = 1;
+var globalRotationXX_SPEED_4 = 0.4;
 
 var globalRotationYY_ON_4 = 0;
 var globalRotationYY_DIR_4 = 1;
-var globalRotationYY_SPEED_4 = 1;
+var globalRotationYY_SPEED_4 = 0.4;
 
 var globalRotationZZ_ON_4 = 1;
 var globalRotationZZ_DIR_4 = 1;
-var globalRotationZZ_SPEED_4 = 1;
+var globalRotationZZ_SPEED_4 = 0.4;
 
 // To allow choosing the way of drawing the model triangles
 var primitiveType_4 = null;
@@ -620,6 +620,10 @@ function setEventListeners_4(){
 		globalAngleZZ_4 = 0;
 		randomDir_4 = 0;
 
+		globalRotationXX_SPEED_4 = 0.4;
+		globalRotationYY_SPEED_4 = 0.4;
+		globalRotationZZ_SPEED_4 = 0.4;
+
 		// NUCLEO O-1 (ESQUERDA)
 		sceneModels_4[0].tx_4 = -0.70; sceneModels_4[0].ty_4 = 0;
 		sceneModels_4[0].sx_4 = 0.1; sceneModels_4[0].sy_4 = 0.1; sceneModels_4[0].sz_4 = 0.1;
@@ -725,9 +729,9 @@ function setEventListeners_4(){
 			sceneModels_4[i].rotXXOn_4 = false;	
 			sceneModels_4[i].rotYYOn_4 = false;
 			sceneModels_4[i].rotZZOn_4 = false;
-			sceneModels_4[i].rotXXSpeed_4 = 1.0;
-			sceneModels_4[i].rotYYSpeed_4 = 1.0;
-			sceneModels_4[i].rotZZSpeed_4 = 1.0;
+			sceneModels_4[i].rotXXSpeed_4 = 1;
+			sceneModels_4[i].rotYYSpeed_4 = 1;
+			sceneModels_4[i].rotZZSpeed_4 = 1;
 		}
 
 		drawScene();  
