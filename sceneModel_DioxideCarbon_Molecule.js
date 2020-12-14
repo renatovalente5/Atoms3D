@@ -114,7 +114,7 @@ function sphereModel_3( subdivisionDepth = 5 ) {
 var sceneModels_3 = [];
 
 // Model 0 --- Left sphere
-sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3.push( new sphereModel_3( 4 ) );
 sceneModels_3[0].rotZZOn_3 = false;
 sceneModels_3[0].rotYYOn_3 = false;
 sceneModels_3[0].kDiff_3 = [ 1.0, 0.0, 0.0 ];
@@ -130,7 +130,7 @@ sceneModels_3[1].tx_3 = -0.40; sceneModels_3[1].ty_3 = 0;
 sceneModels_3[1].sx_3 = 0.16; sceneModels_3[1].sy_3 = 0.05; sceneModels_3[1].sz_3 = 0.05;
 
 // Model 2 --- Middle sphere
-sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3.push( new sphereModel_3( 4 ) );
 sceneModels_3[2].rotZZOn_3 = false;
 sceneModels_3[2].rotYYOn_3 = false;
 sceneModels_3[2].kDiff_3 = [ 1.0, 1.0, 1.0 ];
@@ -146,7 +146,7 @@ sceneModels_3[3].tx_3 = 0.40; sceneModels_3[3].ty_3 = 0;
 sceneModels_3[3].sx_3 = 0.16; sceneModels_3[3].sy_3 = 0.05; sceneModels_3[3].sz_3 = 0.05;
 
 // Model 4 --- Right sphere
-sceneModels_3.push( new sphereModel_3( 6 ) );
+sceneModels_3.push( new sphereModel_3( 4 ) );
 sceneModels_3[4].rotZZOn_3 = false;
 sceneModels_3[4].rotYYOn_3 = false;
 sceneModels_3[4].kDiff_3 = [ 1.0, 0.0, 0.0 ];

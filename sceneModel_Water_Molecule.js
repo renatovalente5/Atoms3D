@@ -115,7 +115,7 @@ function sphereModel( subdivisionDepth = 5 ) {
 var sceneModels = [];
 
 // Model 0 --- Left sphere
-sceneModels.push( new sphereModel( 6 ) );
+sceneModels.push( new sphereModel( 4 ) );
 sceneModels[0].rotZZOn = false;
 sceneModels[0].rotYYOn = false;
 sceneModels[0].kDiff = [ 1.0, 1.0, 1.0 ];
@@ -132,7 +132,7 @@ sceneModels[1].tx = -0.40; sceneModels[1].ty = 0.23;
 sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.05; sceneModels[1].sz = 0.05;
 
 // Model 2 --- Middle sphere
-sceneModels.push( new sphereModel( 6 ) );
+sceneModels.push( new sphereModel( 4 ) );
 sceneModels[2].rotZZOn = false;
 sceneModels[2].rotYYOn = false;
 sceneModels[2].kDiff = [ 1.0, 0.0, 0.0 ];
@@ -149,7 +149,7 @@ sceneModels[3].tx = 0.40; sceneModels[3].ty = 0.23;
 sceneModels[3].sx = 0.25; sceneModels[3].sy = 0.05; sceneModels[3].sz = 0.05;
 
 // Model 4 --- Right sphere
-sceneModels.push( new sphereModel( 6 ) );
+sceneModels.push( new sphereModel( 4 ) );
 sceneModels[4].rotZZOn = false;
 sceneModels[4].rotYYOn = false;
 sceneModels[4].kDiff = [ 1.0, 1.0, 1.0 ];

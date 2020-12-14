@@ -636,7 +636,7 @@ function setEventListeners_5(){
 			num_sen = 0;
 			for(let i=0; i< theArray.length; i++) {
 				if(theArray[i] == "esfera"){
-					sceneModels_5.push( new sphereModel_5( 6 ) );
+					sceneModels_5.push( new sphereModel_5( 4 ) );
 					sceneModels_5[num_sen].rotZZOn_5 = false;
 					sceneModels_5[num_sen].rotYYOn_5 = false;
 

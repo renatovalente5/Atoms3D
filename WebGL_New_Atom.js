@@ -675,7 +675,7 @@ function setEventListeners_6(){
 			num_sen = 0;
 			for(let i=0; i< theArray.length; i++) {
 				if(theArray[i] == "stopped"){
-					sceneModels_6.push( new sphereModel_6( 6 ) );
+					sceneModels_6.push( new sphereModel_6( 4 ) );
 					sceneModels_6[num_sen].rotZZOn_6 = false;
 					sceneModels_6[num_sen].rotYYOn_6 = false;
 
@@ -689,7 +689,7 @@ function setEventListeners_6(){
 					stopped++;
 				}
 				if(theArray[i] == "rotate"){
-					sceneModels_6.push( new sphereModel_6( 6 ) );
+					sceneModels_6.push( new sphereModel_6( 4 ) );
 					sceneModels_6[num_sen].rotZZOn_6 = false;
 					sceneModels_6[num_sen].rotYYOn_6 = false;
 
