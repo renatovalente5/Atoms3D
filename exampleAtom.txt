@@ -9,3 +9,18 @@ cor
 localizaçao x
 localizaçao y
 escala
+
+aux
+n, n
+
+rotate
+cor
+localizaçao x
+localizaçao y
+escala
+
+rotate
+cor
+localizaçao x
+localizaçao y
+escala
