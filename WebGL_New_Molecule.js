@@ -621,14 +621,6 @@ function setEventListeners_5(){
 		
 		var reader = new FileReader();
 		
-		// reader.onload = function(){
-			
-		// 	var tokens = this.result;
-    
-		// 	// Array of values; each value is a string
-			
-			// var numVertices = parseInt( tokens[0] );
-			// alert(numVertices);
 		sceneModels_5 = [];
 		reader.onload=function(){ 
 			var theArray = reader.result.trim().split(/\s+/);
@@ -659,26 +651,15 @@ function setEventListeners_5(){
 					sceneModels_5[num_sen].tx_5 = theArray[i+2]; sceneModels_5[num_sen].ty_5 =theArray[i+3];
 
 					sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
-					//console.log(sceneModels_5[num_sen].sx_5);
-					//sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
 
 					sceneModels_5[num_sen].rotAngleZZ_5 = theArray[i+7];
 					num_sen++;
 					
 				}
-				//console.log(sceneModels_5[i]);
 			}
 		}
 		tick_5(); 
-		
-		geralSave_5 = Object.create(sceneModels_5);
-		//console.log(geralSave_5);
-		//console.log(geralSave_5[2]);
-		// for(let i=0; i<geralSave_5.length; i++){
-		// 	console.log(geralSave_5[i]);
-		// }
-		// Entire file read as a string
-			
+		geralSave_5 = Object.create(sceneModels_5);			
 		reader.readAsText( file );
 	};
 }

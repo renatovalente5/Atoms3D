@@ -353,7 +353,6 @@ var old_globalRotationXX_ON_4 = 0, old_globalRotationYY_ON_4 = 0, old_globalRota
 
 function setEventListeners_4(){
 	
-
 	// start/stop Molecule
 	document.getElementById("start-button_4").onclick = function(){
 		
@@ -411,60 +410,6 @@ function setEventListeners_4(){
 			document.getElementById("ZZ-stop-button_4").disabled = false;
 			globalRotationZZ_ON_4 = 1;
 		}	
-
-		// if (old_random_4 == 0 || old_random_4 == false){
-		// 	document.getElementById("XX-randomDir-button_on_4").disabled = false;
-		// 	document.getElementById("XX-randomDir-button_off_4").disabled = true;
-		// } else{
-		// 	if (resetClick_4 == 0){
-		// 		document.getElementById("XX-randomDir-button_on_4").disabled = true;
-		// 		document.getElementById("XX-randomDir-button_off_4").disabled = false;
-		// 		randomDir_4 = 1;
-		// 	} else {
-		// 		document.getElementById("XX-randomDir-button_on_4").disabled = false;
-		// 		document.getElementById("XX-randomDir-button_off_4").disabled = true;
-		// 		randomDir_4 = 0;
-		// 	}			
-		// }
-
-		// if (old_globalRotationXX_ON_4 == 0 || old_globalRotationXX_ON_4 == false){
-		// 	document.getElementById("XX-start-button_4").disabled = false;
-		// 	document.getElementById("XX-stop-button_4").disabled = true;
-		// } else {
-		// 	if (resetClick_4 == 0){
-		// 		document.getElementById("XX-start-button_4").disabled = true;
-		// 		document.getElementById("XX-stop-button_4").disabled = false;
-		// 		globalRotationXX_ON_4 = 1;
-		// 	} else {
-		// 		document.getElementById("XX-start-button_4").disabled = false;
-		// 		document.getElementById("XX-stop-button_4").disabled = true;
-		// 		globalRotationXX_ON_4 = 0;
-		// 	}
-		// }
-
-		// if (old_globalRotationYY_ON_4 == 0 || old_globalRotationYY_ON_4 == false){
-		// 	document.getElementById("YY-start-button_4").disabled = false;
-		// 	document.getElementById("YY-stop-button_4").disabled = true;
-		// } else {
-		// 	if (resetClick_4 == 0){
-		// 		document.getElementById("YY-start-button_4").disabled = true;
-		// 		document.getElementById("YY-stop-button_4").disabled = false;
-		// 		globalRotationYY_ON_4 = 1;
-		// 	} else {
-		// 		document.getElementById("YY-start-button_4").disabled = false;
-		// 		document.getElementById("YY-stop-button_4").disabled = true;
-		// 		globalRotationYY_ON_4 = 0;
-		// 	}
-		// }
-
-		// if (old_globalRotationZZ_ON_4 == 0 || old_globalRotationZZ_ON_4 == false){
-		// 	document.getElementById("ZZ-start-button_4").disabled = false;
-		// 	document.getElementById("ZZ-stop-button_4").disabled = true;
-		// } else {
-		// 	document.getElementById("ZZ-start-button_4").disabled = true;
-		// 	document.getElementById("ZZ-stop-button_4").disabled = false;
-		// 	globalRotationZZ_ON_4 = 1;
-		// }
 
 		resetClick_4 = 0;
 	}; 

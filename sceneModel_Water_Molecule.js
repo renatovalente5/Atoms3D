@@ -36,11 +36,6 @@ function emptyModelFeatures() {
 	this.rotXXDir = 1;
 	this.rotYYDir = 1;
 	this.rotZZDir = 1;
-
-	// Animation controls	
-	this.traZZOn = false;	
-	this.traZZSpeed = 1.0;
-	this.traZZDir = 1;
 	
 	// Material features	
 	this.kAmbi = [ 0.2, 0.2, 0.2 ];	

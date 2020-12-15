@@ -159,10 +159,6 @@ function drawScene_6() {
 	gl_6.uniform4fv( gl_6.getUniformLocation(shaderProgram_6, "viewerPosition"),
 		flatten(pos_Viewer_6) );
 		
-	// mvMatrix = mult(translationMatrix( 0, 0, globalTz_6),
-	// mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-	// 		  rotationZZMatrix( globalAngleZZ_6)));
-	
 	// Updating the position of the light sources, if required
 	for(var i = 0; i < lightSources.length; i++ )
 	{
@@ -194,8 +190,6 @@ function drawScene_6() {
 					translationMatrix( 0, 0, globalTz_6 ),
 					primitiveType_6 );
 			}else{
-				//alert(sceneModels_6[i].tx_6 + " "+ sceneModels_6[i].ty_6)
-				//alert("count " + count);
 				if(count < aux[ii]){
 					if(count % 3 == 0){
 					drawModel_6( sceneModels_6[i],
@@ -243,8 +237,6 @@ function drawScene_6() {
 					translationMatrix( 0, 0, globalTz_6 ),
 					primitiveType_6 );
 			}else{
-				//alert(sceneModels_6[i].tx_6 + " "+ sceneModels_6[i].ty_6)
-				//alert("count " + count);
 				if(count < aux[ii]){
 					drawModel_6( sceneModels_6[i],
 						mult(translationMatrix( sceneModels_6[ii].tx_6, sceneModels_6[ii].ty_6, globalTz_6),
@@ -264,16 +256,6 @@ function drawScene_6() {
 			}
 		}
 	}
-
-	// // Instantianting all scene models	
-	// for(var i = 0; i < sceneModels_6.length; i++ )
-	// { 
-	// 	drawModel_6( sceneModels_6[i],
-	// 		mult(translationMatrix( sceneModels_6[i].tx_6, sceneModels_6[i].ty_6, globalTz_6),
-	// 		mult(mult(rotationXXMatrix( globalAngleXX_6 ), rotationYYMatrix( globalAngleYY_6 )),
-	// 				  rotationZZMatrix( globalAngleZZ_6))),
-	// 			primitiveType_6 );
-	// }
 }
 
 //--------------------------------- Animation --------------------------------
@@ -416,60 +398,6 @@ function setEventListeners_6(){
 			document.getElementById("ZZ-stop-button_6").disabled = false;
 			globalRotationZZ_ON_6 = 1;
 		}
-
-		// if (old_random_3 == 0 || old_random_3 == false){
-		// 	document.getElementById("XX-randomDir-button_on_6").disabled = false;
-		// 	document.getElementById("XX-randomDir-button_off_6").disabled = true;
-		// } else{
-		// 	if (resetClick_6 == 0){
-		// 		document.getElementById("XX-randomDir-button_on_6").disabled = true;
-		// 		document.getElementById("XX-randomDir-button_off_6").disabled = false;
-		// 		randomDir_3 = 1;
-		// 	} else {
-		// 		document.getElementById("XX-randomDir-button_on_6").disabled = false;
-		// 		document.getElementById("XX-randomDir-button_off_6").disabled = true;
-		// 		randomDir_3 = 0;
-		// 	}	
-		// }
-
-		// if (old_globalRotationXX_ON_6 == 0 || old_globalRotationXX_ON_6 == false){
-		// 	document.getElementById("XX-start-button_6").disabled = false;
-		// 	document.getElementById("XX-stop-button_6").disabled = true;
-		// } else {
-		// 	if (resetClick_6 == 0){
-		// 		document.getElementById("XX-start-button_6").disabled = true;
-		// 		document.getElementById("XX-stop-button_6").disabled = false;
-		// 		globalRotationXX_ON_6 = 1;
-		// 	} else {
-		// 		document.getElementById("XX-start-button_6").disabled = false;
-		// 		document.getElementById("XX-stop-button_6").disabled = true;
-		// 		globalRotationXX_ON_6 = 0;
-		// 	}	
-		// }
-
-		// if (old_globalRotationYY_ON_6 == 0 || old_globalRotationYY_ON_6 == false){
-		// 	document.getElementById("YY-start-button_6").disabled = false;
-		// 	document.getElementById("YY-stop-button_6").disabled = true;
-		// } else {
-		// 	if (resetClick_6 == 0){
-		// 		document.getElementById("YY-start-button_6").disabled = true;
-		// 		document.getElementById("YY-stop-button_6").disabled = false;
-		// 		globalRotationYY_ON_6 = 1;
-		// 	} else {
-		// 		document.getElementById("YY-start-button_6").disabled = false;
-		// 		document.getElementById("YY-stop-button_6").disabled = true;
-		// 		globalRotationYY_ON_6 = 0;
-		// 	}
-		// }
-
-		// if (old_globalRotationZZ_ON_6 == 0 || old_globalRotationZZ_ON_6 == false){
-		// 	document.getElementById("ZZ-start-button_6").disabled = false;
-		// 	document.getElementById("ZZ-stop-button_6").disabled = true;
-		// } else {
-		// 	document.getElementById("ZZ-start-button_6").disabled = true;
-		// 	document.getElementById("ZZ-stop-button_6").disabled = false;
-		// 	globalRotationZZ_ON_6 = 1;
-		// }
 
 		resetClick_6 = 0;
 	}; 
@@ -712,14 +640,6 @@ function setEventListeners_6(){
 		
 		var reader = new FileReader();
 		
-		// reader.onload = function(){
-			
-		// 	var tokens = this.result;
-    
-		// 	// Array of values; each value is a string
-			
-			// var numVertices = parseInt( tokens[0] );
-			// alert(numVertices);
 		sceneModels_6 = [];
 		reader.onload=function(){ 
 			var theArray = reader.result.trim().split(/\s+/);
@@ -764,9 +684,7 @@ function setEventListeners_6(){
 		tick_6(); 
 		geralSave_6 = Object.create(sceneModels_6);
 
-
 		// Entire file read as a string
-			
 		reader.readAsText( file );
 	};
 }
