@@ -34,7 +34,7 @@ var projectionType_6 = 0;
 // The viewer position
 var pos_Viewer_6 = [ 0.0, 0.0, 0.0, 1.0 ];
 
-var randomDir = 0;
+var randomDir_3 = 0;
 var stopped = 0;
 var aux = []
 var geralSave_6 = null;
@@ -182,7 +182,7 @@ function drawScene_6() {
 		var lsmUniform = gl_6.getUniformLocation(shaderProgram_6, "allLights["+ String(i) + "].lightSourceMatrix");
 		gl_6.uniformMatrix4fv(lsmUniform, false, new Float32Array(flatten(lightSourceMatrix)));
 	}
-	if(randomDir==1){
+	if(randomDir_3==1){
 
 		var count = 0;
 		ii = 0;
@@ -347,6 +347,7 @@ function checkMove_6(){
 	if ((globalRotationXX_ON_6 == false && globalRotationYY_ON_6 == false && globalRotationZZ_ON_6 == false) || (globalRotationXX_ON_6 == 0 && globalRotationYY_ON_6 == 0 && globalRotationZZ_ON_6 == 0)){
 		document.getElementById("start-button_6").disabled = false;
 		document.getElementById("stop-button_6").disabled = true;
+		old_globalRotationZZ_ON_6 = 0;
 	} else {
 		document.getElementById("start-button_6").disabled = true;
 		document.getElementById("stop-button_6").disabled = false;
@@ -354,67 +355,121 @@ function checkMove_6(){
 }
 
 var resetClick_6 = 0;
+var old_globalRotationXX_ON_6 = 0, old_globalRotationYY_ON_6 = 0, old_globalRotationZZ_ON_6 = 0, old_random_3 = 0; 
 
 function setEventListeners_6(){
 	
-	var old_globalRotationXX_ON_6, old_globalRotationYY_ON_6, old_globalRotationZZ_ON_6, old_random; 
-
 	// start/stop Molecule
 	document.getElementById("start-button_6").onclick = function(){
 
-		if (old_random == 0 || old_random == false){
-			document.getElementById("XX-randomDir-button_on_6").disabled = false;
-			document.getElementById("XX-randomDir-button_off_6").disabled = true;
-		} else{
-			if (resetClick_6 == 0){
-				document.getElementById("XX-randomDir-button_on_6").disabled = true;
-				document.getElementById("XX-randomDir-button_off_6").disabled = false;
-				randomDir = 1;
-			} else {
+		if (resetClick_6 == 0){
+			if (old_random_3 == 0 || old_random_3 == false){
 				document.getElementById("XX-randomDir-button_on_6").disabled = false;
 				document.getElementById("XX-randomDir-button_off_6").disabled = true;
-				randomDir = 0;
-			}	
-		}
-
-		if (old_globalRotationXX_ON_6 == 0 || old_globalRotationXX_ON_6 == false){
-			document.getElementById("XX-start-button_6").disabled = false;
-			document.getElementById("XX-stop-button_6").disabled = true;
-		} else {
-			if (resetClick_6 == 0){
-				document.getElementById("XX-start-button_6").disabled = true;
-				document.getElementById("XX-stop-button_6").disabled = false;
-				globalRotationXX_ON_6 = 1;
+				randomDir_3 = 0;
 			} else {
+				document.getElementById("XX-randomDir-button_on_6").disabled = true;
+				document.getElementById("XX-randomDir-button_off_6").disabled = false;
+				randomDir_3 = 1;
+			}
+
+			if (old_globalRotationXX_ON_6 == 0 || old_globalRotationXX_ON_6 == false){
 				document.getElementById("XX-start-button_6").disabled = false;
 				document.getElementById("XX-stop-button_6").disabled = true;
 				globalRotationXX_ON_6 = 0;
-			}	
-		}
-
-		if (old_globalRotationYY_ON_6 == 0 || old_globalRotationYY_ON_6 == false){
-			document.getElementById("YY-start-button_6").disabled = false;
-			document.getElementById("YY-stop-button_6").disabled = true;
-		} else {
-			if (resetClick_6 == 0){
-				document.getElementById("YY-start-button_6").disabled = true;
-				document.getElementById("YY-stop-button_6").disabled = false;
-				globalRotationYY_ON_6 = 1;
 			} else {
+				document.getElementById("XX-start-button_6").disabled = true;
+				document.getElementById("XX-stop-button_6").disabled = false;
+				globalRotationXX_ON_6 = 1;
+			}
+
+			if (old_globalRotationYY_ON_6 == 0 || old_globalRotationYY_ON_6 == false){
 				document.getElementById("YY-start-button_6").disabled = false;
 				document.getElementById("YY-stop-button_6").disabled = true;
 				globalRotationYY_ON_6 = 0;
+			} else {
+				document.getElementById("YY-start-button_6").disabled = true;
+				document.getElementById("YY-stop-button_6").disabled = false;
+				globalRotationYY_ON_6 = 1;
 			}
-		}
 
-		if (old_globalRotationZZ_ON_6 == 0 || old_globalRotationZZ_ON_6 == false){
-			document.getElementById("ZZ-start-button_6").disabled = false;
-			document.getElementById("ZZ-stop-button_6").disabled = true;
+			if (old_globalRotationZZ_ON_6 == 0 || old_globalRotationZZ_ON_6 == false){
+				document.getElementById("ZZ-start-button_6").disabled = false;
+				document.getElementById("ZZ-stop-button_6").disabled = true;
+				globalRotationZZ_ON_6 = 0;
+			} else {
+				document.getElementById("ZZ-start-button_6").disabled = true;
+				document.getElementById("ZZ-stop-button_6").disabled = false;
+				globalRotationZZ_ON_6 = 1;
+			}
 		} else {
+			document.getElementById("XX-randomDir-button_on_6").disabled = false;
+			document.getElementById("XX-randomDir-button_off_6").disabled = true;
+			randomDir_3 = 0;
+			document.getElementById("XX-start-button_6").disabled = false;
+			document.getElementById("XX-stop-button_6").disabled = true;
+			globalRotationXX_ON_6 = 0;
+			document.getElementById("YY-start-button_6").disabled = false;
+			document.getElementById("YY-stop-button_6").disabled = true;
+			globalRotationYY_ON_6 = 0;
 			document.getElementById("ZZ-start-button_6").disabled = true;
 			document.getElementById("ZZ-stop-button_6").disabled = false;
 			globalRotationZZ_ON_6 = 1;
 		}
+
+		// if (old_random_3 == 0 || old_random_3 == false){
+		// 	document.getElementById("XX-randomDir-button_on_6").disabled = false;
+		// 	document.getElementById("XX-randomDir-button_off_6").disabled = true;
+		// } else{
+		// 	if (resetClick_6 == 0){
+		// 		document.getElementById("XX-randomDir-button_on_6").disabled = true;
+		// 		document.getElementById("XX-randomDir-button_off_6").disabled = false;
+		// 		randomDir_3 = 1;
+		// 	} else {
+		// 		document.getElementById("XX-randomDir-button_on_6").disabled = false;
+		// 		document.getElementById("XX-randomDir-button_off_6").disabled = true;
+		// 		randomDir_3 = 0;
+		// 	}	
+		// }
+
+		// if (old_globalRotationXX_ON_6 == 0 || old_globalRotationXX_ON_6 == false){
+		// 	document.getElementById("XX-start-button_6").disabled = false;
+		// 	document.getElementById("XX-stop-button_6").disabled = true;
+		// } else {
+		// 	if (resetClick_6 == 0){
+		// 		document.getElementById("XX-start-button_6").disabled = true;
+		// 		document.getElementById("XX-stop-button_6").disabled = false;
+		// 		globalRotationXX_ON_6 = 1;
+		// 	} else {
+		// 		document.getElementById("XX-start-button_6").disabled = false;
+		// 		document.getElementById("XX-stop-button_6").disabled = true;
+		// 		globalRotationXX_ON_6 = 0;
+		// 	}	
+		// }
+
+		// if (old_globalRotationYY_ON_6 == 0 || old_globalRotationYY_ON_6 == false){
+		// 	document.getElementById("YY-start-button_6").disabled = false;
+		// 	document.getElementById("YY-stop-button_6").disabled = true;
+		// } else {
+		// 	if (resetClick_6 == 0){
+		// 		document.getElementById("YY-start-button_6").disabled = true;
+		// 		document.getElementById("YY-stop-button_6").disabled = false;
+		// 		globalRotationYY_ON_6 = 1;
+		// 	} else {
+		// 		document.getElementById("YY-start-button_6").disabled = false;
+		// 		document.getElementById("YY-stop-button_6").disabled = true;
+		// 		globalRotationYY_ON_6 = 0;
+		// 	}
+		// }
+
+		// if (old_globalRotationZZ_ON_6 == 0 || old_globalRotationZZ_ON_6 == false){
+		// 	document.getElementById("ZZ-start-button_6").disabled = false;
+		// 	document.getElementById("ZZ-stop-button_6").disabled = true;
+		// } else {
+		// 	document.getElementById("ZZ-start-button_6").disabled = true;
+		// 	document.getElementById("ZZ-stop-button_6").disabled = false;
+		// 	globalRotationZZ_ON_6 = 1;
+		// }
 
 		resetClick_6 = 0;
 	}; 
@@ -423,10 +478,11 @@ function setEventListeners_6(){
 		old_globalRotationXX_ON_6 = globalRotationXX_ON_6;
 		old_globalRotationYY_ON_6 = globalRotationYY_ON_6;
 		old_globalRotationZZ_ON_6 = globalRotationZZ_ON_6;
-		old_random = randomDir;
-		globalRotationXX_ON_6 = false;
-		globalRotationYY_ON_6 = false;
-		globalRotationZZ_ON_6 = false;
+		old_random_3 = randomDir_3;
+		globalRotationXX_ON_6 = 0;
+		globalRotationYY_ON_6 = 0;
+		globalRotationZZ_ON_6 = 0;
+		randomDir_3 = 0;
 		document.getElementById("XX-start-button_6").disabled = false;
 		document.getElementById("XX-stop-button_6").disabled = true;
 		document.getElementById("YY-start-button_6").disabled = false;
@@ -439,21 +495,15 @@ function setEventListeners_6(){
 
 	// movement
 	document.getElementById("XX-start-button_6").onclick = function(){
-		globalRotationXX_ON_6 = true;
+		globalRotationXX_ON_6 = 1;
 		document.getElementById("stop-button_6").disabled = false;
 		document.getElementById("start-button_6").disabled = true;
-		if (randomDir == 0){
-			document.getElementById("XX-randomDir-button_on_6").disabled = false;
-			document.getElementById("XX-randomDir-button_off_6").disabled = true;
-		} else {
-			document.getElementById("XX-randomDir-button_on_6").disabled = true;
-			document.getElementById("XX-randomDir-button_off_6").disabled = false;
-		}
 	};	
 	
 	document.getElementById("XX-stop-button_6").onclick = function(){
-		globalRotationXX_ON_6 = false;
-		if (randomDir == 0){
+		globalRotationXX_ON_6 = 0;
+		old_globalRotationXX_ON_6 = 0;
+		if (randomDir_3 == 0){
 			document.getElementById("XX-randomDir-button_on_6").disabled = false;
 			document.getElementById("XX-randomDir-button_off_6").disabled = true;
 		} else {
@@ -472,14 +522,15 @@ function setEventListeners_6(){
 	};
 	
 	document.getElementById("YY-start-button_6").onclick = function(){
-		globalRotationYY_ON_6 = true;
+		globalRotationYY_ON_6 = 1;
 		document.getElementById("stop-button_6").disabled = false;
 		document.getElementById("start-button_6").disabled = true;
 	};
 
 	document.getElementById("YY-stop-button_6").onclick = function(){
-		globalRotationYY_ON_6 = false;
-		if (randomDir == 0){
+		globalRotationYY_ON_6 = 0;
+		old_globalRotationYY_ON_6 = 0;
+		if (randomDir_3 == 0){
 			document.getElementById("XX-randomDir-button_on_6").disabled = false;
 			document.getElementById("XX-randomDir-button_off_6").disabled = true;
 		} else {
@@ -498,14 +549,15 @@ function setEventListeners_6(){
 	};
 	
 	document.getElementById("ZZ-start-button_6").onclick = function(){
-		globalRotationZZ_ON_6 = true;
+		globalRotationZZ_ON_6 = 1;
 		document.getElementById("stop-button_6").disabled = false;
 		document.getElementById("start-button_6").disabled = true;
 	};
 
 	document.getElementById("ZZ-stop-button_6").onclick = function(){
-		globalRotationZZ_ON_6 = false;
-		if (randomDir == 0){
+		globalRotationZZ_ON_6 = 0;
+		old_globalRotationZZ_ON_6 = 0;
+		if (randomDir_3 == 0){
 			document.getElementById("XX-randomDir-button_on_6").disabled = false;
 			document.getElementById("XX-randomDir-button_off_6").disabled = true;
 		} else {
@@ -536,11 +588,11 @@ function setEventListeners_6(){
 		document.getElementById("ZZ-start-button_6").disabled = true;
 		document.getElementById("ZZ-stop-button_6").disabled = false;
 		globalRotationZZ_ON_6 = 1;
-		randomDir = 1;
+		randomDir_3 = 1;
 	};
 
 	document.getElementById("XX-randomDir-button_off_6").onclick = function(){
-		randomDir = 0;
+		randomDir_3 = 0;
 	};
 
 	// speed 
@@ -625,13 +677,14 @@ function setEventListeners_6(){
 		document.getElementById("XX-randomDir-button_on_6").disabled = false;
 		document.getElementById("XX-randomDir-button_off_6").disabled = true;
 		
-		globalRotationXX_ON_6 = false;
-		globalRotationYY_ON_6 = false;
-		globalRotationZZ_ON_6 = false;
+		globalRotationXX_ON_6 = 0;
+		globalRotationYY_ON_6 = 0;
+		globalRotationZZ_ON_6 = 0;
 		globalAngleXX_6 = 0;
 		globalAngleYY_6 = 0;
 		globalAngleZZ_6 = 0;
-		randomDir = 0;
+		randomDir_3 = 0;
+		
 		globalRotationXX_SPEED_6 = 0.4;
 		globalRotationYY_SPEED_6 = 0.4;
 		globalRotationZZ_SPEED_6 = 0.4;

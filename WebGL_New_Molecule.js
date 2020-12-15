@@ -659,7 +659,7 @@ function setEventListeners_5(){
 					sceneModels_5[num_sen].tx_5 = theArray[i+2]; sceneModels_5[num_sen].ty_5 =theArray[i+3];
 
 					sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
-					console.log(sceneModels_5[num_sen].sx_5);
+					//console.log(sceneModels_5[num_sen].sx_5);
 					//sceneModels_5[num_sen].sx_5 = theArray[i+4]; sceneModels_5[num_sen].sy_5 = theArray[i+5]; sceneModels_5[num_sen].sz_5 = theArray[i+6];
 
 					sceneModels_5[num_sen].rotAngleZZ_5 = theArray[i+7];
@@ -672,11 +672,11 @@ function setEventListeners_5(){
 		tick_5(); 
 		
 		geralSave_5 = Object.create(sceneModels_5);
-		console.log(geralSave_5);
-		console.log(geralSave_5[2]);
-		for(let i=0; i<geralSave_5.length; i++){
-			console.log(geralSave_5[i]);
-		}
+		//console.log(geralSave_5);
+		//console.log(geralSave_5[2]);
+		// for(let i=0; i<geralSave_5.length; i++){
+		// 	console.log(geralSave_5[i]);
+		// }
 		// Entire file read as a string
 			
 		reader.readAsText( file );
