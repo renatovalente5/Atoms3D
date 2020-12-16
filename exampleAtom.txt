@@ -24,3 +24,4 @@ cor
 localizaçao x
 localizaçao y
 escala
+

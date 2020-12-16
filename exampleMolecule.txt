@@ -27,3 +27,6 @@ escala x
 escala y
 escala z
 angulo
+
+
+

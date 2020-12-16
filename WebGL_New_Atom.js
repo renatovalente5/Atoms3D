@@ -330,6 +330,9 @@ function checkMove_6(){
 		document.getElementById("start-button_6").disabled = false;
 		document.getElementById("stop-button_6").disabled = true;
 		old_globalRotationZZ_ON_6 = 0;
+		document.getElementById("XX-randomDir-button_on_6").disabled = false;
+		document.getElementById("XX-randomDir-button_off_6").disabled = true;
+		randomDir_3 = 0;
 	} else {
 		document.getElementById("start-button_6").disabled = true;
 		document.getElementById("stop-button_6").disabled = false;

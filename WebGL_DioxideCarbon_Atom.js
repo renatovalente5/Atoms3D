@@ -342,6 +342,9 @@ function checkMove_4(){
 		document.getElementById("start-button_4").disabled = false;
 		document.getElementById("stop-button_4").disabled = true;
 		old_globalRotationZZ_ON_4 = 0;
+		document.getElementById("XX-randomDir-button_on_4").disabled = false;
+		document.getElementById("XX-randomDir-button_off_4").disabled = true;
+		randomDir_4 = 0;
 	} else {
 		document.getElementById("start-button_4").disabled = true;
 		document.getElementById("stop-button_4").disabled = false;
