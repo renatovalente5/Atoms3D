@@ -1,10 +1,10 @@
-esfera
+stopped
 cor
 localizaçao x
 localizaçao y
 escala
 
-esfera
+stopped
 cor
 localizaçao x
 localizaçao y
